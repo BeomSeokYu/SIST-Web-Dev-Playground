@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>dom.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script>
+        window.onload = function() {
+            document.querySelector('h1').style.color = 'blue';
+            document.getElementById('id2').style.color = 'green';
+        }
+    </script>
+    <style>
+        .cal    { text-align: right; }
+    </style>
+</head>
+<body>
+    <h1>자바스크립트 문서 객체 모델</h1>
+    <h2 id="id2">Document Object Model</h2>
+
+    <form name="frm">
+        원금
+        <input class="cal" type="number" name="wongum" min="0" step="1000">
+        <input type="button" value="이자 계산" id="calbtn"
+            onclick="cal()"> <br>
+        이자
+        <input class="cal" type="text" id="eeja" readonly>
+        <span id="rate"></span>
+    </form>
+    <hr>
+    <h3>queryselector()</h3>
+    <div class="pin">query</div>
+    <div class="pin" id="ink">Selector</div>
+    <div class="pin">pink</div>
+
+    <script>
+        document.querySelector('h3').style.color = 'khaki';
+        var pins = document.querySelectorAll('.pin');
+        for (var i = 0; i < pins.length; i++) {
+            var p = pins[i];
+            p.style.color = 'pink';
+            document.write(p.innerHTML + ' ');
+        }
+        document.querySelector('#ink').style['fontWeight'] = 'bold';
+
+        function cal() {
+            var rate = 0.05;
+            var wongum = document.frm.wongum;
+            if (wongum == '' || wongum.value.length < 1) {
+                alert('원금을 입력해 주세요');
+                document.getElementById('rate').innerText = '';
+            } else {
+                document.getElementById('eeja').value = wongum.value*rate;
+                document.getElementById('rate').innerText = '이율 : '+rate*100 + '%';
+            }
+        }
+    </script>
+</body>
+</html>

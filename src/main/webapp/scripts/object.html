@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>object.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <h3>자바스크립트 객체</h3>
+    <script>
+        var bike = {
+            maker : '3000lee',
+            speed : 0,
+            color : 'red',
+            start : function() {
+                this.speed += 10;
+                console.log('자전거 출발 속도 :' + this.speed);
+            },
+            stop : function() {
+                this.speed = 0;
+                console.log('자전거 정지 :' + this.speed);
+            }
+        };
+        bike.stop();
+        bike.start();
+        bike.start();
+        for (var key in bike) {
+            console.log(key +' : '+ bike[key]);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>text.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <h3>innerText</h3>
+    - 공백 문자 하나만 반영, HTML 태그 반영 안함. 텍스트 반환
+    <h3>innerHTML</h3>
+    - 공백 문자와 HTML 태그 반영.
+    <h3>textContent</h3>
+    - 공백 문자는 탭 포함 전부 반영, HTML 태그는 반영 안함.
+
+    <hr>
+
+    <h4>오늘의 할 일</h4>
+    <button type="button" onclick="getTodo()">확인하기</button>
+    <button type="button" onclick="resetTodo()">지우기</button>
+    <ul id="todo">
+        <li>p     review</li>
+        <li>s     tudy</li>
+        <li>r     eview</li>
+    </ul>
+
+    <script>
+        function getTodo() {
+            var text = document.getElementById("todo").innerText;
+            var html = document.getElementById("todo").innerHTML;
+            var cont = document.getElementById("todo").textContent;
+
+            console.log(text +' | ' + html + ' | ' + cont);
+        }
+
+        function resetTodo() {
+            var data = '<b>d     eleted!!\n</b>';
+            var list = document.querySelectorAll('li');
+            list[0].innerText = data;
+            list[1].innerHTML = data;
+            list[2].textContent = data;
+        }
+    </script>
+</body>
+</html>

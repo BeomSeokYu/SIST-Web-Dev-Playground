@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>callBack.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <h3>callBack</h3>
+    <script>
+        var success = function () {
+            console.log('실행 성공')
+        };
+        function someFunction(code, success, error) {
+            if (code == 200) {
+                console.log('code == 200')
+                success();
+            } else {
+                console.log('code != 200')
+                error();
+            }
+        }
+        someFunction(201, success, function() {
+            console.log('에러 발생');
+        });
+    </script>
+</body>
+</html>

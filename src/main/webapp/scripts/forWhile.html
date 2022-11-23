@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>forWhile.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <h3>for</h3>
+    <script>
+        for (var i = 0; i <= 5; i++) {
+            document.write(i + ' ');
+        }
+    </script>
+    <h3>while</h3>
+    <script>
+        var i = 0;
+        while(i <= 5) {
+            document.write(i + ' ');
+            i++;
+        }
+    </script>
+    <h3>구구단</h3>
+    <script>
+        var i = 1;
+        while(i < 10) {
+            var dan = 2;
+            while(dan < 10) {
+                document.write(dan + ' * ' + i + ' = ' + i*dan + '&nbsp;&nbsp;&nbsp;');
+                dan++;
+            }
+            document.write('<br>');
+            i++;
+        }
+    </script>
+</body>
+</html>
