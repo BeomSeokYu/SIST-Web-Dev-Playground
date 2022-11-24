@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css.html</title>
+    <script src="../resources/script/jquery-3.6.1.js"></script>
+    <script>
+        $(function(){
+            $('.shadow').css('border', '1px solid black')
+            $('.shadow').css('backgroundColor', 'lightgreen');
+            $('.shadow').css('color', 'lightblue')
+                        .css('text-align', 'center');
+            $('.shadow').css({
+                fontStyle: 'italic',
+                fontWeight: 'bold',
+                width: 200,
+                height: 30,
+                boxShadow: '3px 3px 3px gray'
+            });
+            var box = $('#box');
+
+            $('.setBg').click(function() {
+                box.addClass('style1');
+            });
+            $('.removeBg').click(function() {
+                box.removeClass('style1');
+            });
+            $('.togBg').hover(function() {
+                box.toggleClass('style1');
+            });
+        });
+
+
+    </script>
+    <style>
+        .style1 {
+            background-color: #ccffee;
+        }
+    </style>
+    <style>
+        body {
+            margin: 0 auto;
+            width: 300px;
+        }
+        .shadow { text-shadow:1px 1px 1px red; }
+        div {
+            width:200px;
+            height:50px;
+            border:1px solid gray;
+            text-align:center;
+            margin-bottom:20px;
+            padding-top:20px;
+        }
+        span {
+            display: inline-block;
+            text-align: center;
+            width:40px;
+            padding:10px;
+            border:1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <h3 class="shadow">DOM CSS 조작</h3>
+    <div id="box"></div>
+    <span class="setBg">ADD</span>
+    <span class="removeBg">REM</span>
+    <span class="togBg">TOG</span>
+</body>
+</html>

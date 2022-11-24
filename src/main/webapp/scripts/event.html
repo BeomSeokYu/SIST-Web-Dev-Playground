@@ -35,30 +35,24 @@
     <h3>keyevent</h3>
     <form action="">
         연락처 : 
-        <select id="sel" onchange="selectNum()">
+        <select id="sel" onchange="if(this.value != '') this.nextElementSibling.focus()">
             <option value="">선택</option>
             <option value="010">010</option>
             <option value="02">02</option>
             <option value="031">031</option>
             <option value="032">032</option>
         </select>
-        <input id="input1" type="text" size="4" onkeyup="inputNum(0)">
-        <input id="input2" type="text" size="4" onkeyup="inputNum(1)">
+        <input id="input1" type="text" size="4" onkeyup="inputNext(this)">
+        <input id="input2" type="text" size="4" onkeyup="inputNext(this)">
     </form>
 
     <script>
-        function selectNum() {
-            var input = document.getElementById('sel');
-            if(input.value != '') {
-                document.getElementById('input1').focus()
-            }
-        }
-        function inputNum(n) {
-            var inputs = ['input1', 'input2'];
-            var input = document.getElementById(inputs[n]);
-            input.value = input.value.replace(/[^-0-9]/g,'');
-            if(input.value.trim().length > 3) {
-                n == 0 ? document.getElementById(inputs[1]).focus() : document.getElementById(inputs[1]).blur();
+        function inputNext(t, n) {
+            t.value = t.value.replace(/[^0-9]+$/,'');
+            if(t.value.trim().length > 3) {
+                t.getAttribute('id') == 'input1'
+                ? t.nextElementSibling.focus()
+                : t.blur();
             }
         }
 

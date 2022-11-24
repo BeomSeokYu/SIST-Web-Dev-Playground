@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>text.html</title>
+    <script src="../resources/script/jquery-3.6.1.js"></script>
+    <script>
+        var str = "Let's <em>jQuery!</em>"
+        $(function(){
+            $('#getTxt').click(function() {
+                alert($('h3').text());
+            });
+            $('#setTxt').click(function() {
+                $('h3').text(str);
+            });
+
+            $('#getHtm').click(function() {
+                alert($('h3').html());
+            });
+            $('#setHtm').click(function() {
+                $('h3').html(str);
+            });
+
+            $('#getVal').click(function() {
+                alert($('input').val());
+            });
+            $('#setVal').click(function() {
+                $('input').val(str);
+            });
+        });
+    </script>
+</head>
+<body>
+    <button type="button" id="getTxt">GET TEXT</button>
+    <button type="button" id="setTxt">SET TEXT</button>
+
+    <button type="button" id="getHtm">GET HTML</button>
+    <button type="button" id="setHtm">SET HTML</button>
+    <hr>
+    <input type="text" id="inputTxt">
+    <button type="button" id="getVal">GET VALUE</button>
+    <button type="button" id="setVal">SET VALUE</button>
+
+    <h3>Hello jQuery!~</h3>
+</body>
+</html>

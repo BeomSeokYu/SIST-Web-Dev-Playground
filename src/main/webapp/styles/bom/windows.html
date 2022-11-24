@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>windows.html</title>
+</head>
+<body>
+    <h3>Browser Object Model</h3>
+    window <br>
+    - 웹 페이지의 최상위 객체 <br>
+    - window / window.self / self 로 접근 (생략 가능)<br>
+
+    <hr>
+
+    <button type="button" onclick="window.open()">
+        window.open()
+    </button>
+
+    <button type="button" onclick="window.open('popup.html', '_blank', 'width=300, height=250, right=2000, top=300')">
+        popup window open()
+    </button>
+
+    <script>
+        document.write('문서에 출력<br>'); // window 생략 가능
+        window.document.write('문서에 출력');
+    </script>
+</body>
+</html>

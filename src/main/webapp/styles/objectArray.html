@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>objectArray</title>
+</head>
+<body>
+    <h3>자바스크립트 배열</h3>
+    <script>
+        var list = ['lee', new Date(), 3.14, true];
+        for (var i = 0; i < list.length; i++) {
+            document.write('list['+i+'] = ' + list[i] + '<br>');
+        }
+        document.write('--------------------------------<br>')
+        list.sort();
+        for (var i = 0; i < list.length; i++) {
+            document.write('list['+i+'] = ' + list[i] + '<br>');
+        }
+        // 연관 배열 - 키와 값으로 저장
+        var veges = new Array();
+        veges['cu'] = 'cucumber';
+        veges['ra'] = 'radish';
+        veges['cb'] = 'cabbage';
+        document.write("veges['cu'] = " + veges['cu'] + '<br>');
+        console.log(list[1]);
+        console.log(list[1].getFullYear());
+        console.log(list[1].getYear());
+        console.log(list[1].getMonth());
+        console.log(list[1].getDate());
+        console.log(list[1].getDay());
+
+        console.log(list[1].getHours() + ':' + list[1].getMinutes() + ':' + list[1].getSeconds());
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attr.html</title>
+    <style>
+        h3 {text-shadow: 3px 3px 3px gray;}
+    </style>
+    <script src="../resources/script/jquery-3.6.1.js"></script>
+    <script>
+        $(function () {
+            $('img').attr('src', '../imgs/html.png');
+            $('img').attr('alt', 'html');
+
+            $('img').attr('width', '100')
+                    .attr('height', '100');
+
+            $('img').attr({ src:'../imgs/db.png',
+                            alt:'db',
+                            width:80,
+                            height:80});
+
+            $('img').attr({
+                src:'../imgs/java.png',
+                alt:'java',
+                width:function(index) {
+                    return (index+1)*100;
+                },
+                height:function(index) {
+                    return (index+1)*50;
+                }
+            });
+            console.log($('h3').attr('class'));
+            $('h3').removeAttr('class');
+            console.log($('h3').attr('class'));
+        });
+    </script>
+</head>
+<body>
+    <h3 class="shadow">DOM 속성 조작</h3>
+    <img>
+    <img>
+    <img>
+</body>
+</html>

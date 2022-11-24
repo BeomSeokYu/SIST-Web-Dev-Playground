@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock.html</title>
+
+    <style>
+        body {
+            width: 500px; height: auto;
+            margin: 0px auto;
+        }
+        .frame {
+            width: 500px; height: 200px;
+        }
+        .btn {
+            position: fixed; right: 100px;
+            display: block;
+        }
+        .time { 
+            text-align: center;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h3>오전 | 오후 배경 색상 변경 및 오늘 날짜 표시</h3>
+    <div class="frame">
+        <Button class="btn" type="button" onclick="showDate()">
+            What day is it today?
+        </Button>
+        <div class="time">
+            <span></span>
+        </div>
+    </div>
+
+
+    <script>
+        var date = new Date();
+        var timeObj;
+
+        window.onload = function() {
+            timeObj = setInterval(function () {
+                var time = document.querySelector('span');
+                var nowTime = '';
+                var amPm = date.getHours() < 12 ? "오전" : "오후";
+                nowTime += amPm + ' ';
+                if (amPm == "오후")
+                    nowTime += date.getHours()-12;
+                else
+                    nowTime += date.getHours();
+                nowTime += '시 ' + date.getMinutes() + '분 ';
+                nowTime += date.getSeconds() + '초';
+                time.textContent = nowTime;
+            }, 1000);
+        }   
+
+
+        function showDate() {
+            const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
+            alert('오늘은 '
+                + date.getFullYear() + '년 '
+                + date.getMonth() + '월 '
+                + date.getDate() + '일 '
+                + WEEKDAY[date.getDay()] + '요일'
+            );
+        }
+    </script>
+</body>
+</html>
