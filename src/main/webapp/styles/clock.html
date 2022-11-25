@@ -8,64 +8,74 @@
 
     <style>
         body {
-            width: 500px; height: auto;
-            margin: 0px auto;
+            margin: 0 auto;
+            width: 500px;
+            height: auto;
         }
         .frame {
-            width: 500px; height: 200px;
+            border: 1px solid #dddddd;
+            border-radius: 20px;
+            /* position: relative; */
+            width: 500px;
+            height: 100px;
+            background-color: white;
         }
         .btn {
-            position: fixed; right: 100px;
-            display: block;
+            margin-left: 350px;
         }
-        .time { 
+        .time {
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+            border-radius: 20px;
+            background-color: white;
+            line-height: 50px;
             text-align: center;
             display: block;
+            font-size: large;
         }
     </style>
+    <script>
+        function setDate() {
+            var date = new Date();
+            var time = document.querySelector('span');
+            var nowTime = '';
+            var amPm = date.getHours() < 12 ? "오전 " : "오후 ";
+            nowTime += amPm;
+            nowTime += (amPm == "오후 " ? date.getHours()-12 : date.getHours());
+            nowTime += '시 ' + date.getMinutes() + '분 ';
+            nowTime += date.getSeconds() + '초';
+            time.textContent = nowTime;
+
+            document.querySelector('.frame').style.backgroundColor =
+            (amPm == "오후 " ? 'lightgrey' : 'lightgoldenrodyellow');
+        }
+        function showDate() {
+            var date = new Date();
+            const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
+            alert('오늘은 '
+            + date.getFullYear() + '년 '
+            + (date.getMonth()+1) + '월 '
+            + date.getDate() + '일 '
+            + WEEKDAY[date.getDay()] + '요일'
+            );
+        }
+        window.onload = function() {
+            setInterval(setDate, 1000);
+        }
+    </script>
 </head>
 <body>
     <h3>오전 | 오후 배경 색상 변경 및 오늘 날짜 표시</h3>
     <div class="frame">
-        <Button class="btn" type="button" onclick="showDate()">
-            What day is it today?
-        </Button>
+        <div class="btn">
+            <Button type="button" onclick="showDate()">
+                What day is it today?
+            </Button>
+        </div>
         <div class="time">
             <span></span>
         </div>
     </div>
-
-
-    <script>
-        var date = new Date();
-        var timeObj;
-
-        window.onload = function() {
-            timeObj = setInterval(function () {
-                var time = document.querySelector('span');
-                var nowTime = '';
-                var amPm = date.getHours() < 12 ? "오전" : "오후";
-                nowTime += amPm + ' ';
-                if (amPm == "오후")
-                    nowTime += date.getHours()-12;
-                else
-                    nowTime += date.getHours();
-                nowTime += '시 ' + date.getMinutes() + '분 ';
-                nowTime += date.getSeconds() + '초';
-                time.textContent = nowTime;
-            }, 1000);
-        }   
-
-
-        function showDate() {
-            const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
-            alert('오늘은 '
-                + date.getFullYear() + '년 '
-                + date.getMonth() + '월 '
-                + date.getDate() + '일 '
-                + WEEKDAY[date.getDay()] + '요일'
-            );
-        }
-    </script>
 </body>
 </html>

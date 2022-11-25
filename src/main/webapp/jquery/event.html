@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
+            crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <title>event.html</title>
+    <style>
+        button {
+            width: 100px; height: auto;
+        }
+        #display {
+            width: 50px;
+            height: 50px;
+            padding: 50px;
+            background-color: yellow;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        $(function(){
+            $('#apdBtnO').click(function (){
+                $('ul').append('<li>new item ' + $('li').length + '</li>');
+            });
+            $('#apdBtnX').click(function (){
+                alert('더 이상 li 추가 불가')
+                $('#apdBtnO').unbind('click')
+                             .attr('disabled', 'disabled');
+            });
+            $('li').click(function (){
+                if(confirm($(this).text() + '를 삭제 하시겠습니까?'))
+                    $(this).remove();   // 동적 생성 객체 삭제 불가
+            });
+            $('ul').on('click', 'li', function() {
+                if(confirm($(this).text() + '를 지우시겠습니까?'))
+                    $(this).remove();
+            });
+            $('#offBtn').click(function (){
+                alert('더 이상 li 삭제 불가')
+                $('ul').off('click');
+            });
+            $('#oneBtn').one('click', function() {
+                alert('한번만 출력되는 경고창입니다.');
+            });
+
+
+
+            var dis = $('#display');
+            dis.mouseover(function() {
+                dis.text('mouse over');
+            });
+            // on 사용
+            dis.on('mouseout', function() {
+                dis.text('mouse out');
+            });
+            // on 사용 (객체로 여러개)
+            dis.on({
+                mousedown : function(event) {
+                    $('#xy').text('클릭 지점 (X: ' + event.pageX + ' Y: '+  event.pageY + ')');
+                    dis.text('mouse down');
+                },
+                mouseup : function() {
+                    dis.text('mouse up');
+                },
+                mousemove : function() {
+                    console.log('(X: ' + event.pageX + ' Y: '+  event.pageY + ')')
+                    dis.text('mouse move');
+                }
+            });
+            $('a').click(function(e) {
+                e.preventDefault();
+                alert($('this').attr('href'));
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <a href="../index.html">preventDefault()</a>
+
+    <div id="display">mouse event</div>
+    <div id="xy"></div>
+
+    <h3>jQuery Event</h3>
+    <button id="apdBtnO">append &lt;li&gt; O</button>
+    <button id="apdBtnX">append &lt;li&gt; X</button>
+
+    <button id="offBtn">delete &lt;li&gt; X</button>
+    <button id="oneBtn">only once</button>
+    <hr>
+    <ul>
+        <li>click! delete!</li>
+    </ul>
+</body>
+</html>

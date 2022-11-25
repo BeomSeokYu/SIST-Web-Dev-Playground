@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
+            crossorigin="anonymous">
+    </script>
+    <title>Let's vote</title>
+    <style>
+
+    </style>
+    <script>
+        var places = [
+            '성산일출봉', '꽂지 해수욕장', '경남 남해 가천 다랭이마을', '부산 광안대교', '진해 경화역',
+            '우포늪', '전남 신안 중도 염전', '설악산 신선대 공룡능선', '울릉도 해안도로', '제주도 섭지코지'
+        ]
+        var fset = $('#fset1');
+        $.each(places, function(i, place) {
+            fset.append('<div><input type="radio" value="'+ place +'" name="" ></div>');
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+    <h3>Let's Vote</h3>
+        <form id="frm" method="GET">
+            <fieldset id="fset1">
+                <legend>10 beautiful places to visit in Korea</legend>
+            </fieldset>
+            <fieldset id="fset2">
+                <legend>내 마음대로 TOP 3</legend>
+            </fieldset>
+            <div id="revote">ReVote</div>
+            <div id="send">서버로 전송</div>
+        </form>
+    </div>
+</body>
+</html>
