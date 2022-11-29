@@ -11,7 +11,7 @@
         body {
             margin: 0 auto; left: 0; right: 0;
             padding: 0;
-            margin-top: 100px;
+            margin-top: 50px;
             width: 500px;
         }
         fieldset {
@@ -89,9 +89,9 @@ $(function() {
         2:"https://blackbearwow.github.io/image/rockPaperScissors/paper.png"
     }
     var qvImg = {
-        1:"https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2d81fca3-7081-4788-9f4b-f135a7342487/ques.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221125%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221125T071149Z&X-Amz-Expires=86400&X-Amz-Signature=9dbc1d067a7f0361615cb260c5ee791326a8607c98509884c18851be7e044707&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22ques.png%22&x-id=GetObject",
-        2:"https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2a32cf6b-f3f5-4574-89a7-5c0f09ac37da/vs.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221125%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221125T071214Z&X-Amz-Expires=86400&X-Amz-Signature=1d863983244a9de2092bb4bbf6bf5258383e2e62b4c531e7e594ee51e2093241&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22vs.png%22&x-id=GetObject",
-        3:"https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2d81fca3-7081-4788-9f4b-f135a7342487/ques.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221125%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221125T071149Z&X-Amz-Expires=86400&X-Amz-Signature=9dbc1d067a7f0361615cb260c5ee791326a8607c98509884c18851be7e044707&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22ques.png%22&x-id=GetObject"
+        1:"https://cdn.pixabay.com/photo/2017/02/13/01/26/the-question-mark-2061539_960_720.png",
+        2:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqNCGR6D7uMXKy-4ImbiOg06u_PrnPq1A-PywTlmBQ-dHGecjrtvQadu5jujmvO2Ui1FM&usqp=CAU",
+        3:"https://cdn.pixabay.com/photo/2017/02/13/01/26/the-question-mark-2061539_960_720.png"
     }
     var intervalFlag = false;
     var interval = 300;
@@ -125,11 +125,12 @@ $(function() {
         .attr('class', 'popStart');
     $('#pop').on('click', function (e) {
         e.preventDefault();
+        setRound(false);
         start();
     })
 
     function start() { // 게임 시작
-        $('#pop').fadeOut('slow');
+        $('#pop').fadeOut('fast');
         $('#vs img:last-child').attr('src', qvImg[1]);
         var sel = $('#sel');
         if (intervalObj) {
@@ -187,6 +188,7 @@ $(function() {
             round = 1;
             interval = 300;
         }
+        $('#lbl span:nth-child(2)').text(round+'라운드');
     }
     function resultBoard(result) { // 게임 결과 표시
         $('#sel img').off();
@@ -205,10 +207,9 @@ $(function() {
     }
     function quit() { // 게임 종료
         if(confirm('게임을 그만하시겠습니까?')) {
+            $('#pop div:nth-child(1)').text('최종 결과').css('font-size', '25px')
             $('#continue').off('click').fadeOut('normal');
             $('#stop').off('click').fadeOut('normal');
-        } else {
-
         }
     }
 });
@@ -223,5 +224,6 @@ $(function() {
         <hr>
         <div id="sel"></div>
     </fieldset>
+    <div style="text-align: center">3승시 다음 라운드. 라운드당 속도 2배 증가</div>
 </body>
 </html>

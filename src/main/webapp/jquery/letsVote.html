@@ -4,34 +4,116 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
-            crossorigin="anonymous">
-    </script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>Let's vote</title>
     <style>
-
+        body {
+            width: 400px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        form>*{
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+        fieldset {
+            border: thin solid gray;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        legend {
+            font-size: 15px;
+        }
+        #revote, #send {
+            text-align: center;
+            line-height: 30px;
+            width: 195px; height: 30px;
+            border: thin solid gray;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        #revote {
+            background-color: lightgray;
+        }
+        #top3>li {
+            padding: 5px;
+        }
     </style>
     <script>
+    $(function() {
         var places = [
             '성산일출봉', '꽂지 해수욕장', '경남 남해 가천 다랭이마을', '부산 광안대교', '진해 경화역',
             '우포늪', '전남 신안 중도 염전', '설악산 신선대 공룡능선', '울릉도 해안도로', '제주도 섭지코지'
         ]
-        var fset = $('#fset1');
         $.each(places, function(i, place) {
-            fset.append('<div><input type="radio" value="'+ place +'" name="" ></div>');
+            $('#fieldsetOpt').append('<div class="place"><input type="radio" value="'+ place +'" id="'+ i +'" name="'+ i +'"><label for="'+ i +'">' + place + '</label></div>');
         });
+        $('.place input').on('change', function() {
+            if($('#top3 li').length < 3) {
+                $(this).attr('disabled','disabled');
+                $('#top3').append('<li>'+$(this).val()+'</li>');
+                $('#fieldsetTop3').css('background-color', 'lightblue');
+            }
+            if ($('#top3 li').length == 3){
+                $('input').attr('disabled','disabled');
+            }
+        });
+        $('#revote').on('click', function() {
+            $('.place input').prop("checked", false);
+            $('#fieldsetTop3').css('background-color', 'white');
+            $('#top3 *').remove()
+            $('input').prop('disabled', false);
+        });
+        $("#dialog").dialog({
+            autoOpen: false,    //이벤트 발생했을때 보여주려면 autoOpen : false로 지정해줘야 한다.
+            width: 300,         //레이어팝업 넓이
+            modal: true,        //뒷배경을 disable 시키고싶다면 true
+            buttons: [          //버튼종류
+                {
+                    text: "Ok", //버튼텍스트
+                    click: function() {     //클릭이벤트발생시 동작
+                        $( this ).dialog( "close" );
+                    }
+                },
+                {
+                    text: "Cancel",     //버튼텍스트
+                    click: function() { //클릭이벤트발생시 동작
+                        $( this ).dialog( "close" );
+                    }
+                }
+            ]
+        });
+        $('#send').on('click', function() {
+            var listLen = $('#top3 li').length;
+            if(listLen == 3) {
+                $('#frm').submit();
+                $('.place input').prop("checked", false);
+            } else if (listLen == 0) {
+                // alert('선택된 항목이 없습니다.');
+                $('#dialog').text('선택된 항목이 없습니다.')
+                .dialog("open");
+            } else {
+                // alert('3개를 선택해주세요.');
+                $('#dialog').text('3개를 선택해주세요.')
+                .dialog("open");
+            }
+        });
+    });
     </script>
 </head>
 <body>
+    <div id="dialog" title="실패"></div>
     <div id="wrapper">
-    <h3>Let's Vote</h3>
-        <form id="frm" method="GET">
-            <fieldset id="fset1">
+        <h3>Let's Vote!</h3>
+        <form id="frm" action="../htmls/result.html" method="GET">
+            <fieldset id="fieldsetOpt">
                 <legend>10 beautiful places to visit in Korea</legend>
             </fieldset>
-            <fieldset id="fset2">
+            <fieldset id="fieldsetTop3">
                 <legend>내 마음대로 TOP 3</legend>
+                <ol id="top3"><ol>
             </fieldset>
             <div id="revote">ReVote</div>
             <div id="send">서버로 전송</div>
