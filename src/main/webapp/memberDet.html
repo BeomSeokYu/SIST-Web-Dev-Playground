@@ -27,7 +27,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="login.html">로그인</a></li>
+                        <li class="nav-item mx-0 mx-lg-1" id="login-menu"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="login.html">로그인</a></li>
+                        <li class="nav-item mx-0 mx-lg-1" id="logout-menu"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="logout.html">로그아웃</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="join.html">회원가입</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="surveyList.html">설문</a></li>
                     </ul>
@@ -38,58 +39,47 @@
         <header class="masthead bg-primary text-white text-left">
             <div class="container d-flex align-items-left flex-column">
                 <!-- Masthead Heading-->
-                <h1>설문 수정</h1>
+                <h1>회원 상세 정보</h1>
             </div>
         </header>
         <!-- Servay Section-->
-        <section class="page-section portfolio" id="registration">
+        <section class="page-section" id="member-detail">
             <div class="container">
-                <div class="container d-flex align-items-center flex-column">
-                    <div class="col-lg-4">
-                        <form class="needs-validation" novalidate>
-                            <!-- title input-->
-                            <div class="row mb-3">
-                                <label for="survey_title_mod">설문 제목</label>
-                                <input class="form-control" id="survey_title_mod" type="text" required>
-                                <div class="invalid-feedback">내용을 입력하세요.</div>
-                            </div>
-                            <!-- select input-->
-                            <div class="row mb-3">
-                                <label for="sel1_mod">선택 항목1</label>
-                                <input class="form-control" id="sel1_mod" type="text" required>
-                                <div class="invalid-feedback">내용을 입력하세요.</div>
-                                <input class="form-control" id="sel1_img_mod" type="file" accept="image/png, image/jpeg">
-                            </div>
-                            <!-- select input-->
-                            <div class="row mb-3">
-                                <label for="sel2">선택 항목2</label>
-                                <input class="form-control_mod" id="sel2_mod" type="text" required>
-                                <div class="invalid-feedback">내용을 입력하세요.</div>
-                                <input class="form-control" id="sel2_img_mod" type="file" accept="image/png, image/jpeg">
-                            </div>
-                            <div class="row mb-3">
-                                <!-- start date input-->
-                                <div class="col">
-                                    <label for="start_date_mod">설문 시작일</label>
-                                    <input class="form-control" id="start_date_mod" type="date" required>
-                                    <div class="invalid-feedback">날짜를 지정하세요.</div>
-                                </div>
-                                <!-- end date input-->
-                                <div class="col">
-                                    <label for="end_date_mod">설문 종료일</label>
-                                    <input class="form-control" id="end_date_mod" type="date" required>
-                                    <div class="invalid-feedback">날짜를 지정하세요.</div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col text-end">
-                                    <span><button class="btn btn-secondary" type="button" onclick="history.back()">이전</button></span>
-                                    <span><button class="btn btn-primary" type="submit">수정</button></span>
-                                </div>
-                            </div>
-                        </form>
+                <form method="post">
+                    <div class="form-group row mb-3">
+                        <div class="col-md-3">아이디</div>
+                        <div class="col-md-9">qwer</div>
                     </div>
-                </div>
+                    <div class="form-group row mb-3">
+                        <div class="col-md-3">이름</div>
+                        <div class="col-md-9">홍길동</div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <div class="col-md-3">이메일</div>
+                        <div class="col-md-9">qwer@qwer.com</div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <div class="col-md-3">사진</div>
+                        <div class="col-md-9 m-0 p-0">
+                            <img class="img-fluid w-25" src="https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699__480.png" alt="">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <div class="col-md-3">성별</div>
+                        <div class="col-md-9">남</div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <div class="col-md-3">가입일자</div>
+                        <div class="col-md-9">2022.10.22</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col text-end">
+                            <span><button class="btn btn-secondary" type="button" onclick="history.back()">이전</button></span>
+                            <span><button class="btn btn-primary" type="button" onclick="location.href='surveyMod.html'">수정</button></span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="survayNo" value="10">
+                </form>
             </div>
         </section>
         <!-- Footer-->

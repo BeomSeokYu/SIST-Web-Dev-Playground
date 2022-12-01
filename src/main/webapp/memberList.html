@@ -19,9 +19,8 @@
             tr {
                 height: 50px;
             }
-            th:nth-child(2), td:nth-child(2) {
-                text-align: left;
-                width: 40%;
+            th:nth-child(3), td:nth-child(3) {
+                width: 30%;
             }
         </style>
     </head>
@@ -48,25 +47,25 @@
         <header class="masthead bg-primary text-white text-left">
             <div class="container d-flex align-items-left flex-column">
                 <!-- Masthead Heading-->
-                <h1>설문 목록</h1>
+                <h1>회원 목록</h1>
             </div>
         </header>
         <!-- Servay Section-->
-        <section class="page-section portfolio" id="list">
+        <section class="page-section portfolio" id="member-list">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10">
                         <form action="">
                             <select name="" id="">
-                                <option value="title">제목에서</option>
-                                <option value="item">항목에서</option>
+                                <option value="search-id">아이디로</option>
+                                <option value="search-name">이름으로</option>
                             </select>
                             <input type="text">
                             <button type="button" class="btn btn-primary">검색</button>
                         </form>
                     </div>
                     <div class="col-md-2">
-                        <span class="badge rounded-pill bg-secondary">전체 게시물 10건</span>
+                        <span class="badge rounded-pill bg-secondary">전체 회원 2명</span>
                     </div>
                 </div>
             </div>
@@ -77,27 +76,27 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">번호</th>
-                                        <th scope="col">제목</th>
-                                        <th scope="col">참여자 수</th>
-                                        <th scope="col">설문기간</th>
-                                        <th scope="col">상태</th>
+                                        <th scope="col">아이디</th>
+                                        <th scope="col">이름</th>
+                                        <th scope="col">이메일</th>
+                                        <th scope="col">성별</th>
+                                        <th scope="col">가입일자</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr onclick="location.href='surveyDet.html'">
-                                        <td>1</td>
-                                        <td>여름 vs 겨울</td>
-                                        <td>111</td>
-                                        <td>2022.11.30 ~ 2022.12.7</td>
-                                        <td>참여가능</td>
+                                    <tr onclick="location.href='memberDet.html'">
+                                        <td>qwer</td>
+                                        <td>홍길동</td>
+                                        <td>qwer@qwer.com</td>
+                                        <td>남</td>
+                                        <td>2022.10.22</td>
                                     </tr>
-                                    <tr onclick="location.href='surveyDet.html'">
-                                        <td>2</td>
-                                        <td>한국이 포르투갈을 이길수 있을까?</td>
-                                        <td>231</td>
-                                        <td>2022.10.30 ~ 2022.11.7</td>
-                                        <td>참여불가</td>
+                                    <tr onclick="location.href='memberDet.html'">
+                                        <td>asdf</td>
+                                        <td>김영희</td>
+                                        <td>asdf@asdf.com</td>
+                                        <td>여</td>
+                                        <td>2022.06.12</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -126,7 +125,7 @@
                 </div>
                 <div class="row">
                     <div class="col text-end">
-                        <a class="btn btn-primary" href="surveyReg.html">설문등록</a>
+                        <!-- <a class="btn btn-primary" href="surveyReg.html">설문등록</a> -->
                     </div>
                 </div>
             </div>
