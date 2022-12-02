@@ -39,94 +39,147 @@
         <header>
         </header>
         <!-- Servay Section-->
-        <section class="page-section" id="join" style="margin-top: 100px">
+        <section class="page-section mt-5" id="join">
             <div class="container">
                 <div class="row mb-5 justify-content-center">
-                    <h3 class="col-lg-6">회원가입</h3>
+                    <h3 class="col-lg-6 mt-5">회원가입</h3>
                 </div>
-                <form class="row" id="frm" action="login.html" novalidate>
-                    <form class="needs-validation" novalidate></form>
+                <form class="needs-validation" id="frm" action="login.html" novalidate>
                     <!-- Name input-->
-                    <div class="row m-3 justify-content-center">
-                        <div class="col-lg-6 px-1">
-                            <form class="needs-validation" novalidate>
-                                <label for="join_id">아이디</label>
-                                <label class="badge bg-primary float-end">영문자 + 숫자 포함 5~15자</label>
-                                <input class="form-control" id="join_id" type="text" pattern="[a-zA-Z0-9]{5,15}" placeholder="아이디를 입력하세요" required>
-                                <div class="invalid-feedback">조건을 확인해 주세요.</div>
-                            </form>
+                    <div class="row justify-content-center text-truncate">
+                        <div class="col-lg-5 px-1 text-end">
+                            <span class="badge bg-primary">영문자+숫자 포함 5~15자</span>
+                        </div>
+                        <div class="col-lg-1 px-1"></div>
+                    </div>
+                    <div class="row mb-4 justify-content-center text-truncate">
+                        <div class="col-lg-1 px-1">
+                            <label for="join_id">아이디</label>
+                        </div>
+                        <div class="col-lg-4 px-1">
+                            <input type="text" class="form-control" id="join_id" placeholder="아이디를 입력하세요" required>
+                            <div class="invalid-feedback">조건을 확인해 주세요.</div>
+                            <div id="id-msg"></div>
+                        </div>
+                        <div class="col-lg-1 px-1">
+                            <button class="btn btn-primary" type="button" id="DupChkBtn">중복확인</button>
                         </div>
                     </div>
                     <!-- pw input-->
-                    <div class="row m-3 justify-content-center">
-                        <div class="col-lg-3 px-1">
-                            <form id="pw_form" class="needs-validation" novalidate>
-                                <label for="join_pw">비밀번호</label>
-                                <label class="badge bg-primary float-end">영문자 + 숫자 8자 이상</label>
-                                <input type="password" class="form-control" id="join_pw" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="비밀번호를 입력하세요" required>
-                                <div class="invalid-feedback" id="pw_msg">조건을 확인해 주세요.</div>
-                            </form>
+                    <div class="row justify-content-center text-truncate">
+                        <div class="col-lg-5 px-1 text-end">
+                            <span class="badge bg-primary">영문자+숫자+특수문자 포함 8자 이상</span>
                         </div>
+                        <div class="col-lg-1 px-1"></div>
+                    </div>
+                    <div class="row justify-content-center text-truncate">
+                        <div class="col-lg-1 px-1">
+                            <label for="join_pw">비밀번호</label>
+                        </div>
+                        <div class="col-lg-4 px-1">
+                            <input type="password" class="form-control" id="join_pw" placeholder="비밀번호를 입력하세요" required>
+                            <div class="invalid-feedback" id="pw_msg">조건을 확인해 주세요.</div>
+                        </div>
+                        <div class="col-lg-1 px-1"></div>
+                    </div>
+                    <div class="row mb-4 justify-content-center">
                         <!-- pw chk input-->
-                        <div class="col-lg-3 px-1">
-                            <form id="pw_chk_form" novalidate>
-                                <label for="join_pw_chk">비밀번호 확인</label>
-                                <input type="password" class="form-control" id="join_pw_chk" placeholder="비밀번호를 다시 입력하세요" required>
-                                <div class="invalid-feedback" id="pw_msg_invalid">비밀번호가 일치하지 않습니다.</div>
-                                <div class="valid-feedback" id="pw_msg_valid">비밀번호가 일치합니다.</div>
-                            </form>
+                        <div class="col-lg-1 px-1">
+                            <label for="join_pw_chk">비밀번호 확인</label>
                         </div>
+                        <div class="col-lg-4 px-1">
+                            <input type="password" class="form-control" id="join_pw_chk" placeholder="비밀번호를 다시 입력하세요" required>
+                            <div class="invalid-feedback" id="pw_msg_invalid">비밀번호가 일치하지 않습니다.</div>
+                            <div class="valid-feedback" id="pw_msg_valid">비밀번호가 일치합니다.</div>
+                        </div>
+                        <div class="col-lg-1 px-1"></div>
                     </div>
                     <!-- Name input-->
-                    <div class="row m-3 justify-content-center">
-                        <div class="col-lg-6 px-1">
-                            <form class="needs-validation" novalidate>
-                                <label for="join_name">이름</label>
-                                <label class="badge bg-primary float-end">영문, 한글 1자 이상</label>
-                                <input class="form-control" id="join_name" type="text" pattern="[a-zA-Z가-힣 ]{1,}$" placeholder="이름을 입력하세요." required>
-                                <div class="invalid-feedback">조건을 확인해 주세요.</div>
-                            </form>
+                    <div class="row justify-content-center text-truncate">
+                        <div class="col-lg-5 px-1 text-end">
+                            <span class="badge bg-primary">영문자, 한글 1자 이상</span>
                         </div>
+                        <div class="col-lg-1 px-1"></div>
+                    </div>
+                    <div class="row mb-4 justify-content-center text-truncate">
+                        <div class="col-lg-1 px-1">
+                            <label for="join_name">이름</label>
+                        </div>
+                        <div class="col-lg-4 px-1">
+                            <input class="form-control" id="join_name" type="text" placeholder="이름을 입력하세요." required>
+                            <div class="invalid-feedback">조건을 확인해 주세요.</div>
+                        </div>
+                        <div class="col-lg-1 px-1"></div>
                     </div>
                     <!-- Email address input-->
-                    <div class="row m-3 justify-content-center">
+                    <div class="row mb-4 justify-content-center text-truncate">
                         <div class="col-lg-2 px-1">
-                            <form class="needs-validation" novalidate>
-                                <label for="join_email_f">이메일</label>
-                                <input type="text" class="form-control" id="autoSizingInput" pattern="[a-zA-Z0-9._-]+" placeholder="이메일을 입력하세요.">
-                            </form>
-                        </div>
-                        <div class="col-lg-2 px-1">
-                            <form class="needs-validation" novalidate>
-                                <label for="autoSizingInputGroup"></label>
-                                <div class="input-group">
-                                <div class="input-group-text">@</div>
-                                    <input type="text" class="form-control" id="autoSizingInputGroup" pattern="[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
-                                </div>
-                            </form>
+                            <label for="join_email_f">이메일</label>
+                            <input type="text" class="form-control" id="autoSizingInput" placeholder="이메일을 입력하세요." required>
                         </div>
                         <div class="col-lg-2 px-1">
                             <label for="autoSizingInputGroup"></label>
+                            <div class="input-group">
+                            <div class="input-group-text">@</div>
+                                <input type="text" class="form-control" id="autoSizingInputGroup" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 px-1">
+                            <label for="autoSizingInputGroup"></label>
                             <select class="form-select" id="autoSizingSelect">
-                                <option value="" selected>직접입력</option>
+                                <option value="" selected>입력</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="gmail.com">gmail.com</option>
                                 <option value="daum.net">daum.net</option>
                             </select>
                         </div>
+                        <div class="col-lg-1 px-1"></div>
                     </div>
                     <!-- Photo input-->
-                    <div class="row m-3 justify-content-center">
-                        <div class="col-lg-6 px-1">
+                    <div class="row mb-4 justify-content-center text-truncate">
+                        <div class="col-lg-1 px-1">
                             <label for="join_photo">사진</label>
-                            <input class="form-control" id="join_photo" type="file" accept="image/png, image/jpeg" required>
+                        </div>
+                        <div class="col-lg-3 px-1">
+                            <input class="form-control" id="join_photo" type="file" accept="image/png, image/jpeg">
                             <div class="invalid-feedback">사진 파일을 확인해주세요.</div>
                         </div>
+                        <div class="col-lg-2 px-1">
+                            <img class="img" id="profile" src="https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699__480.png" alt="..." width="70px">
+                        </div>
+                    </div>
+                    <!-- Gender input-->
+                    <div class="row justify-content-center text-truncate">
+                        <div class="col-lg-1 px-1">
+                            <label>성별</label>
+                        </div>
+                        <div class="col-lg-2 px-1">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="join_gender_no" checked>
+                                <label class="form-check-label" for="join_gender_no">
+                                    미선택
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="join_gender_m">
+                                <label class="form-check-label" for="join_gender_m">
+                                    남성
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="join_gender_f">
+                                <label class="form-check-label" for="join_gender_f">
+                                    여성
+                                </label>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">성별을 선택해 주세요.</div>
+                        <div class="col-lg-3 px-1"></div>
                     </div>
                     <!-- Submit Button-->
-                    <div class="row m-3 justify-content-center text-end">
-                        <div class="col-lg-6 px-1">
-                            <button class="btn btn-primary" type="submit">가입</button>
+                    <div class="row justify-content-center text-truncate">
+                        <div class="col-lg-4 px-1 text-end">
+                            <button class="btn btn-primary" type="submit" id="submitBtn">가입</button>
                         </div>
                     </div>
                 </form>
@@ -149,28 +202,66 @@
         <script src="resources/js/scripts.js"></script>
         <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script>
-            $(function () {
+            var idPtn = '[a-zA-Z0-9]{5,15}$';
+            var pwPtn = '(?=.*\d{1,})(?=.*[~`!@#$%\^&*()-+=.]{1,})(?=.*[a-zA-Z]{2,50}).{8,}$';
+            var namePtn = '[a-zA-Z가-힣 ]{1,}$';
+            var emailFrontPtn = '[a-zA-Z0-9._-]+';
+            var emailRearPtn = '[a-zA-Z0-9._-]+[.][A-Za-z]{2,4}$';
+
+            $('#join_id').attr('pattern', idPtn);
+            $('#join_pw').attr('pattern', pwPtn);
+            $('#join_name').attr('pattern', namePtn);
+            $('#autoSizingInput').attr('pattern', emailFrontPtn);
+            $('#autoSizingInputGroup').attr('pattern', emailRearPtn);
+
             var forms = document.querySelectorAll('.needs-validation');
             Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('keyup', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault();
-                            event.stopPropagation();
+            .forEach(function (form) {
+                form.addEventListener('keyup', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    $(form).addClass('was-validated');
+                }, false);
+                $(form).on('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    $(form).addClass('was-validated');
+                }, false);
+            });
+
+            $('#DupChkBtn').on('click', function () {
+                $.post(  'idChkProc.jsp',
+                    {"id": $('#join_id').val()},
+                    function(result) {
+                        if (document.querySelector('#id-form').checkValidity()){
+                            if(result.trim() == 'X') {
+                                $('#id-msg').text('이미 사용중인 아이디 입니다.');
+                                $('#id-msg').attr('class','text-danger')
+                                $('#id-form').removeClass('was-validated');
+                            } else{
+                                $('#id-msg').text('사용 가능한 아이디 입니다.');
+                                $('#id-msg').attr('class','text-primary')
+                            }
                         }
-                        form.classList.add('was-validated')
-                    }, false);
-                });
-            $('#pw_chk_form').on('keyup', function (event){
-                if($('#join_pw_chk').val() != '' && $('#join_pw').val() == $('#join_pw_chk').val()) {
+                    });
+           });
+           $('#join_id').focus(function () {
+                $('#id-msg').text('');
+           });
+
+            $('#frm').on('keyup', function (event){
+                if($('#join_pw_chk').is(':vaild') && $('#join_pw').val() == $('#join_pw_chk').val()) {
                     $('#pw_msg_invalid').hide();
                     $('#pw_msg_valid').show();
-                    event.preventDefault();
-                    event.stopPropagation();
+                    $('#pw_chk_form').addClass('was-validated');
                 } else {
                     $('#pw_msg_valid').hide();
                     $('#pw_msg_invalid').show();
-                    $('#pw_chk_form').classList.add('was-validated')
+                    $('#pw_chk_form').removeClass('was-validated');
                 }
             });
             $('#autoSizingSelect').on('change', function() {
@@ -181,9 +272,8 @@
                     input.focus();
                     input.prop('readonly', false);
                 } else {
-                    input.attr('readonly', 'readonly');
+                    input.prop('readonly', true);
                 }
-            });
             });
         </script>
     </body>
