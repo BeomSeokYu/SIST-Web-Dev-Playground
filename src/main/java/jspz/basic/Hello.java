@@ -10,26 +10,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class HelloWorld
+ * Servlet implementation class Hello
  */
-@WebServlet("/HelloWorld.do")
-public class HelloWorld extends HttpServlet {
+@WebServlet("/Hello.do")
+public class Hello extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String name = request.getParameter("name");
+		int age = Integer.parseInt(request.getParameter("age"));
+		
+		request.setCharacterEncoding("UTF-8");					// 수신데이터 한글 처리
+		response.setContentType("text/html; charset=UTF-8");	// 송신데이터 한글 처리
+		
+		System.out.println(name);
+		System.out.println(age);
 		PrintWriter out = response.getWriter();
+		
 		out.print("<html><head><title>Hello World</title></head>");
-		out.print("<body><h1>Hello world!~</h1></body></html>");
+		out.print("<body>");
+		out.print("<h1>Hello world!~</h1>");
+		out.print("<div>이름 : "+name+"</div>");
+		out.print("<div>나이 : "+age+"</div>");
+		out.print("</body></html>");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>top.jsp</title>
+<style>
+	body {background: lightblue;}
+</style>
 </head>
 <body>
-	<%= 3 + 4 %>
+	<h1>TOP MENU</h1>
 </body>
 </html>
