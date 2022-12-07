@@ -4,9 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>index.jsp</title>
 </head>
 <body>
-	<%= 3 + 4 %>
+	<a href="basic/session.jsp?code=1111">session.jsp</a>
+	<%
+	request.setAttribute("code", 2222);
+	session.setAttribute("code", 3333);
+	%>
+	<jsp:forward page="basic/session.jsp">
+		<jsp:param value="1111" name="code"/>
+	</jsp:forward>
 </body>
 </html>
