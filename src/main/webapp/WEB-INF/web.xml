@@ -9,4 +9,34 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <context-param>
+  	<description>관리자 이메일</description>
+  	<param-name>adminEmail</param-name>
+  	<param-value>admin@aaa.com</param-value>
+  </context-param>
+  
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/error/notFound.jsp</location>
+  </error-page>
+  
+  <error-page>
+  	<exception-type>java.lang.ArithmeticException</exception-type>
+  	<location>/error/devideZero.jsp</location>
+  </error-page>
+  
+  <servlet>
+  	<servlet-name>config</servlet-name>
+  	<jsp-file>/basic/config.jsp</jsp-file>
+  	<init-param>
+  		<param-name>codeOne</param-name>
+  		<param-value>1234</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>config</servlet-name>
+  	<url-pattern>/basic/config.jsp</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
