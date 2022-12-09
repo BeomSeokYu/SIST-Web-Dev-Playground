@@ -58,7 +58,6 @@
                         </div>
                         <div class="col-lg-4 px-1">
                             <input type="text" class="form-control" id="join_id" placeholder="아이디를 입력하세요" required>
-                            <div class="invalid-feedback">조건을 확인해 주세요.</div>
                             <div id="id-msg"></div>
                         </div>
                         <div class="col-lg-1 px-1">
@@ -78,7 +77,6 @@
                         </div>
                         <div class="col-lg-4 px-1">
                             <input type="password" class="form-control" id="join_pw" placeholder="비밀번호를 입력하세요" required>
-                            <div class="invalid-feedback" id="pw_msg">조건을 확인해 주세요.</div>
                         </div>
                         <div class="col-lg-1 px-1"></div>
                     </div>
@@ -89,8 +87,8 @@
                         </div>
                         <div class="col-lg-4 px-1">
                             <input type="password" class="form-control" id="join_pw_chk" placeholder="비밀번호를 다시 입력하세요" required>
-                            <div class="invalid-feedback" id="pw_msg_invalid">비밀번호가 일치하지 않습니다.</div>
-                            <div class="valid-feedback" id="pw_msg_valid">비밀번호가 일치합니다.</div>
+                            <div class="text-danger" id="pw_msg_invalid" hidden>비밀번호가 일치하지 않습니다.</div>
+                            <div class="text-primary" id="pw_msg_valid" hidden>비밀번호가 일치합니다.</div>
                         </div>
                         <div class="col-lg-1 px-1"></div>
                     </div>
@@ -107,7 +105,6 @@
                         </div>
                         <div class="col-lg-4 px-1">
                             <input class="form-control" id="join_name" type="text" placeholder="이름을 입력하세요." required>
-                            <div class="invalid-feedback">조건을 확인해 주세요.</div>
                         </div>
                         <div class="col-lg-1 px-1"></div>
                     </div>
@@ -142,7 +139,6 @@
                         </div>
                         <div class="col-lg-3 px-1">
                             <input class="form-control" id="join_photo" type="file" accept="image/png, image/jpeg">
-                            <div class="invalid-feedback">사진 파일을 확인해주세요.</div>
                         </div>
                         <div class="col-lg-2 px-1">
                             <img class="img" id="profile" src="https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699__480.png" alt="..." width="70px">
@@ -155,19 +151,19 @@
                         </div>
                         <div class="col-lg-2 px-1">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="join_gender_no" checked>
+                                <input class="form-check-input" type="radio" name="gender" id="join_gender_no" value="" checked>
                                 <label class="form-check-label" for="join_gender_no">
                                     미선택
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="join_gender_m">
+                                <input class="form-check-input" type="radio" name="gender" id="join_gender_m" value="M">
                                 <label class="form-check-label" for="join_gender_m">
                                     남성
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="join_gender_f">
+                                <input class="form-check-input" type="radio" name="gender" id="join_gender_f" value="F">
                                 <label class="form-check-label" for="join_gender_f">
                                     여성
                                 </label>
@@ -214,30 +210,24 @@
             $('#autoSizingInput').attr('pattern', emailFrontPtn);
             $('#autoSizingInputGroup').attr('pattern', emailRearPtn);
 
-            var forms = document.querySelectorAll('.needs-validation');
+            var forms = $('.needs-validation');
             Array.prototype.slice.call(forms)
             .forEach(function (form) {
-                form.addEventListener('keyup', function (event) {
+                $(form).addClass('was-validated');
+                form.addEventListener('submit', function (event) {
                     if (!form.checkValidity()) {
                         event.preventDefault();
                         event.stopPropagation();
                     }
-                    $(form).addClass('was-validated');
-                }, false);
-                $(form).on('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    $(form).addClass('was-validated');
                 }, false);
             });
 
             $('#DupChkBtn').on('click', function () {
-                $.post(  'idChkProc.jsp',
+                $.post(
+                    'idChkProc.jsp',
                     {"id": $('#join_id').val()},
                     function(result) {
-                        if (document.querySelector('#id-form').checkValidity()){
+                        if ($('#join_id').val().trim().match(idPtn)){
                             if(result.trim() == 'X') {
                                 $('#id-msg').text('이미 사용중인 아이디 입니다.');
                                 $('#id-msg').attr('class','text-danger')
@@ -254,14 +244,12 @@
            });
 
             $('#frm').on('keyup', function (event){
-                if($('#join_pw_chk').is(':vaild') && $('#join_pw').val() == $('#join_pw_chk').val()) {
+                if($('#join_pw').val() == $('#join_pw_chk').val()) {
                     $('#pw_msg_invalid').hide();
                     $('#pw_msg_valid').show();
-                    $('#pw_chk_form').addClass('was-validated');
                 } else {
                     $('#pw_msg_valid').hide();
                     $('#pw_msg_invalid').show();
-                    $('#pw_chk_form').removeClass('was-validated');
                 }
             });
             $('#autoSizingSelect').on('change', function() {
