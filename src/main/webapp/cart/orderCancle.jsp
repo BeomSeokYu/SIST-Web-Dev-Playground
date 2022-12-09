@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String[] fname = {"cartId", "rname", "deliDate", "zipNo", "addr", "addr1", "addr2", "addr3", "phone"};
+Cookie c = null;
+for (int i=0; i < fname.length; i++) {
+	c = new Cookie(fname[i].trim(), "");
+	c.setMaxAge(0);
+	response.addCookie(c);
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>

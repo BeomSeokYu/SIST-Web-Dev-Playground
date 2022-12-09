@@ -1,5 +1,44 @@
+<%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="market.vo.ProductVO"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html; charset=UTF-8");
+	List<ProductVO> cartList = (ArrayList<ProductVO>) session.getAttribute("cartList");
+	int idx = 0;
+	int sum = 0;
+	if (cartList != null) {
+		for (ProductVO pvo : cartList) { sum += pvo.getQuantity()*pvo. getPrice(); }
+	}
+	
+	Cookie[] cookies = request.getCookies();
+	String[] fname = {"rname", "deliDate", "zipNo", "addr", "phone"};
+	String rname = "";
+	String deliDate = "";
+	String zipNo = "";
+	String addr = "";
+	String addr1 = "";
+	String addr2 = "";
+	String addr3 = "";
+	String phone = "";
+	for(Cookie c : cookies) {
+		switch(c.getName()) {
+		case "rname": rname = URLDecoder.decode(c.getValue(), "UTF-8"); break;
+		case "deliDate": deliDate = c.getValue() == null ? "없음" : c.getValue(); break;
+		case "zipNo": zipNo = URLDecoder.decode(c.getValue(), "UTF-8"); break;
+		case "addr": addr = URLDecoder.decode(c.getValue(), "UTF-8"); break;
+		case "addr1": addr1 = URLDecoder.decode(c.getValue(), "UTF-8"); break;
+		case "addr2": addr2 = URLDecoder.decode(c.getValue(), "UTF-8"); break;
+		case "addr3": addr3 = URLDecoder.decode(c.getValue(), "UTF-8"); break;
+		case "phone": phone = c.getValue(); break;
+		}
+	}
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,13 +64,13 @@
 					<p><strong>수령인</strong></p>
 				</div>
 				<div class="col-md-6">
-					<p>kim</p>
+					<p><%= rname %></p>
 				</div>
 				<div class="col-md-2">
 					<p><strong>배송희망일</strong></p>
 				</div>
 				<div class="col-md-2">
-					<p>2022-12-30</p>
+					<p><%= deliDate %></p>
 				</div>
 			</div>
 			<div class="row mb-3">
@@ -39,7 +78,7 @@
 					<p><strong>연락처</strong></p>
 				</div>
 				<div class="col-md-4">
-					<p>010-1010-1010</p>
+					<p><%= phone %></p>
 				</div>
 			</div>
 			<div class="row mb-3">
@@ -47,7 +86,7 @@
 					<p><strong>우편번호</strong></p>
 				</div>
 				<div class="col-md-4">
-					<p>04001</p>
+					<p><%= zipNo %></p>
 				</div>
 			</div>
 			<div class="row mb-3">
@@ -55,7 +94,7 @@
 					<p><strong>도로명 주소</strong></p>
 				</div>
 				<div class="col-md-4">
-					<p>서울특별시 마포구 월드컵북로 21</p>
+					<p><%= addr1 %></p>
 				</div>
 			</div>
 			<div class="row mb-3">
@@ -63,7 +102,7 @@
 					<p><strong>상세 주소</strong></p>
 				</div>
 				<div class="col-md-4">
-					<p>풍성빌딩 3층 (서교동)</p>
+					<p><%= addr2+" "+addr3 %></p>
 				</div>
 			</div>
 			<div class="row mb-3 jus">
@@ -77,24 +116,24 @@
 	                    </tr>
 	                </thead>
 	                <tbody>
-	                    <tr>
-	                        <td>P1234 - asdf</td>
-	                        <td>1</td>
-	                        <td>150000</td>
-	                        <td>150000</td>
-	                    </tr>
-	                    <tr>
-	                        <td>P1234 - qwer</td>
-	                        <td>1</td>
-	                        <td>20000</td>
-	                        <td>20000</td>
-	                    </tr>
+<%
+	if(cartList != null) {
+		for (ProductVO pvo : cartList) {
+			out.print("<tr>");
+			out.print("<td>"+pvo.getPid() + " - " + pvo.getPname() +"</td>");
+			out.print("<td>"+pvo.getQuantity()+"</td>");
+			out.print("<td>"+pvo.getPrice()+"</td>");
+			out.print("<td>"+pvo.getQuantity()*pvo. getPrice()+"</td>");
+			out.print("</tr>");
+		}
+	}
+%>
 	                </tbody>
 	                <tfoot>
 	                	<tr>
 	                        <td colspan="2"></td>
-	                        <td>총액</td>
-	                        <td>1520000</td>
+                            <td><strong>총액</strong></td>
+                            <td><%= sum %></td>
 	                    </tr>
 	                </tfoot>
 	            </table>

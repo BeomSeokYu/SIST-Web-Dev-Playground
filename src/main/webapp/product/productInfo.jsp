@@ -43,7 +43,7 @@
 			        <div class="container">
 			        	<div class="row">
 			        		<div class="col-md-3">
-								<p>상품명</p>
+								<p><strong>상품명</strong></p>
 							</div>
 							<div class="col-md-9">
 								<h3><%= pvo.getPname() %></h3>
@@ -51,7 +51,7 @@
 						</div>
 						<div class="row">
 			        		<div class="col-md-3">
-								<p>설명</p>
+								<p><strong>설명</strong></p>
 							</div>
 							<div class="col-md-9">
 								<p><%= pvo.getDescription() %></p>
@@ -59,7 +59,7 @@
 						</div>
 						<div class="row">
 			        		<div class="col-md-3">
-								<p>분류</p>
+								<p><strong>분류</strong></p>
 							</div>
 							<div class="col-md-9">
 								<p><%= pvo.getCategory() %></p>
@@ -67,7 +67,7 @@
 						</div>
 						<div class="row">
 			        		<div class="col-md-3">
-								<p>제조사</p>
+								<p><strong>제조사</strong></p>
 							</div>
 							<div class="col-md-9">
 								<p><%= pvo.getMaker() %></p>
@@ -75,7 +75,7 @@
 						</div>
 						<div class="row">
 			        		<div class="col-md-3">
-								<p>상품번호</p>
+								<p><strong>상품번호</strong></p>
 							</div>
 							<div class="col-md-9">
 								<p class="badge bg-success"><%= pvo.getPid() %></p>
@@ -83,7 +83,7 @@
 						</div>
 						<div class="row">
 			        		<div class="col-md-3">
-								<p>상태</p>
+								<p><strong>상태</strong></p>
 							</div>
 							<div class="col-md-9">
 								<p><%= pvo.getCondition() %></p>
@@ -91,7 +91,7 @@
 						</div>
 						<div class="row">
 			        		<div class="col-md-3">
-								<p>재고</p>
+								<p><strong>재고</strong></p>
 							</div>
 							<div class="col-md-9">
 								<p><%= pvo.getStock() %> 개</p>
@@ -99,17 +99,20 @@
 						</div>
 						<div class="row">
 			        		<div class="col-md-3">
-								<p>가격</p>
+								<p><strong>가격</strong></p>
 							</div>
 							<div class="col-md-9">
 								<p><%= fmt.format(pvo.getPrice()) %> 원</p>
 							</div>
 						</div>
-						<div class="container mt-3 p-0">
-							<a href="#" class="btn btn-primary" id="inCartBtn">장바구니 담기</a>
-							<a href="../cart/cart.jsp" class="btn btn-dark">장바구니 보기</a>
-							<a href="productList.jsp" class="btn btn-secondary">상품 목록</a>
-						</div>
+						<form action="../cart/cartAddProc.jsp" method="post" id="cartAddForm">
+							<div class="container mt-3 p-0">
+								<a href="#" class="btn btn-primary" id="cartAddBtn">장바구니 담기</a>
+								<a href="../cart/cart.jsp" class="btn btn-dark">장바구니 보기</a>
+								<a href="productList.jsp" class="btn btn-secondary">상품 목록</a>
+								<input id="hiddenVal" type="hidden" name="pid" value="<%= pvo.getPid() %>">
+							</div>
+						</form>
 		            </div>
 	            </div>
             </div>

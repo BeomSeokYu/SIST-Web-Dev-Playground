@@ -1,5 +1,16 @@
+<%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Cookie[] cookies = request.getCookies();
+	String[] fname = {"rname", "deliDate", "zipNo", "addr", "phone"};
+	String cartId = "";
+	for(Cookie c : cookies) {
+		if(c.getName().equals("cartId")) {
+			cartId = URLDecoder.decode(c.getValue(), "UTF-8");
+		}
+	}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,7 +41,7 @@
 	                주문하신 상품은 2020-20-20에 배송될 예정입니다.
                 </div>
                 <div class="row">
-	                주문번호 : 09DAF9FAS9DF9DF0A9DFHGDFF1
+	                주문번호 : <%= cartId %>
                 </div>
             </div>
             <div class="container p-0 mt-3">
@@ -41,3 +52,11 @@
 <%@ include file="../includes/footer.jsp" %>
 </body>
 </html>
+<%
+Cookie c = null;
+for (int i=0; i < fname.length; i++) {
+	c = new Cookie(fname[i].trim(), "");
+	c.setMaxAge(0);
+	response.addCookie(c);
+}
+%>
