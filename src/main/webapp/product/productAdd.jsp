@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    %>
 <%@ page import="java.text.DecimalFormat" %>
-<% String title = "상품 등록"; %>
+<% 
+	String title = "상품 등록";
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,7 +32,7 @@
         <% 	//pvo = pdao.select(request.getParameter("pid"));
         	DecimalFormat fmt = new DecimalFormat("###,###");%>
         <div class="container mt-5">
-        	<form class="form-horizontal needs-validation" action="productAddProc.jsp" novalidate>
+        	<form class="form-horizontal needs-validation" id="pAddForm" action="productAddProc.jsp" method="post" enctype="multipart/form-data" novalidate>
 	        	<div class="form-group row mb-3 justify-content-center">
 	        		<div class="col-md-2">
 						<p>상품 코드</p>
@@ -107,8 +110,11 @@
 	        		<div class="col-md-2">
 						<p>이미지</p>
 					</div>
-					<div class="col-md-4">
-						<input class="form-control" type="file" name="pimage">
+					<div class="col-md-3">
+						<input class="form-control" type="file" name="pimage" id="pimage">
+					</div>
+					<div class="col-md-1">
+						<img class="w-75" id="pimg" alt="..." src="../resources/imgs/default.png">
 					</div>
 				</div>
 				<div class="row mb-3 justify-content-end">
@@ -121,5 +127,11 @@
           </div>
     </section>
 <%@ include file="../includes/footer.jsp" %>
+<script>
+	//$('#pimage').change(function() {
+	//	console.log($('#pimage').val());
+	//	$('#pimg').attr("src", $('#pimage').val());
+	//});
+</script>
 </body>
 </html>

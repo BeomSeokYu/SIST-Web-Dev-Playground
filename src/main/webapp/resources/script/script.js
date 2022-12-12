@@ -55,7 +55,7 @@ function checkProduct() {
 	var inputPname = $('#inputPname');
 	var inputPrice = $('#inputPrice');
 	var inputStock = $('#inputStock');
-	
+	/*
 	if(inputPid.val().trim().match(pidPtn) != null) {
 		//alert('P와 숫자를 조합하여 5~10자로 입력하세요.');
 		inputPid.val('P');
@@ -72,7 +72,8 @@ function checkProduct() {
 		alert('inputStock');
 		inputStock.val('');
 		inputStock.focus();
-	}
+	} */
+	$('#pAddForm').submit();
 }
 
 // 전체 form의 submit이벤트에 대한 유효성 검사

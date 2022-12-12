@@ -24,9 +24,9 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 text-white rounded" href="/market/product/productList.jsp">상품 목록</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 text-white rounded" href="/market/product/productAdd.jsp">상품 등록</a></li>
                	<%
-               		List<ProductVO> cartList = (ArrayList<ProductVO>) session.getAttribute("cartList");
-        			if (cartList != null && cartList.size() > 0) {
-                    	out.print("<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 text-white rounded\" href=\"/market/cart/cart.jsp\">장바구니<span class=\"badge bg-danger\">"+cartList.size()+"</span></a></li>");
+               		List<ProductVO> cList = (ArrayList<ProductVO>) session.getAttribute("cartList");
+        			if (cList != null && cList.size() > 0) {
+                    	out.print("<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 text-white rounded\" href=\"/market/cart/cart.jsp\">장바구니<span class=\"badge bg-danger\">"+cList.size()+"</span></a></li>");
             		} else {
             			out.print("<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 text-white rounded\" href=\"/market/cart/cart.jsp\">장바구니</a></li>");
             		}

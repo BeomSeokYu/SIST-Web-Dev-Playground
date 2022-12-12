@@ -10,6 +10,12 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
+  <context-param>
+  	<description>파일 업로드 경로</description>
+  	<param-name>uploadPath</param-name>
+  	<param-value>/resources/imgs/</param-value>
+  </context-param>
+  
   <error-page>
   	<error-code>404</error-code>
   	<location>/error/notFound.jsp</location>
