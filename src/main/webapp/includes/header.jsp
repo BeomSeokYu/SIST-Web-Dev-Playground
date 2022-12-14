@@ -6,6 +6,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	List<ProductVO> cList = (ArrayList<ProductVO>) session.getAttribute("cartList");
+%>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg bg-dark fixed-top" id="mainNav">
     <div class="container">
@@ -35,16 +38,13 @@
         				out.print("<li class=\"nav-item mx-0 mx-lg-1\"><a id=\"logoutBtn\" class=\"nav-link py-3 px-0 px-lg-3 text-white rounded\" href=\"/market/common/logoutProc.jsp\">로그 아웃</a></li>");
         			}
         		%> --%>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 text-white rounded" href="/market/product/productList.jsp">상품 목록</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 text-white rounded" href="/market/product/productAdd.jsp">상품 등록</a></li>
-               	<%
-               		List<ProductVO> cList = (ArrayList<ProductVO>) session.getAttribute("cartList");
-        			if (cList != null && cList.size() > 0) {
-                    	out.print("<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 text-white rounded\" href=\"/market/cart/cart.jsp\">장바구니<span class=\"badge bg-danger\">"+cList.size()+"</span></a></li>");
-            		} else {
-            			out.print("<li class=\"nav-item mx-0 mx-lg-1\"><a class=\"nav-link py-3 px-0 px-lg-3 text-white rounded\" href=\"/market/cart/cart.jsp\">장바구니</a></li>");
-            		}
-            	%>
+                    <li class="${ liClass }"><a class="${ aClass }" href="/market/product/productList.jsp">상품 목록</a></li>
+                    <li class="${ liClass }"><a class="${ aClass }" href="/market/product/productAdd.jsp?lang=ko">상품 등록</a></li>
+               	<% if (cList != null && cList.size() > 0) { %>
+                    	<li class="${ liClass }"><a class="${ aClass }" href="/market/cart/cart.jsp">장바구니<span class="badge bg-danger"> <%= cList.size() %> </span></a></li>
+            	<%	} else { %>
+            			<li class="${ liClass }"><a class="${ aClass }" href="/market/cart/cart.jsp">장바구니</a></li>
+            	<%	} %>
             	
             </ul>
         </div>
