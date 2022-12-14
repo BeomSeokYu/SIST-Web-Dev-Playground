@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="/error/noPidException.jsp"%>
-<%@ page import="java.text.DecimalFormat" %>
 <% String title = "상품 정보"; %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,8 +25,7 @@
     <section class="page-section" id="info">
         <jsp:useBean id="pdao" class="market.dao.ProductDAO"/>
         <jsp:useBean id="pvo" class="market.vo.ProductVO"/>
-        <% 	pvo = pdao.select(request.getParameter("pid")); 
-        	DecimalFormat fmt = new DecimalFormat("###,###");%>
+        <% 	pvo = pdao.select(request.getParameter("pid")); %>
         <div class="container mt-5">
         	<div class="row">
         		<div class="col-md-6">
@@ -102,7 +100,7 @@
 								<p><strong>가격</strong></p>
 							</div>
 							<div class="col-md-9">
-								<p><%= fmt.format(pvo.getPrice()) %> 원</p>
+								<p><fmt:formatNumber value="<%= pvo.getPrice() %>"/> 원</p>
 							</div>
 						</div>
 						<form action="../cart/cartAddProc.jsp" method="post" id="cartAddForm">

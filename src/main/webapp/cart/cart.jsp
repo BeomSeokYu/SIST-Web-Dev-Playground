@@ -58,7 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-<%
+<%-- <%
 	for (ProductVO pvo : cartList) {
 		out.print("<tr>");
 		out.print("<td>"+pvo.getPid() + " - " + pvo.getPname() +"</td>");
@@ -68,13 +68,22 @@
 		out.print("<td><a class=\"badge bg-danger\" href=\"cartRemoveProc.jsp?pid="+pvo.getPid()+"\">삭제</a></td>");
 		out.print("</tr>");
 	}
-%>
+%> --%>
+							<c:forEach items="${ cartList }" var="pvo">
+								<tr>
+						            <td scope="col">${ pvo.pid } - ${ pvo.pname }</td>
+						            <td scope="col">${ pvo.quantity }</td>
+						            <td scope="col"><fmt:formatNumber value="${ pvo.price }"/> 원</td>
+						            <td scope="col"><fmt:formatNumber value="${ pvo.quantity * pvo.price }"/> 원</td>
+						            <td><a class="badge bg-danger" href="cartRemoveProc.jsp?pid=${ pvo.pid }">삭제</a></td>>
+						        </tr>
+							</c:forEach>
                             </tbody>
                             <tfoot>
                             	<tr>
                                     <td colspan="2"></td>
                                     <td><strong>총액</strong></td>
-                                    <td><%= sum %></td>
+                                    <td><fmt:formatNumber value="<%= sum %>"/> 원</td>
                                     <td></td>
                                 </tr>
                             </tfoot>

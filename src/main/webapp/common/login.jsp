@@ -16,6 +16,15 @@
 	            <div class="row mb-5 justify-content-center">
 	            	<h3 class="col-md-6">로그인</h3>
 	            </div>
+	            <c:if test="${ param.msg != null && param.msg.equals('loginFail') }">
+		            <div class="container align-items-center text-center">
+						<div class="row justify-content-center">
+							<div class="col-md-6 alert alert-danger">
+						  		아이디 또는 비밀번호가 일치하지 않습니다.
+							</div>
+						</div>
+					</div>
+				</c:if>
 	            <!-- id input-->
 	            <div class="row mb-3 justify-content-center">
 	            	<div class="col-md-6">

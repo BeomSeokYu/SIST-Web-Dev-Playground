@@ -13,13 +13,8 @@
  <%
  	if (mdao.isMember(mvo)) {
  		session.setAttribute("sid", mvo.getUserid());
- 		response.sendRedirect("messages.jsp");
+ 		response.sendRedirect("messages.jsp?msg=login&title=Welcome");
  	} else {
-%>
-	<script>
-		alert('아이디 또는 비밀번호를 확인해 주세요.');
-		history.back();
-	</script>
-<%
+ 		response.sendRedirect("login.jsp?msg=loginFail");
  	}
  %>

@@ -96,7 +96,7 @@
 		</div>
     </section>
 <%@ include file="../includes/footer.jsp" %>
-<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$('#searchBtn').click(function() {
 		new daum.Postcode({
@@ -107,7 +107,7 @@
 		    }
 		}).open();
 	});
-</script> -->
+</script>
 <script>
 	$('#phone1').change(function () {
 		$('#phone2').focus();

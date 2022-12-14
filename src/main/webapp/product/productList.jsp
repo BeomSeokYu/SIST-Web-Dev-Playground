@@ -45,7 +45,7 @@
 					<img class="img-fluid h-50" alt="" src="../resources/imgs/<%= pvo.getPimage() %>">
 					<h3><%= pvo.getPname() %></h3>
 					<p><%= pvo.getDescription() %></p>
-					<p><%= fmt.format(pvo.getPrice()) %> 원</p>
+					<p><fmt:formatNumber value="<%= pvo.getPrice() %>"/> 원</p>
 					<p><a href="productInfo.jsp?pid=<%= pvo.getPid() %>" class="btn btn-secondary">상세 보기</a></p>
 				</div>
 		<% }

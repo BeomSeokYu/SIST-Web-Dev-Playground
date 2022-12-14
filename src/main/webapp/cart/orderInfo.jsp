@@ -116,7 +116,7 @@
 	                    </tr>
 	                </thead>
 	                <tbody>
-<%
+<%-- <%
 	if(cartList != null) {
 		for (ProductVO pvo : cartList) {
 			out.print("<tr>");
@@ -127,13 +127,21 @@
 			out.print("</tr>");
 		}
 	}
-%>
+%> --%>
+					<c:forEach items="${ cartList }" var="pvo">
+						<tr>
+				            <td scope="col">${ pvo.pid } - ${ pvo.pname }</td>
+				            <td scope="col">${ pvo.quantity }</td>
+				            <td scope="col"><fmt:formatNumber value="${ pvo.price }"/> 원</td>
+				            <td scope="col"><fmt:formatNumber value="${ pvo.quantity * pvo.price }"/> 원</td>
+				        </tr>
+					</c:forEach>
 	                </tbody>
 	                <tfoot>
 	                	<tr>
 	                        <td colspan="2"></td>
                             <td><strong>총액</strong></td>
-                            <td><%= sum %></td>
+                            <td><fmt:formatNumber value="<%= sum %>"/> 원</td>
 	                    </tr>
 	                </tfoot>
 	            </table>
