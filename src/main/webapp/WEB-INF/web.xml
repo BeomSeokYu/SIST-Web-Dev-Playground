@@ -32,6 +32,19 @@
   	<location>/error/devideZero.jsp</location>
   </error-page>
   
+  <filter>
+  	<filter-name>EncodingFilter</filter-name>
+  	<filter-class>jspz.filter.EncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>charSet</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>EncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
   <servlet>
   	<servlet-name>config</servlet-name>
   	<jsp-file>/basic/config.jsp</jsp-file>
