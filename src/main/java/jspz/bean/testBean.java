@@ -5,6 +5,15 @@ public class testBean {
 	private String city;
 	private String name;
 	
+	
+	public testBean() {
+		
+	}
+	public testBean(String country, String city, String name) {
+		this.country = country;
+		this.city = city;
+		this.name = name;
+	}
 	public String getCountry() {
 		return country;
 	}
