@@ -22,6 +22,28 @@
   	<param-value>/upload/</param-value>
   </context-param>
   
+  <security-role>
+  	<role-name>role1</role-name>
+  </security-role>
+  <security-constraint>					<!-- 접근 권한 정의 -->
+  	<web-resource-collection>			<!-- 자원 접근 설정 -->
+  		<web-resource-name>jspz</web-resource-name>
+  		<url-pattern>/security/security.jsp</url-pattern>	<!-- 시큐리티 적용 대상 -->
+  		<http-method>GET</http-method>
+  	</web-resource-collection>
+  	<auth-constraint>					<!-- 허용 권한 정의 -->
+  		<role-name>role1</role-name>
+  	</auth-constraint>
+  </security-constraint>
+  <login-config>						<!-- 인증 처리 설정 -->
+  	<!-- <auth-method>BASIC</auth-method> -->
+  	<auth-method>FORM</auth-method>
+  	<form-login-config>
+  		<form-login-page>/security/securityLogin.jsp</form-login-page>
+  		<form-error-page>/security/securityLoginFailed.jsp</form-error-page>
+  	</form-login-config>
+  </login-config>
+  
   <error-page>
   	<error-code>404</error-code>
   	<location>/error/notFound.jsp</location>
