@@ -1,3 +1,4 @@
+<%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%! String greetingUpper = "WELCOME to WEB SHOPPING MALL"; %>
@@ -30,6 +31,14 @@
                 <h1 class="m-3"><%= greetingLower %></h1>
             </div>
         </div>
+    			<% 
+    				Enumeration e = session.getAttributeNames();
+    				while(e.hasMoreElements()) {
+    					String s = (String) e.nextElement();
+    					out.print(s + " | " + session.getAttribute(s) + "<br>");
+    				}
+    			
+    			%>
     </section>
 <%@ include file="includes/footer.jsp" %>
 </body>

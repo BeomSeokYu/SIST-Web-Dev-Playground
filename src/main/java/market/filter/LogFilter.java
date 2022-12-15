@@ -28,7 +28,7 @@ public class LogFilter extends HttpFilter implements Filter {
 		sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
 		String logPath = fConfig.getServletContext().getRealPath("\\resources\\log\\");
 		String logFile = "\\" + getDateTime().split(" ")[0] + ".log";
-		System.out.println(logPath + logFile);
+		//System.out.println(logPath + logFile);
 		try {
 			pw = new PrintWriter(new FileWriter(logPath + logFile), true);
 		} catch (IOException e) {
@@ -40,16 +40,16 @@ public class LogFilter extends HttpFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		long start = System.currentTimeMillis();
 		
-		System.out.println("접속 시간 : " + this.getDateTime());
-		System.out.println("클라이언트 IP : " + request.getRemoteAddr());
-		System.out.println("요청 URL : " + req.getRequestURI());
+		//System.out.println("접속 시간 : " + this.getDateTime());
+		//System.out.println("클라이언트 IP : " + request.getRemoteAddr());
+		//System.out.println("요청 URL : " + req.getRequestURI());
 		pw.write("접속 시간 : " + this.getDateTime() + "\r\n");
 		pw.write("클라이언트 IP : " + request.getRemoteAddr() + "\r\n");
 		pw.write("요청 URL : " + req.getRequestURI() + "\r\n");
 		
 		long end = System.currentTimeMillis();
-		System.out.println("처리 완료 : " + this.getDateTime());
-		System.out.println("소요 시간 : " + (end - start) + "ms");
+		//System.out.println("처리 완료 : " + this.getDateTime());
+		//System.out.println("소요 시간 : " + (end - start) + "ms");
 		pw.write("처리 완료 : " + this.getDateTime() + "\r\n");
 		pw.write("소요 시간 : " + (end - start) + "ms\r\n");
 		pw.write("\r\n----------------------------------------\r\n");

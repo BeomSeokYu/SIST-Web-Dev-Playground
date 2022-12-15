@@ -19,8 +19,6 @@
 	String uploadPath = application.getInitParameter("uploadPath");
 	String savePath = application.getRealPath(uploadPath);
 	
-	System.out.print(savePath);
-	
 	int maxSize = 5242880;
 	String encType = "UTF-8";
 	

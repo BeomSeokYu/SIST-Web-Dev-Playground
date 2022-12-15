@@ -8,6 +8,11 @@ $('#regBtn').on('click', function () {
 	checkProduct();
 });
 
+$('#modBtn').on('click', function () {
+	//checkProduct();
+	$('#pModForm').submit();
+});
+
 $('#logoutBtn').on('click', function () {
 	if(window.confirm('로그아웃 하시겠습니까?')) {
 		location.href = 'logoutProc.jsp';

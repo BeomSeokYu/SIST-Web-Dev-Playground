@@ -5,7 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	List<ProductVO> cList = (ArrayList<ProductVO>) session.getAttribute("cartList");
 %>
@@ -39,7 +38,16 @@
         			}
         		%> --%>
                     <li class="${ liClass }"><a class="${ aClass }" href="/market/product/productList.jsp">상품 목록</a></li>
-                    <li class="${ liClass }"><a class="${ aClass }" href="/market/product/productAdd.jsp?lang=ko">상품 등록</a></li>
+                    <li class="${ liClass } nav-item dropdown">
+			        	<a class="${ aClass } nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			        		상품 관리
+			        	</a>
+			        	<ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+			            	<li class="${ liClass }"><a class="${ aClass }" href="/market/product/productAdd.jsp?lang=ko">상품 등록</a></li>
+			            	<li class="${ liClass }"><a class="${ aClass }" href="/market/product/productEdit.jsp?edit=modify">상품 수정</a></li>
+			            	<li class="${ liClass }"><a class="${ aClass }" href="/market/product/productEdit.jsp?edit=remove">상품 삭제</a></li>
+			        	</ul>
+			        </li>
                	<% if (cList != null && cList.size() > 0) { %>
                     	<li class="${ liClass }"><a class="${ aClass }" href="/market/cart/cart.jsp">장바구니<span class="badge bg-danger"> <%= cList.size() %> </span></a></li>
             	<%	} else { %>
