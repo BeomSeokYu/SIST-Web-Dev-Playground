@@ -43,7 +43,6 @@ public class DBCPInitListener implements ServletContextListener {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	public void contextDestroyed(ServletContextEvent sce)  { 
