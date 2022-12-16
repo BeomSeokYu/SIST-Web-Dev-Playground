@@ -20,13 +20,15 @@
             <ul class="navbar-nav ms-auto">
             	<c:set var="liClass" value="nav-item mx-0 mx-lg-1"/>
             	<c:set var="aClass" value="nav-link py-3 px-0 px-lg-3 text-white rounded"/>
+            	<% if(request.isUserInRole("admin")) { session.setAttribute("sid", "admin"); } %>
             	<c:choose>
             	<c:when test="${ sid == null }">
             		<li class="${ liClass }"><a class="${ aClass }" href="/market/common/login.jsp">로그인</a></li>
             		<li class="${ liClass }"><a class="${ aClass }" href="/market/common/join.jsp">회원 가입</a></li>
             	</c:when>
             	<c:otherwise>
-            		<li class="${ liClass }"><a class="${ aClass }" href="/market/common/logoutProc.jsp">[${ sid }] 로그아웃</a></li>
+            		<li class="${ liClass }"><a class="${ aClass }" href="/market/common/logoutProc.jsp">[${ sid } 님] 로그아웃</a></li>
+            		<li class="${ liClass }"><a class="${ aClass }" href="/market/member/memberProc.jsp">내 정보</a></li>
             	</c:otherwise>
             	</c:choose>
         		<%-- <%
@@ -53,7 +55,6 @@
             	<%	} else { %>
             			<li class="${ liClass }"><a class="${ aClass }" href="/market/cart/cart.jsp">장바구니</a></li>
             	<%	} %>
-            	
             </ul>
         </div>
     </div>

@@ -31,7 +31,6 @@
 
 <jsp:useBean id="pdao" class="market.dao.ProductDAO"/>
 <%
-	DecimalFormat fmt = new DecimalFormat("###,###");
 	List<ProductVO> list = pdao.selectAllProduct();
 	if (list == null || list.isEmpty()) {
 		// 목록이 없을 경우

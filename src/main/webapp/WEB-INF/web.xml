@@ -43,4 +43,18 @@
   		<form-error-page>/admin/loginFailed.jsp</form-error-page>
   	</form-login-config>
   </login-config>
+  
+  <!-- Encoding Filter -->
+  <filter>
+  	<filter-name>EncodingFilter</filter-name>
+  	<filter-class>market.filter.EncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>charSet</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>EncodingFilter</filter-name>
+  	<url-pattern>*.do</url-pattern>
+  </filter-mapping>
 </web-app>

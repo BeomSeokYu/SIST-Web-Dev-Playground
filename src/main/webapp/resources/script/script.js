@@ -99,10 +99,10 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 
 // submit 유효성 검사 (부트스트랩)
 function checkProduct() {
-	var pidPtn = /^P[0-9]{4,9}$/g
-	var pnamePtn = /^([a-zA-Z0-9][_ ]*){1,20}$/g
-	var pricePtn = /(^[0-9]+$)|(^[0-9]+.[0-9]{1,2}$)/g
-	var stockPtn = /^[0-9]+$/g
+	var pidPtn = /^P[0-9]{4,9}$/g;
+	var pnamePtn = /^([a-zA-Z0-9][_ ]*){1,20}$/g;
+	var pricePtn = /(^[0-9]+$)|(^[0-9]+.[0-9]{1,2}$)/g;
+	var stockPtn = /^[0-9]+$/g;
 	
 	var inputPid = $('#inputPid');
 	var inputPname = $('#inputPname');
@@ -141,3 +141,106 @@ Array.prototype.slice.call(forms)
         form.classList.add('was-validated')
  	}, false);
 })*/
+
+// 회원가입, 회원 수정
+	var idPtn = /[a-zA-Z0-9]{5,15}$/g;
+    var pwPtn = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W).{8,}$/g;
+    var namePtn = /[a-zA-Z가-힣 ]{1,}$/g;
+    var emailFrontPtn = /[a-zA-Z0-9._-]+/g;
+    var emailRearPtn = /[a-zA-Z0-9._-]+[.][A-Za-z]{2,4}$/g;
+
+    $('#userid').attr('pattern', idPtn);
+    $('#userpw').attr('pattern', pwPtn);
+    $('#usernm').attr('pattern', namePtn);
+    $('#email1').attr('pattern', emailFrontPtn);
+    $('#email2').attr('pattern', emailRearPtn);
+
+    var forms = $('.needs-validation');
+    Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        }, false);
+    });
+	
+	$('#DupChkBtn').on('click', function () {
+        $.post(
+            'idChkProc.jsp',
+            {"id": $('#userid').val()},
+            function(result) {
+            	console.log(result.trim());
+                if ($('#userid').val().trim().match(idPtn)){
+                    if(result.trim() == 'false') {
+                        $('#id-msg').text('이미 사용중인 아이디 입니다.');
+                        $('#id-msg').attr('class','text-danger')
+                    } else{
+                        $('#id-msg').text('사용 가능한 아이디 입니다.');
+                        $('#id-msg').attr('class','text-primary')
+                    }
+                } else {
+                	$('#id-msg').text('조건을 확인해 주세요.');
+                	$('#id-msg').attr('class','text-danger')
+                }
+            });
+   });
+	
+	$('#userpw').on('keyup', function (event){
+        if(!$('#userpw').val().trim().match(pwPtn)) {
+        	$('#pw-msg').text('사용불가');
+            $('#pw-msg').attr('class','text-danger')
+            $('#pw-chk-msg').text('');
+        } else {
+        	$('#pw-msg').text('사용가능');
+            $('#pw-msg').attr('class','text-primary')
+        }
+    });
+	
+	$('#userpw_chk').on('keyup', function (event){
+		if($('#userpw').val().trim().match(pwPtn)) {
+	        if($('#userpw').val() != $('#userpw_chk').val()) {
+	        	$('#pw-chk-msg').text('일치하지 않습니다.');
+	            $('#pw-chk-msg').attr('class','text-danger')
+	        } else {
+	        	$('#pw-chk-msg').text('일치합니다.');
+	            $('#pw-chk-msg').attr('class','text-primary')
+	        }
+		}
+    });
+	
+	$('#autoSizingSelect').on('change', function() {
+        var selVal = $(this).val();
+        var input = $('#email2');
+        input.val(selVal);
+        if (selVal == '') {
+            input.focus();
+            input.prop('readonly', false);
+        } else {
+            input.prop('readonly', true);
+        }
+    });
+    
+    function checkJoinValidation() {
+    	var result = true;
+    	if (!$('#userid').val().trim().match(idPtn)) {
+    		result = false;
+    	}
+    	if (!$('#userpw').val().trim().match(pwPtn)) {
+    		result = false;
+    	}
+    	if($('#userpw').val() != $('#userpw_chk').val()) {
+    		result = false;
+    	}
+    	if (!$('#usernm').val().trim().match(namePtn)) {
+    		result = false;
+    	}
+    	if (!$('#email1').val().trim().match(emailFrontPtn)) {
+    		result = false;
+    	}
+    	if (!$('#email2').val().trim().match(emailRearPtn)) {
+    		result = false;
+    	}
+    	return result;
+    }

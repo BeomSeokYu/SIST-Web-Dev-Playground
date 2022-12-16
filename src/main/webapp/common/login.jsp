@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@ include file="../includes/header.jsp" %>
-	<!-- Servay Section-->
+	<!-- Section-->
 	<section class="page-section" id="login" style="margin-top: 100px; margin-bottom: 200px;">
 	    <div class="container">
 	        <form action="loginProc.jsp" id="loginForm" class="needs-validation" novalidate>

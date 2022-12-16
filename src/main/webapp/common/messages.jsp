@@ -26,13 +26,41 @@
 		<div class="container mt-5 align-items-center text-center">
 			<div class="row mb-5 justify-content-center">
 				<div class="alert alert-danger">
-					<c:if test="${ param.msg != null && param.msg.equals('login') }">
-			  			${ sid } 님 어서오세요~
-			  		</c:if>
-			  		<c:if test="${ param.msg != null && param.msg.equals('logout') }">
-			  			<p>로그아웃이 완료되었습니다.</p>
-			  			<p>이용해 주셔서 감사합니다.</p>
-			  		</c:if>
+					<c:choose>
+						<c:when test="${ param.msg != null && param.msg.equals('login') }">
+							${ sid } 님 어서오세요~
+						</c:when>
+						<c:when test="${ param.msg != null && param.msg.equals('logout') }">
+							<p>로그아웃이 완료되었습니다.</p>
+			  				<p>이용해 주셔서 감사합니다.</p>
+						</c:when>
+						<c:when test="${ param.msg != null && param.msg.equals('joinOK') }">
+							<p>회원 가입이 완료되었습니다.</p>
+			  				<p>로그인 후 이용해 주세요.</p>
+						</c:when>
+						<c:when test="${ param.msg != null && param.msg.equals('joinFail') }">
+							<p>회원 가입에 실패하였습니다.</p>
+			  				<p>잠시 후 다시 이용해 주세요.</p>
+						</c:when>
+						<c:when test="${ param.msg != null && param.msg.equals('ModOK') }">
+							<p>회원 정보가 수정되었습니다.</p>
+						</c:when>
+						<c:when test="${ param.msg != null && param.msg.equals('ModFail') }">
+							<p>회원 정보 수정에 실패하였습니다.</p>
+			  				<p>잠시 후 다시 이용해 주세요.</p>
+						</c:when>
+						<c:when test="${ param.msg != null && param.msg.equals('DelOK') }">
+							<p>회원 탈퇴되었습니다.</p>
+			  				<p>그동안 이용해 주셔서 감사합니다.</p>
+						</c:when>
+						<c:when test="${ param.msg != null && param.msg.equals('DelFail') }">
+							<p>회원 탈퇴에 실패하였습니다.</p>
+			  				<p>잠시 후 다시 이용해 주세요.</p>
+						</c:when>
+						<c:otherwise>
+							<p>잘못된 접근입니다.</p>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<p><a class="btn btn-primary mt-5" href="../index.jsp">메인으로</a></p>
 			</div>

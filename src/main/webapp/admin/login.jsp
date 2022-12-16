@@ -49,7 +49,6 @@
 	</section>
 <script>
 	function setId() {
-		<% session.setAttribute("sid", "admin"); %>
 		document.querySelector('#adminLoginForm').submit();
 	}
 </script>

@@ -7,6 +7,7 @@
 	그렇지 않으면 로그인 화면으로 이동
  --%>
  <jsp:useBean id="mdao" class="market.dao.MemberDAO"/>
+ <jsp:setProperty property="con" name="mdao" value="${ con }"/>
  <jsp:useBean id="mvo" class="market.vo.MemberVO"/>
  <jsp:setProperty property="userid" name="mvo"/>
  <jsp:setProperty property="userpw" name="mvo"/>
