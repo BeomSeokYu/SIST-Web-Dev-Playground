@@ -29,8 +29,10 @@
 				cartList.add(pvo);
 			}
 		}
+		//out.print(true);
 		response.sendRedirect("../product/productInfo.jsp?pid=" + pid);
 	} else {
+		//out.print(false);
 		pageContext.forward("../product/productList.jsp");
 	}
 // 요청객체에서 pid 가져오기 

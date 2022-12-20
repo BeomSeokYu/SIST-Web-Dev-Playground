@@ -45,6 +45,7 @@
 					</div>
 					<div class="col-md-4">
 						<input class="form-control" id="inputPid" type="text" name="pid" value="P" required>
+						<div id="pid-msg"></div>
 					</div>
 				</div>
 				<div class="form-group row mb-3 justify-content-center">
@@ -76,7 +77,7 @@
 						<p><fmt:message key="maker"/></p>
 					</div>
 					<div class="col-md-4">
-						<input class="form-control" type="text" name="maker" required>
+						<input class="form-control" type="text" id="inputMaker" name="maker" required>
 					</div>
 				</div>
 				<div class="form-group row mb-3 justify-content-center">
@@ -123,6 +124,11 @@
 						<img class="w-75" id="pimg" alt="..." src="../resources/imgs/default.png">
 					</div>
 				</div>
+				<div class="row justify-content-center text-truncate">
+                    <div class="col-md-4 px-1 text-end">
+                        <p class="text-danger" id="pErrMsg"></p>
+                    </div>
+                </div>
 				<div class="row mb-3 justify-content-end">
 					<div class="col-md-4">
 						<span><button class="btn btn-success" id="regBtn" type="button"><fmt:message key="addBtn"/></button></span>
@@ -135,6 +141,9 @@
     </fmt:bundle>
 <%@ include file="../includes/footer.jsp" %>
 <script>
+	$('#regBtn').on('click', function () {
+		checkProduct();
+	});
 	//$('#pimage').change(function() {
 	//	console.log($('#pimage').val());
 	//	$('#pimg').attr("src", $('#pimage').val());

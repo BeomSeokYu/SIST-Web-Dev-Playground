@@ -23,7 +23,7 @@
                 <!-- Name input-->
                 <div class="row justify-content-center text-truncate">
                     <div class="col-md-5 px-1 text-end">
-                        <span class="badge bg-primary">영문자+숫자 포함 5~15자</span>
+                        <span class="badge bg-secondary">영문자+숫자 포함 5~15자</span>
                     </div>
                     <div class="col-md-1 px-1"></div>
                 </div>
@@ -42,7 +42,7 @@
                 <!-- pw input-->
                 <div class="row justify-content-center text-truncate">
                     <div class="col-md-5 px-1 text-end">
-                        <span class="badge bg-primary">영문자+숫자+특수문자 포함 8자 이상</span>
+                        <span class="badge bg-secondary">영문자+숫자+특수문자 포함 8자 이상</span>
                     </div>
                     <div class="col-md-1 px-1"></div>
                 </div>
@@ -168,12 +168,7 @@
 <script>
 	$('#submitBtn').click(function() {
 		$('#email').val($('#email1').val()+'@'+$('#email2').val());
-		console.log(checkJoinValidation());
-		if(checkJoinValidation() == true) {
-			$('#frm').submit();
-		} else {
-			$('#errMsg').text('입력 양식에 맞지 않는 항목이 있습니다.');
-		}
+		checkJoinValidation();
 	});
 </script>
 </body>

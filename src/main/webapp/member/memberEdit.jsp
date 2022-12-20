@@ -18,7 +18,7 @@
     <header class="masthead bg-secondary mt-5 text-white">
         <div class="container d-flex flex-column">
         	<div class="mt-5"></div>
-            <h1 class="masthead-heading m-5">내 정보 수정</h1>
+            <h1 class="masthead-heading m-5">내 정보</h1>
         </div>
     </header>
     <!-- Section -->

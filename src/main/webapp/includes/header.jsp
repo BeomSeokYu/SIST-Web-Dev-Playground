@@ -55,6 +55,7 @@
             	<%	} else { %>
             			<li class="${ liClass }"><a class="${ aClass }" href="/market/cart/cart.jsp">장바구니</a></li>
             	<%	} %>
+            		<li class="${ liClass }"><a class="${ aClass }" href="/market/BoardList.do">게시판</a></li>
             </ul>
         </div>
     </div>
