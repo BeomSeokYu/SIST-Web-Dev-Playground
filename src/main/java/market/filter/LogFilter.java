@@ -24,7 +24,7 @@ public class LogFilter extends HttpFilter implements Filter {
 	private SimpleDateFormat sdf;
 	
 	public void init(FilterConfig fConfig) throws ServletException {
-		System.out.println("- MARKET ACCESS LOGGING start -");
+		//System.out.println("- MARKET ACCESS LOGGING start -");
 		sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
 		String logPath = fConfig.getServletContext().getRealPath("\\resources\\log\\");
 		String logFile = "\\" + getDateTime().split(" ")[0] + ".log";
@@ -58,7 +58,7 @@ public class LogFilter extends HttpFilter implements Filter {
 	}
 	
 	public void destroy() {
-		System.out.println("- MARKET ACCESS LOGGING end -");
+		//System.out.println("- MARKET ACCESS LOGGING end -");
 		pw.close();
 	}
 	

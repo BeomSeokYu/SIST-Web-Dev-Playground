@@ -81,6 +81,33 @@ public class BoardDAO {
 	    return bvo;
 	}
 	
+	public List<BoardVO> search(String where, String word) {
+		String sql = "SELECT * FROM board WHERE "+ where + " LIKE '%' || ? || '%' ORDER BY num DESC";
+		List<BoardVO> boardList = new ArrayList<>();
+		BoardVO bvo = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, word);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				bvo = new BoardVO();
+				bvo.setNum(rs.getInt(1));
+				bvo.setUserid(rs.getString(2));
+				bvo.setSubject(rs.getString(3));
+				bvo.setContent(rs.getString(4));
+				bvo.setRegDate(rs.getDate(5));
+				bvo.setHit(rs.getInt(6));
+				bvo.setIp(rs.getString(7));
+				boardList.add(bvo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBCon.close(rs, pstmt);
+		}
+		return boardList;
+	}
+	
 	public boolean insert(BoardVO bvo) {
 		String sql = "INSERT INTO board ("
 				+ "num"
@@ -108,16 +135,31 @@ public class BoardDAO {
 	}
 	
 	public boolean update(BoardVO bvo) {
-		String sql = "UPDATE board SET "
-				+ "subject=?"
-				+ ", content=?"
-				+ " WHERE num=?";
+		String sql = "UPDATE board SET subject=?, content=? WHERE num=?";
 		boolean result = false;
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bvo.getSubject());
 			pstmt.setString(2, bvo.getContent());
 			pstmt.setInt(3, bvo.getNum());
+			if(pstmt.executeUpdate() == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBCon.close(pstmt);
+		}
+		return result;
+	}
+	
+	public boolean updateHit(int num, int hit) {
+		String sql = "UPDATE board SET hit=? WHERE num=?";
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, hit);
+			pstmt.setInt(2, num);
 			if(pstmt.executeUpdate() == 1) {
 				result = true;
 			}

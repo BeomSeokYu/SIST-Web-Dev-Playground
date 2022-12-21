@@ -30,35 +30,53 @@
         <div class="container mt-5">
         	<form class="form-horizontal needs-validation" id="boardViewForm" action="/market/BoardModify.do" method="post">
 	        	<div class="form-group row mb-3 justify-content-center">
-	        		<div class="col-md-2">
+	        		<div class="col-md-1">
 						<p>성명</p>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<input class="form-control" id="userid" type="text" name="userid" value="${ bvo.userid }" readonly>
 						<div id="pid-msg"></div>
 					</div>
 				</div>
 				<div class="form-group row mb-3 justify-content-center">
-	        		<div class="col-md-2">
+	        		<div class="col-md-1">
 						<p>제목</p>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<input class="form-control" id="subject" type="text" name="subject" value="${ bvo.subject }" required>
 					</div>
 				</div>
 				<div class="form-group row mb-3 justify-content-center">
-	        		<div class="col-md-2">
+	        		<div class="col-md-1">
 						<p>내용</p>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<textarea class="form-control" id="content" name="content" rows="10" required>${ bvo.content }</textarea>
 					</div>
 				</div>
+				<div class="form-group row mb-3 justify-content-center">
+	        		<div class="col-md-1">
+						<p>IP</p>
+					</div>
+					<div class="col-md-5">
+						<input class="form-control" id="subject" type="text" name="subject" value="${ bvo.ip }" readonly>
+					</div>
+				</div>
+				<div class="form-group row mb-3 justify-content-center">
+	        		<div class="col-md-1">
+						<p>조회수</p>
+					</div>
+					<div class="col-md-5">
+						<input class="form-control" id="subject" type="text" name="subject" value="${ bvo.hit }" readonly>
+					</div>
+				</div>
 				<div class="row mb-3 justify-content-end">
+					<div class="col-md-1"></div>
 					<div class="col-md-4">
+						<input type="hidden" name="num" value="${ bvo.num }">
 						<c:if test="${ sid == bvo.userid }">
-							<span><button class="btn btn-success" id="boardModBtn" type="submit">수정</button></span>
-							<span><button class="btn btn-danger" id="boardDelBtn" onclick="boardRemove('${ bvo.num }')">삭제</button></span>
+							<span><button class="btn btn-success" id="boardModBtn" type="button" onclick="boardModify()">수정</button></span>
+							<span><button class="btn btn-danger" id="boardDelBtn" type="button" onclick="boardRemove('${ bvo.num }')">삭제</button></span>
 						</c:if>
 						<span><a class="btn btn-secondary backBtn" href="/market/BoardList.do">목록</a></span>
 					</div>
@@ -68,15 +86,20 @@
     </section>
 <%@ include file="../includes/footer.jsp" %>
 <script>
-function boardRemove(num) {
-	if(window.confirm('정말로 삭제하시겠습니까?')) {
-		location.href = '/market/BoardRemove.do?num='+num;
+	function boardRemove(num) {
+		if(window.confirm('정말로 삭제하시겠습니까?')) {
+			location.href = '/market/BoardRemove.do?num='+num;
+		}
 	}
-}
-	//$('#pimage').change(function() {
+	function boardModify(num) {
+		if(window.confirm('정말로 수정하시겠습니까?')) {
+			$('#boardViewForm').submit();
+		}
+	}
+	// $('#pimage').change(function() {
 	//	console.log($('#pimage').val());
 	//	$('#pimg').attr("src", $('#pimage').val());
-	//});
+	// });
 </script>
 </body>
 </html>

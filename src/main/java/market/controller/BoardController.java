@@ -2,6 +2,8 @@ package market.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -54,12 +56,20 @@ public class BoardController extends HttpServlet {
 			sendFlag = true;
 			break;
 		case "/BoardRemove.do":
-			System.out.println("====");
 			remove(request);
 			sendFlag = true;
 			break;
 		case "/BoardView.do":
 			view(request);
+			break;
+		case "/BoardSearchSubject.do":
+			search(request, "subject");
+			break;
+		case "/BoardSearchContent.do":
+			search(request, "content");
+			break;
+		case "/BoardSearchUserid.do":
+			search(request, "Userid");
 			break;
 
 		default:
@@ -69,6 +79,7 @@ public class BoardController extends HttpServlet {
 		//		/BoardWriteForm.do 면 게시물 작성 폼으로 이동
 		//		/BoardWrite.do 면 게시물 작성 처리
 		// ...
+		System.out.println("url : " + url);
 		if(!sendFlag) {
 			RequestDispatcher rd = request.getRequestDispatcher(url);
 			rd.forward(request, response); // 저장된 url로 포워딩
@@ -91,7 +102,7 @@ public class BoardController extends HttpServlet {
 	public void modify(HttpServletRequest req) { // 게시물 조회
 		// 파라미터로 전달된 게시물 번호, 제목 내용을 받아서 BoardVO에 저장
 		BoardVO bvo = new BoardVO();
-		bvo.setUserid(req.getParameter("userid"));
+		bvo.setNum(Integer.parseInt(req.getParameter("num")));
 		bvo.setSubject(req.getParameter("subject"));
 		bvo.setContent(req.getParameter("content"));
 		// 게시물 수정 처리를 한 후 수정에 성공하면 세션의 msg 속성에 '게시물이 수정되었습니다.'를 저장하고
@@ -144,10 +155,23 @@ public class BoardController extends HttpServlet {
 		
 	}
 	
+	public void search(HttpServletRequest req, String where) { // 게시판 작성
+
+		List<BoardVO> list = bdao.search(where, req.getParameter("searchText"));
+		System.out.println(list.size());
+		req.setAttribute("boardList", list);
+		req.setAttribute("total", bdao.totalCount());
+		url = "/board/boardList.jsp?search="+req.getParameter("searchText")+"&select="+req.getParameter("select");
+	}
+	
 	public void updateHit(BoardVO bvo) { // 게시물 조회수 증가
 		if(bvo != null) {
 			if (!bvo.getUserid().equals(session.getAttribute("sid"))) {
-				bvo.setHit(bvo.getHit()+1);
+				if ( bdao.updateHit(bvo.getNum(), bvo.getHit()+1) ) {
+					bvo.setHit(bvo.getHit()+1);
+				} else {
+					System.out.println("setHit Fail");
+				}
 			}
 		}
 	}

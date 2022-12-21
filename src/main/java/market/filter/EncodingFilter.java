@@ -15,19 +15,19 @@ public class EncodingFilter extends HttpFilter implements Filter {
 	private String charSet;
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		System.out.println("market EncodingFilter init()");
+		//System.out.println("market EncodingFilter init()");
 		charSet = fConfig.getInitParameter("charSet");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		request.setCharacterEncoding(charSet);
 		response.setCharacterEncoding("text/html; charset=" + charSet);
-		System.out.println("market EncodingFilter doFilter()");
+		//System.out.println("market EncodingFilter doFilter()");
 		chain.doFilter(request, response);
 	}
 	
 	public void destroy() {
-		System.out.println("market EncodingFilter destroy()");
+		//System.out.println("market EncodingFilter destroy()");
 	}
 
 }

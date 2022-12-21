@@ -16,8 +16,8 @@
 
  <%
  	if (mdao.insert(mvo)) {
- 		response.sendRedirect("messages.jsp?msg=joinOK&title=Welcome~");
+ 		response.sendRedirect("/market/common/messages.jsp?msg=joinOK&title=Welcome~");
  	} else {
- 		response.sendRedirect("messages.jsp?msg=joinFail&title=Join Failed");
+ 		response.sendRedirect("/market/common/messages.jsp?msg=joinFail&title=Join Failed");
  	}
  %>
