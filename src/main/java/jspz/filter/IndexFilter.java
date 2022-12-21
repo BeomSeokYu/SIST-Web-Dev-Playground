@@ -15,19 +15,19 @@ public class IndexFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
 
 	public void destroy() {
-		System.out.println("destroy()");
+		//System.out.println("destroy()");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// place your code here
-		System.out.println("doFilter() - BEFORE");
+		//System.out.println("doFilter() - BEFORE");
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
-		System.out.println("doFilter() - AFTER");
+		//System.out.println("doFilter() - AFTER");
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		System.out.println("init()");
+		//System.out.println("init()");
 	}
 
 }
