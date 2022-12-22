@@ -31,7 +31,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="edu.springz.exception" />
-	<context:component-scan base-package="edu.springz.test" />
+	<context:component-scan base-package="edu.springz.persistence" />
 	
 	
 	
