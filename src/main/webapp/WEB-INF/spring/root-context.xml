@@ -32,6 +32,7 @@
 	
 	<!-- MyBatis Mapper -->
 	<mybatis-spring:scan base-package="edu.springz.mapper"/>
+	<context:component-scan base-package="edu.springz.service"/>
 		
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- <context:component-scan base-package="edu.springz.sample"/> -->

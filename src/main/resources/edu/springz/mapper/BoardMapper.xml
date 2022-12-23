@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.springz.mapper.BoardMapper">
+  <select id="selectBoardAll" resultType="edu.springz.domain.BoardVO">
+  	<![CDATA[
+  		SELECT bno, title, content, writer, reg_date, update_date FROM tbl_board WHERE bno > 0
+  	]]>
+  </select>
+  
+  <select id="selectBoard" resultType="edu.springz.domain.BoardVO">
+  	SELECT bno, title, content, writer, reg_date, update_date FROM tbl_board WHERE bno = #{bno}
+  </select>
+  
+  <insert id="insertBoardSelectKey">
+  	<!-- bno을 사전에 증가 시켜 bno으로 저장해 둠 -->
+  	<selectKey keyProperty="bno" order="BEFORE" resultType="int">
+  		SELECT seq_tbl_board.NEXTVAL FROM dual
+  	</selectKey>
+  	INSERT INTO tbl_board(bno, title, content, writer) 
+  	VALUES(#{bno}, #{title}, #{content}, #{writer})
+  </insert>
+  
+  <insert id="insertBoard">
+  	INSERT INTO tbl_board(bno, title, content, writer) 
+  	VALUES(seq_tbl_board.NEXTVAL, #{title}, #{content}, #{writer})
+  </insert>
+  
+  <delete id="deleteBoard">
+  	DELETE FROM tbl_board WHERE bno = #{bno}
+  </delete>
+  
+  <update id="updateBoard">
+  	UPDATE tbl_board
+  	SET title=#{title}, content=#{content}, update_date=SYSDATE WHERE bno = #{bno}
+  </update>
+</mapper>
