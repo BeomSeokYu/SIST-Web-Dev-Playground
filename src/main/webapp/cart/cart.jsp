@@ -75,7 +75,7 @@
 						            <td scope="col">${ pvo.quantity }</td>
 						            <td scope="col"><fmt:formatNumber value="${ pvo.price }"/> 원</td>
 						            <td scope="col"><fmt:formatNumber value="${ pvo.quantity * pvo.price }"/> 원</td>
-						            <td><a class="badge bg-danger" href="cartRemoveProc.jsp?pid=${ pvo.pid }">삭제</a></td>>
+						            <td><a class="badge bg-danger" href="cartRemoveProc.jsp?pid=${ pvo.pid }">삭제</a></td>
 						        </tr>
 							</c:forEach>
                             </tbody>
