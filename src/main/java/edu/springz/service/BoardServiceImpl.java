@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.springz.domain.BoardVO;
+import edu.springz.domain.Criteria;
 import edu.springz.mapper.BoardMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -17,10 +18,15 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	
 	@Override
-	public List<BoardVO> list() {
-		return boardMapper.selectBoardAll();
+	public List<BoardVO> list(Criteria criteria) {
+		return boardMapper.selectBoardAllPaging(criteria);
 	}
-
+	
+	@Override
+	public int totalCount(Criteria criteria) {
+		return boardMapper.totalCount(criteria);
+	}
+	
 	@Override
 	public BoardVO view(int bno) {
 		return boardMapper.selectBoard(bno);

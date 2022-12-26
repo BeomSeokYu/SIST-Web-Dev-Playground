@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edu.springz.domain.BoardVO;
+import edu.springz.domain.Criteria;
 import edu.springz.mapper.BoardMapper;
 
 import lombok.Setter;
@@ -20,6 +21,16 @@ public class BoardMapperTests {
 	private BoardMapper boardMapper;
 	
 	@Test
+	public void testSelectAllPaging() {
+		Criteria criteria = new Criteria();
+		criteria.setPageNum(2);
+		log.info(boardMapper.selectBoardAllPaging(criteria));
+		boardMapper.selectBoardAllPaging(criteria).forEach(bvo -> {
+			log.info(bvo.getBno());
+		});
+	}
+	
+	//@Test
 	public void testUpdate() {
 		BoardVO bvo = new BoardVO();
 		bvo.setTitle("updateTitle");
@@ -38,9 +49,9 @@ public class BoardMapperTests {
 	//@Test
 	public void testInsertSelectKey() {
 		BoardVO bvo = new BoardVO();
-		bvo.setTitle("bbb");
-		bvo.setContent("ccc");
-		bvo.setWriter("ddd");
+		bvo.setTitle("111");
+		bvo.setContent("222");
+		bvo.setWriter("333");
 		
 		int bno = boardMapper.insertBoardSelectKey(bvo);
 		log.info("insertBoardSelectKey - bno : " + bno);

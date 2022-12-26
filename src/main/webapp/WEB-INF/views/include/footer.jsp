@@ -12,3 +12,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="/resources/dist/js/sb-admin-2.js"></script>
+
+<!-- JavaScript -->
+<script src="/resources/js/script.js"></script>

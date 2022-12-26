@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.springz.domain.BoardVO;
+import edu.springz.domain.Criteria;
+import edu.springz.domain.PageDTO;
 import edu.springz.service.BoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -33,9 +35,20 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("view")
+	@GetMapping("list")
+	public void list(Model model, Criteria criteria) {
+		model.addAttribute("list", boardService.list(criteria));
+		int totalCount = 123;
+		model.addAttribute("pageDTO", new PageDTO(criteria, totalCount));
+	}
+	
+	@GetMapping({"view", "modify"})	// 게시물 조회, 수정폼
 	public void view(int bno, Model model) {
 		model.addAttribute("bvo", boardService.view(bno));
+	}
+	
+	@GetMapping("register")
+	public void register() {
 	}
 	
 	@PostMapping("register")
@@ -45,8 +58,4 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("list")
-	public void list(Model model) {
-		model.addAttribute("list", boardService.list());
-	}
 }

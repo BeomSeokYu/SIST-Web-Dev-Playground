@@ -31,7 +31,7 @@ public class BoardControllerTests {
 		mockmvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
-	@Test
+//	@Test
 	public void testRemove() throws Exception {
 		log.info(mockmvc.perform(MockMvcRequestBuilders.post("/board/remove").param("bno", "7"))
 							.andReturn()
@@ -77,9 +77,11 @@ public class BoardControllerTests {
 		testList();
 	}
 	
-//	@Test
+	@Test
 	public void testList() throws Exception {
-		log.info(mockmvc.perform(MockMvcRequestBuilders.get("/board/list"))
+		log.info(mockmvc.perform(MockMvcRequestBuilders.get("/board/list")
+														.param("pageNum", "1")
+														.param("amount", "10"))
 					.andReturn()
 					.getModelAndView()
 					.getModelMap()

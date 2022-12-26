@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edu.springz.domain.BoardVO;
+import edu.springz.domain.Criteria;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -19,7 +20,7 @@ public class BoardServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private BoardService boardService;
 	
-	@Test
+	//@Test
 	public void testModify() {
 		BoardVO bvo = boardService.view(12);
 		bvo.setTitle("updateTitle");
@@ -33,9 +34,12 @@ public class BoardServiceTests {
 		boardService.remove(12);
 	}
 	
-	//@Test
+	@Test
 	public void testList() {
-		boardService.list().forEach(bvo -> {
+		Criteria criteria = new Criteria();
+		criteria.setPageNum(3);
+		log.info(boardService.list(criteria));
+		boardService.list(criteria).forEach(bvo -> {
 			log.info(bvo);
 		});
 	}
