@@ -59,7 +59,11 @@
 	                                	<div class="col-lg-12">
 			                                <button class="btn btn-danger" id="rmBtn" type="button">Remove</button>
 			                                <button class="btn btn-info" data-oper="modify" formaction="/board/modify">Modify</button>
-											<button class="btn btn-primary" data-oper="list" formaction="/board/list">List</button>
+											<button class="btn btn-primary" data-oper="list" formaction="/board/list" formmethod="get">List</button>
+											<input type="hidden" name="pageNum" id="pageNum" value="${ criteria.pageNum }">
+											<input type="hidden" name="amount" value="${ criteria.amount }">
+											<input type="hidden" name="keyword" value="${ criteria.keyword }">
+											<input type="hidden" name="type" value="${ criteria.type }">
 		                                </div>
 	                                </div>
 	                            </form>
@@ -83,6 +87,7 @@
 	$('#rmBtn').click(function () {
 		if(window.confirm('정말로 삭제하시겠습니까?')) {
 			$('#modifyForm').attr('action', '/board/remove')
+			$('#pageNum').val('1');
 			$('#modifyForm').submit();
 		}
 	});

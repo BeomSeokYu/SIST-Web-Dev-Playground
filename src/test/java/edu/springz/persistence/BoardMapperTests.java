@@ -21,6 +21,18 @@ public class BoardMapperTests {
 	private BoardMapper boardMapper;
 	
 	@Test
+	public void testSearch() {
+		Criteria criteria = new Criteria();
+		criteria.setType("TC");
+		criteria.setKeyword("t");
+		
+		log.info(boardMapper.selectBoardAllPaging(criteria));
+		boardMapper.selectBoardAllPaging(criteria).forEach(bvo -> {
+			log.info(bvo.getBno());
+		});
+	}
+	
+	//@Test
 	public void testSelectAllPaging() {
 		Criteria criteria = new Criteria();
 		criteria.setPageNum(2);

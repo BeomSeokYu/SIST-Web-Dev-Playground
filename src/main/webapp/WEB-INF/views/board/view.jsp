@@ -55,6 +55,10 @@
 							<input type="hidden" name="bno" value="${ bvo.bno }">
 							<button class="btn btn-info" data-oper="modify">Modify</button>
 							<button class="btn btn-primary" data-oper="list" formaction="/board/list">List</button>
+							<input type="hidden" name="pageNum" value="${ criteria.pageNum }">
+							<input type="hidden" name="amount" value="${ criteria.amount }">
+							<input type="hidden" name="keyword" value="${ criteria.keyword }">
+							<input type="hidden" name="type" value="${ criteria.type }">
 						</form>
 	                </div>           
 	                <!-- /.panel-body -->

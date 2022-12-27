@@ -21,4 +21,9 @@ public class Criteria {
 		this.amount = amount;
 		this.pageNum = pageNum;
 	}
+	
+	public String[] getTypeArr() {
+		//객체 타입의 T,C,W를 배열로 반환
+		return type == null ? new String[] {} : type.split("");
+	}
 }

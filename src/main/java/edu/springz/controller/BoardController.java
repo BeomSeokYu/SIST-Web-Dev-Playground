@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,26 +25,34 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@PostMapping("remove")
-	public String remove(int bno, RedirectAttributes rttr) {
+	public String remove(int bno, RedirectAttributes rttr, Criteria criteria) {
 		rttr.addFlashAttribute("result", boardService.remove(bno) ? "success" : "fail");
+		rttr.addAttribute("pageNum", criteria.getPageNum());
+		rttr.addAttribute("amound", criteria.getAmount());
+		rttr.addAttribute("keyword", criteria.getKeyword());
+		rttr.addAttribute("type", criteria.getType());
 		return "redirect:/board/list";
 	}
 	
 	@PostMapping("modify")
-	public String modify(BoardVO bvo, RedirectAttributes rttr) {
+	public String modify(BoardVO bvo, RedirectAttributes rttr, Criteria criteria) {
 		rttr.addFlashAttribute("result", boardService.modify(bvo) ? "success" : "fail");
+		rttr.addAttribute("pageNum", criteria.getPageNum());
+		rttr.addAttribute("amound", criteria.getAmount());
+		rttr.addAttribute("keyword", criteria.getKeyword());
+		rttr.addAttribute("type", criteria.getType());
 		return "redirect:/board/list";
 	}
 	
 	@GetMapping("list")
 	public void list(Model model, Criteria criteria) {
 		model.addAttribute("list", boardService.list(criteria));
-		int totalCount = 123;
+		int totalCount = boardService.totalCount(criteria);
 		model.addAttribute("pageDTO", new PageDTO(criteria, totalCount));
 	}
 	
 	@GetMapping({"view", "modify"})	// 게시물 조회, 수정폼
-	public void view(int bno, Model model) {
+	public void view(int bno, Model model, @ModelAttribute("criteria") Criteria criteria) {
 		model.addAttribute("bvo", boardService.view(bno));
 	}
 	

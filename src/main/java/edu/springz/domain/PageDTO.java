@@ -25,6 +25,9 @@ public class PageDTO {
 		end = (int) (Math.ceil(pageNum / NUM_PER_PAGE) * NUM_PER_PAGE);
 		start = (int) (end - (NUM_PER_PAGE - 1));
 		end = end >= pages ? pages : end;	// 실제 끝 페이지 번호 확인
+//		if (criteria.getPageNum() > end) {
+//			criteria.setPageNum(end);
+//		}
 		previous = start > 1;
 		next = end < pages;
 	}
