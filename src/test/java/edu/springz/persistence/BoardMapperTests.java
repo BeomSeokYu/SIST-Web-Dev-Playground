@@ -20,7 +20,7 @@ public class BoardMapperTests {
 	@Setter(onMethod_ = @Autowired)	// 세터 인젝션
 	private BoardMapper boardMapper;
 	
-	@Test
+//	@Test
 	public void testSearch() {
 		Criteria criteria = new Criteria();
 		criteria.setType("TC");

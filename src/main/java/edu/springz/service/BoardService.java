@@ -18,4 +18,5 @@ public interface BoardService {
 	public boolean remove(int bno);						// 게시물 삭제
 
 	public boolean modify(BoardVO bvo);					// 게시물 수정
+	
 }

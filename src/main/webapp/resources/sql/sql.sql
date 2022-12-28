@@ -1,3 +1,14 @@
+CREATE TABLE tbl_reply (
+    rno         NUMBER      CONSTRAINT  pk_tbl_reply  PRIMARY KEY,
+    bno         NUMBER      CONSTRAINT   fk_tbl_reply  REFERENCES tbl_board(bno)  NOT NULL,
+    reply       VARCHAR(1000)   NOT NULL,
+    replyer     VARCHAR(50)     NOT NULL,
+    reg_date    DATE        DEFAULT SYSDATE,
+    update_date DATE
+);
+
+CREATE SEQUENCE seq_tbl_reply NOCACHE;
+
 CREATE TABLE tbl_board(
     bno         number  CONSTRAINT pk_tbl_board PRIMARY KEY,
     title       VARCHAR2(200)   not null,

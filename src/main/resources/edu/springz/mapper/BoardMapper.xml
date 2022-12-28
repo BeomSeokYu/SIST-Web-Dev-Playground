@@ -53,14 +53,6 @@
   	]]>
   </select>
   
-  <select id="searchBoardTitle" resultType="edu.springz.domain.BoardVO">
-  	<![CDATA[
-  		SELECT bno, title, content, writer, reg_date as regDate, update_date as updateDate 
-  		FROM tbl_board WHERE bno > 0 
-  		ORDER BY bno DESC
-  	]]>
-  </select>
-  
   <select id="selectBoard" resultType="edu.springz.domain.BoardVO">
   	SELECT bno, title, content, writer, reg_date as regDate, update_date as updateDate
   	FROM tbl_board WHERE bno = #{bno}
