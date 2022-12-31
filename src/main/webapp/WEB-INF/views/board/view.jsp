@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+
 <jsp:include page="../include/header.jsp"/>
 <body>
 <jsp:include page="../include/navBar.jsp"/>
@@ -15,23 +16,23 @@
 	    </div>
 	    <!-- /.row -->
 	    <div class="row">
-	        <div class="col-lg-12">
+	        <div class="col-lg-offset-3 col-lg-6">
 	            <div class="panel panel-default">
 	                <div class="panel-heading">
 	                    Board View Page
 	                </div>
 	                <div class="panel-body">
                     	<div class="row">
-							<span class="text-left col-lg-6">
+							<span class="text-left col-xs-6">
 							       <label>#No</label>
 							</span>
-							<span class="text-right col-lg-6">
+							<span class="text-right col-xs-6">
 						      	<span>작성일 : <fmt:formatDate value="${ bvo.regDate }" pattern="yyyy.MM.dd (E)"/></span>
 							</span>
-							<div class="col-lg-12">
-						      	<input class="form-control" name="bno" value="${ bvo.bno }" readonly>
-						    </div>
 						</div>
+						<div class="">
+					      	<input class="form-control" name="bno" value="${ bvo.bno }" readonly>
+					    </div>
 						<div class="row">
 							<div class="col-lg-12">
 							    <label>Title</label>
@@ -64,86 +65,80 @@
 	                <!-- /.panel-body -->
 	            </div>
 	            <!-- /.panel -->
-	        </div>
+			    <div class="chat-panel panel panel-default">
+			        <div class="panel-heading">
+			            <i class="fa fa-comments fa-fw"></i> Reply
+			            <div class="chat-body clearfix">
+		            		<div>
+			            		<textarea class="form-control input-sm" rows="3" id="reply" name="reply" placeholder="reply" style="resize: none;"></textarea>
+					            <input id="replyer" name="replyer" type="text" class="form-control input-sm" placeholder="name" />
+					            <div class="pull-right">
+					            	<button class="btn btn-info btn-sm" id="regBtn" type="button">register</button>
+					            </div>
+			            	</div>
+			            </div>
+			        </div>
+			        <!-- /.panel-heading -->
+			        <div class="panel-body">
+			            <ul class="chat" id="replyList">
+			                <li data-rno="11" id="list11">
+			                    <div class="chat-body clearfix">
+			                        <div class="header">
+			                            <strong class="primary-font">replyer</strong>
+			                            <small class="pull-right text-muted">
+			                                <i class="fa fa-clock-o fa-fw"></i> date
+			                            </small>
+			                        </div>
+			                        <p>
+			                            reply
+			                        </p>
+			                        <div class="footer">
+			                        	<small class="pull-right text-muted">
+			                                <button class="btn btn-warning btn-xs">수정</button>
+			                                <button class="btn btn-danger btn-xs">삭제</button>
+			                            </small>
+			                        </div>
+			                    </div>
+			                </li>
+			            </ul>
+			        </div>
+			        <!-- /.panel-body -->
+			        <div class="panel-footer">
+			        	<div class="row text-center">
+							<ul class="pagination" id="pageUl">
+								<li class="page-item">
+								<!-- previous -->
+								<%-- <c:if test=""> --%>
+									<a class="page-link" onclick="" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+										<span class="sr-only">Previosus</span>
+									</a>
+								<%-- </c:if> --%>
+								</li>
+								<!-- page -->
+								<c:forEach  begin="1" end="5" var="i" varStatus="vs">
+									<li class="page-item ">
+										<a class="page-link" onclick="">${ i }</a>
+									</li>
+								</c:forEach>
+								<!-- next -->
+								<%-- <c:if test=""> --%>
+									<li class="page-item">
+										<a class="page-link" onclick="" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+											<span class="sr-only">Next</span>
+										</a>
+									</li>
+								<%-- </c:if> --%>
+							</ul>
+						</div>
+			        </div>
+			    </div>
+			    <!-- /.panel .chat-panel -->
+		    </div>
 	        <!-- /.col-lg-12 -->
 	    </div>
 	    <!-- /.row -->
-	    <div class="chat-panel panel panel-default">
-	        <div class="panel-heading">
-	            <i class="fa fa-comments fa-fw"></i> Reply
-	            <div class="chat-body clearfix">
-            		<p>
-            			<div class="row">
-		            		<div class="col-md-4">
-		            		<textarea class="form-control input-sm" rows="3" id="reply" name="reply" placeholder="reply" style="resize: none;"></textarea>
-		            		</div>
-		            		<div class="col-md-4">
-				                <input id="replyer" name="replyer" type="text" class="form-control input-sm" placeholder="name" />
-		            		</div>
-		            		<div class="col-md-4 pull-right">
-				            	<button class="btn btn-info btn-sm" id="replyRegBtn" type="button">register</button>
-		            		</div>
-	            		</div>
-	            	</p>
-	            </div>
-	        </div>
-	        <!-- /.panel-heading -->
-	        <div class="panel-body">
-	            <ul class="chat" id="replyList">
-	                <li>
-	                    <div class="chat-body clearfix">
-	                        <div class="header">
-	                            <strong class="primary-font">replyer</strong>
-	                            <small class="pull-right text-muted">
-	                                <i class="fa fa-clock-o fa-fw"></i> date
-	                            </small>
-	                        </div>
-	                        <p>
-	                            reply
-	                        </p>
-	                        <div class="footer">
-	                        	<small class="pull-right text-muted">
-	                                <button class="btn btn-warning btn-xs">수정</button>
-	                                <button class="btn btn-danger btn-xs">삭제</button>
-	                            </small>
-	                        </div>
-	                    </div>
-	                </li>
-	            </ul>
-	        </div>
-	        <!-- /.panel-body -->
-	        <div class="panel-footer">
-	        	<div class="row text-center">
-					<ul class="pagination">
-						<li class="page-item">
-						<!-- previous -->
-						<%-- <c:if test=""> --%>
-							<a class="page-link" href="" aria-label="Previous">
-								<span aria-hidden="true">&laquo;</span>
-								<span class="sr-only">Previous</span>
-							</a>
-						<%-- </c:if> --%>
-						</li>
-						<!-- page -->
-						<c:forEach  begin="1" end="3" var="i" varStatus="vs">
-							<li class="page-item ">
-								<a class="page-link" href="#">${ i }</a>
-							</li>
-						</c:forEach>
-						<!-- next -->
-						<%-- <c:if test=""> --%>
-							<li class="page-item">
-								<a class="page-link" href="" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
-						<%-- </c:if> --%>
-					</ul>
-				</div>
-	        </div>
-	    </div>
-	    <!-- /.panel .chat-panel -->
 	</div>
 	<!-- /#page-wrapper -->
 	<!-- Modal -->
@@ -166,24 +161,36 @@
 	   <!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
+	<!-- Modal -->
+	<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel"> 삭제</h4>
+	            </div>
+	            <div class="modal-body" id="modalBody">
+	                정말로 삭제하시겠습니까?.
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-danger" id="modalDelBtn">삭제</button>
+	                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	            </div>
+	        </div>
+	        <!-- /.modal-content -->
+	   </div>
+	   <!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 
 <jsp:include page="../include/footer.jsp"/>
 <script src="/resources/js/reply.js"></script>
+
 <script>
 	var bnoVal = '${ bvo.bno }'
 	console.log(replyService);
-	// 댓글 등록 테스트
-	/* replyService.register(
-		{
-		  "bno": bnoVal,
-		  "reply": "replyService.register",
-		  "replyer": "tester",
-		},
-		function (result) {
-			alert('댓글이 등록되었습니다.');
-		}
-	); */
-	$('#replyRegBtn').on('click', function() {
+	
+	$('#regBtn').on('click', function() {
 		var reply = $('#reply');
 		var replyer = $('#replyer');
 		if (reply.val().trim() != '' && replyer.val().trim() != '') {
@@ -198,7 +205,7 @@
 					$("#myModal").modal('show');
 					reply.val('');
 					replyer.val('');
-					list();
+					makeList(1);
 				}
 			);
 		} else {
@@ -207,10 +214,188 @@
 		}
 	});
 	
-	list();
-	// 댓글 목록 가져오기 테스트
-	function list() {
-	replyService.list(
+	makeList(1);
+	function makeList(pageNumVal) {
+		replyService.list(
+			{
+			  bno: bnoVal,
+			  pageNum : pageNumVal
+			},
+			function (result) {
+				$('#replyList').empty();
+				for (var i = 0; i < result.list.length; i++) {
+					console.log(result.list[i]);
+					$('#replyList').append(
+					'<li data-rno="'+ result.list[i].rno +'" id="list'+ result.list[i].rno +'">'
+					    +'<div class="chat-body clearfix">'
+					    +'<div class="header">'
+					        +'<strong class="primary-font">'+ result.list[i].replyer +'</strong>'
+					        +'<small class="pull-right text-muted">'
+					            +'<i class="fa fa-clock-o fa-fw"></i> '
+					            + (result.list[i].updateDate == null 
+					            		? getFormatDate(new Date(result.list[i].regDate)) 
+					            		: getFormatDate(new Date(result.list[i].regDate)) + ' 수정됨')
+					        +'</small>'
+					    +'</div>'
+					    +'<p>'
+					    	+ result.list[i].reply
+					    +'</p>'
+					    +'<div class="footer">'
+					    	+'<small class="pull-right text-muted btnGroup" id="btnGroup">'
+					            +'<button class="btn btn-default btn-xs" onclick="modifyReplyFrm('+ result.list[i].rno +')">수정</button>'
+					            +'<button class="btn btn-danger btn-xs" onclick="removeModal('+ result.list[i].rno +')">삭제</button>'
+					        +'</small>'
+					    +'</div>'
+					+'</div>'
+					+'</li>');
+				}
+				createPagination(pageNumVal, result.totalReply);
+				makePagination(pageNumVal, result.totalReply);
+			}
+		);
+	}
+	var replyPageObj = {
+		numPerPage : 5.0,
+		start : 1,
+		end : 1,
+		previous : false,
+		next : false
+	}
+	
+	
+	function prePage() {
+		replyPageObj.start = replyPageObj.start - 1;
+		makeList(replyPageObj.start);
+	}
+	function nextPage() {
+		replyPageObj.end = replyPageObj.end + 1;
+		makeList(replyPageObj.end);
+	}
+	function makePagination(pageNumVal, totalReply) {
+		console.log(replyPageObj);
+		var ul = $('#pageUl');
+		console.log(ul);
+		var pre = replyPageObj.previous ?
+			'<li class="page-item">'
+				+'<a class="page-link" onclick="prePage()" aria-label="Previous">'
+					+'<span aria-hidden="true">&laquo;</span>'
+					+'<span class="sr-only">Previosus</span>'
+				+'</a>'
+			+'</li>'
+			: '';
+		var page = '';
+		for (var i = replyPageObj.start; i <= replyPageObj.end; i++) {
+			page = page
+				+'<li class="page-item ' + (pageNumVal == i ? 'active' : '') + '">'
+					+'<a class="page-link" onclick="makeList('+i+')">'+i+'</a>'
+				+'</li>';
+		}
+		var next = replyPageObj.next ?
+				'<li class="page-item">'
+					+'<a class="page-link" onclick="nextPage()" aria-label="Next">'
+						+'<span aria-hidden="true">&raquo;</span>'
+						+'<span class="sr-only">Next</span>'
+					+'</a>'
+				+'</li>'
+				: '';
+		ul.empty()
+		.append(pre + page + next);
+	}
+	
+	function createPagination(pageNumVal, totalReply) {
+		var amount = 4;
+		var pageNum = pageNumVal;
+		
+		var pages = Math.ceil(totalReply / amount);
+		//int pagingPage = (int) Math.ceil(pages / NUM_PER_PAGE);
+
+		replyPageObj.end = (Math.ceil(pageNum / replyPageObj.numPerPage) * replyPageObj.numPerPage);
+		replyPageObj.start = (replyPageObj.end - (replyPageObj.numPerPage - 1));
+		replyPageObj.end = replyPageObj.end >= pages ? pages : replyPageObj.end;	// 실제 끝 페이지 번호 확인
+//		if (criteria.getPageNum() > end) {
+//			criteria.setPageNum(end);
+//		}
+		replyPageObj.previous = replyPageObj.start > 1;
+		replyPageObj.next = replyPageObj.end < pages;
+	}
+	
+	function getFormatDate(date){
+	    var year = date.getFullYear();              
+	    var month = (1 + date.getMonth());          
+	    month = month >= 10 ? month : '0' + month;  
+	    var day = date.getDate();                   
+	    day = day >= 10 ? day : '0' + day;          
+	    var h = date.getHours();
+	    h = h >= 10 ? h : '0' + h;
+	    var m = date.getMinutes();
+	    m = m >= 10 ? m : '0' + m;
+	    
+	    var today = new Date();
+	    var tyear = today.getFullYear();              
+	    var tmonth = (1 + today.getMonth());          
+	    tmonth = tmonth >= 10 ? tmonth : '0' + tmonth;  
+	    var tday = today.getDate();                   
+	    tday = tday >= 10 ? tday : '0' + tday;
+	    
+	    if(tyear === year && tmonth === month && tday === day)
+	    	return h + ':' + m;
+	    return  year + '-' + month + '-' + day;
+	}
+	
+	function modifyReplyFrm(rno) {
+		var val = $('#list'+rno+' p').text();
+		$('#list'+rno+' p')
+			.empty()
+			.append(
+				'<textarea class="form-control input-sm" rows="3" id="reply'+rno+'" style="resize: none;">'+val+'</textarea>'
+			)
+		$('.btnGroup')
+			.empty()
+			.append (
+				'<p>ㅤ</p>'
+			);
+		$('#list'+rno).find("small[id='btnGroup']")
+			.empty()
+			.append (
+				'<button class="btn btn-info btn-xs" onclick="modifyReply('+ rno +')">수정</button>'
+				+ '<button class="btn btn-default btn-xs" onclick="makeList(1)">취소</button>'
+			);
+	}
+	function modifyReply(rnoVal) {
+		var replyVal = $('#reply'+rnoVal).val();
+		replyService.modify(
+			{
+			  rno: rnoVal,
+			  reply: replyVal
+			},
+			function (result) {
+				$('#modalBody').text('댓글이 수정되었습니다.');
+				$("#myModal").modal('show');
+				makeList(1);
+			}
+		);
+	}
+	
+	function removeModal(rno) {
+		$("#delModal").modal('show');
+		$("#modalDelBtn").on('click', function() {
+			removeReply(rno);
+		});
+	}
+	
+	function removeReply(rno) {
+		replyService.remove(
+			rno,
+			function (result) {
+				$('#modalBody').text('댓글이 삭제되었습니다.');
+				$("#delModal").modal('hide');
+				$("#myModal").modal('show');
+				makeList(1);
+			}
+		);
+	}
+	// 댓글 목록 테스트
+	/* replyService.list(
 		{
 		  bno: bnoVal,
 		  pageNum : 1
@@ -219,30 +404,22 @@
 			$('#replyList').empty();
 			for (var i = 0; i < result.length; i++) {
 				console.log(result[i]);
-				$('#replyList').append(
-				'<li>'
-				    +'<div class="chat-body clearfix">'
-				    +'<div class="header">'
-				        +'<strong class="primary-font">'+ result[i].replyer +'</strong>'
-				        +'<small class="pull-right text-muted">'
-				            +'<i class="fa fa-clock-o fa-fw"></i> '+ result[i].regDate
-				        +'</small>'
-				    +'</div>'
-				    +'<p>'
-				    	+ result[i].reply
-				    +'</p>'
-				    +'<div class="footer">'
-				    	+'<small class="pull-right text-muted">'
-				            +'<button class="btn btn-warning btn-xs">수정</button>'
-				            +'<button class="btn btn-danger btn-xs">삭제</button>'
-				        +'</small>'
-				    +'</div>'
-				+'</div>'
-				+'</li>');
 			}
 		}
-	);
-	}
+	); */
+	
+	// 댓글 등록 테스트
+	/* replyService.register(
+		{
+		  "bno": bnoVal,
+		  "reply": "replyService.register",
+		  "replyer": "tester",
+		},
+		function (result) {
+			alert('댓글이 등록되었습니다.');
+		}
+	); */
+	
 	// 댓글 수정 테스트
 	/* replyService.modify(
 		{

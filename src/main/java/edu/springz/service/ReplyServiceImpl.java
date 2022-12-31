@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.springz.domain.Criteria;
+import edu.springz.domain.ReplyPageDTO;
 import edu.springz.domain.ReplyVO;
 import edu.springz.mapper.ReplyMapper;
 import lombok.AllArgsConstructor;
@@ -17,13 +18,14 @@ public class ReplyServiceImpl implements ReplyService {
 	private ReplyMapper replyMapper;
 	
 	@Override
-	public List<ReplyVO> list(int bno, Criteria criteria) {
-		return replyMapper.selectReplyAllPaging(bno, criteria);
+	public ReplyPageDTO list(int bno, Criteria criteria) {
+		return new ReplyPageDTO(replyMapper.totalReply(bno),
+								replyMapper.selectReplyAllPaging(bno, criteria));
 	}
 
 	@Override
-	public int totalCount(Criteria criteria) {
-		return replyMapper.totalCount(criteria);
+	public int totalReply(int bno) {
+		return replyMapper.totalReply(bno);
 	}
 
 	@Override

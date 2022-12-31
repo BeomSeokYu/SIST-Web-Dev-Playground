@@ -39,9 +39,9 @@ public class ReplyServiceTests {
 		Criteria criteria = new Criteria();
 		criteria.setPageNum(1);
 		log.info(replyService.list(bnoArr[0], criteria));
-		replyService.list(bnoArr[0], criteria).forEach(bvo -> {
-			log.info(bvo);
-		});
+		/*
+		 * replyService.list(bnoArr[0], criteria).forEach(bvo -> { log.info(bvo); });
+		 */
 	}
 	
 //	@Test

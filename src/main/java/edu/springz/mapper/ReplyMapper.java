@@ -12,7 +12,7 @@ public interface ReplyMapper {
 	public List<ReplyVO> selectReplyAllPaging(	@Param("bno") 		int bno,
 												@Param("criteria") 	Criteria criteria );	// 댓글 페이징 해서 가져오기
 	
-	public int totalCount(Criteria criteria);						// 전체 댓글 수 가져오기
+	public int totalReply(int bno);						// 전체 댓글 수 가져오기
 	
 	public ReplyVO selectReply(int rno);							// 댓글 가져오기
 	

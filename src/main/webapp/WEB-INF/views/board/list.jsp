@@ -14,7 +14,7 @@
                 </div>
             </div>
 			<div class="row">
-		        <div class="col-lg-12">
+		        <div class="col-lg-offset-3 col-lg-6">
 		            <div class="panel panel-default">
 		                <div class="panel-heading">
 		                    Board List
@@ -22,7 +22,7 @@
 		                </div>
 		                <div class="panel-body">
 		                	<div class="row">
-								<form class="text-right col-lg-6">
+								<form class="text-right col-lg-12">
 							        Show
 							        <select id="selectAmount">
 							       		<option value="5" ${ pageDTO.criteria.amount == '5' ? 'selected' : '' }>5</option>
@@ -62,7 +62,7 @@
 								</div>
 							</div>
 							<div class="row text-right">
-								<form class="col-lg-6" action="/board/list" id="searchFrm">
+								<form class="col-lg-12" action="/board/list" id="searchFrm">
 									<select name="type">
 							       		<option value="T" ${ pageDTO.criteria.type == 'T' ? 'selected' : '' }>제목</option>
 							       		<option value="C" ${ pageDTO.criteria.type == 'C' ? 'selected' : '' }>내용</option>
@@ -143,15 +143,22 @@
 	var actionFrm = $('#actionFrm');
 	$('.page-link').on('click', function(event) {
 		event.preventDefault();
-		
+		actionFrm.find("input[name='bno']").remove();
 		actionFrm.find("input[name='pageNum']").val($(this).attr('href'));
+		actionFrm.attr('action', '/board/list');
 		actionFrm.submit();
 	});
 	// view 페이지로 이동 처리
 	$('.move').on('click', function (event) {
 		event.preventDefault();
-		
-		actionFrm.append('<input type="hidden" name="bno" value="'+ $(this).attr('data') +'">');
+		var inputBno = actionFrm.find("input[name='bno']");
+		console.log(inputBno.length);
+		if(inputBno.length > 0) {
+			inputBno.val($(this).attr('data'));
+		} else {
+			actionFrm.append('<input type="hidden" name="bno" value="'+ $(this).attr('data') +'">');
+			
+		}
 		actionFrm.attr('action', '/board/view');
 		actionFrm.submit();
 	});

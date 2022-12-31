@@ -26,7 +26,8 @@ public class ReplyMapperTests {
 	@Test
 	public void testList() {
 		Criteria criteria = new Criteria();
-		
+		criteria.setPageNum(1);
+		criteria.setAmount(3);
 		replyMapper.selectReplyAllPaging(38, criteria);
 	}
 	

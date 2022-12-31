@@ -7,6 +7,9 @@ CREATE TABLE tbl_reply (
     update_date DATE
 );
 
+-- index
+CREATE INDEX idx_tbl_reply ON tbl_reply(bno DESC, rno ASC);
+
 CREATE SEQUENCE seq_tbl_reply NOCACHE;
 
 CREATE TABLE tbl_board(

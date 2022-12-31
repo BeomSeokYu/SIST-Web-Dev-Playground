@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.springz.domain.Criteria;
+import edu.springz.domain.PageDTO;
+import edu.springz.domain.ReplyPageDTO;
 import edu.springz.domain.ReplyVO;
 import edu.springz.service.ReplyService;
 import lombok.AllArgsConstructor;
@@ -56,12 +58,11 @@ public class ReplyController {
 	}
 	
 	@GetMapping(value = "list/{bno}/{pageNum}")
-	public ResponseEntity<List<ReplyVO>> list( @PathVariable("bno") int bno, @PathVariable("pageNum") int pageNum ) {
+	public ResponseEntity<ReplyPageDTO> list( @PathVariable("bno") int bno, @PathVariable("pageNum") int pageNum ) {
 //		ResponseEntity<List<ReplyVO>> resp = null;
-//		resp = new ResponseEntity.status(HttpStatus.OK).body(replyService.list(bno, criteria));
-		Criteria criteria = new Criteria(3, pageNum);
-		//int totalCount = replyService.totalCount(criteria);
-
+//		resp = new ResponseEntity.status(HttpStatus.OK).bsody(replyService.list(bno, criteria));
+		Criteria criteria = new Criteria(4, pageNum);
+		
 		return new ResponseEntity<>(replyService.list(bno, criteria), HttpStatus.OK);
 	}
 }
