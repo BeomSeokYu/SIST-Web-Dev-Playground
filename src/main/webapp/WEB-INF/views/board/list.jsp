@@ -50,7 +50,7 @@
 											<c:forEach items="${ list }" var="bvo" varStatus="i">
 												<tr class="move" data="${ bvo.bno }">
 										            <td>${ bvo.bno }</td>
-										            <td>${ bvo.title }</td>
+										            <td>${ bvo.title } <c:if test="${bvo.replyCnt != 0}"><strong>[${bvo.replyCnt}]</strong></c:if></td>
 										            <td>${ bvo.content }</td>
 										            <td>${ bvo.writer }</td>
 										            <td><fmt:formatDate value="${ bvo.regDate }" pattern="yyyy-MM-dd"/></td>

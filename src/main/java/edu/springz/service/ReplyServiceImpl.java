@@ -3,10 +3,13 @@ package edu.springz.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import edu.springz.domain.BoardVO;
 import edu.springz.domain.Criteria;
 import edu.springz.domain.ReplyPageDTO;
 import edu.springz.domain.ReplyVO;
+import edu.springz.mapper.BoardMapper;
 import edu.springz.mapper.ReplyMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -16,6 +19,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class ReplyServiceImpl implements ReplyService {
 	private ReplyMapper replyMapper;
+	private BoardMapper boardMapper;
 	
 	@Override
 	public ReplyPageDTO list(int bno, Criteria criteria) {
@@ -32,20 +36,28 @@ public class ReplyServiceImpl implements ReplyService {
 	public ReplyVO view(int rno) {
 		return replyMapper.selectReply(rno);
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean register(ReplyVO rvo) {
-		return replyMapper.insertReply(rvo) == 1 ? true : false;
+		BoardVO bvo = boardMapper.selectBoard(rvo.getBno());
+		return replyMapper.insertReply(rvo) == 1 
+			&& boardMapper.updateReplyCnt(rvo.getBno(), bvo.getReplyCnt() + 1) == 1 
+			? true : false;
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean remove(int rno) {
-		return replyMapper.deleteReply(rno) == 1 ? true : false;
+		ReplyVO rvo = replyMapper.selectReply(rno);
+		BoardVO bvo = boardMapper.selectBoard(rvo.getBno());
+		return replyMapper.deleteReply(rno) == 1 
+				&& boardMapper.updateReplyCnt(rvo.getBno(), bvo.getReplyCnt() - 1) == 1
+				? true : false;
 	}
 
 	@Override
 	public boolean modify(ReplyVO rvo) {
 		return replyMapper.updateReply(rvo) == 1 ? true : false;
 	}
-
 }

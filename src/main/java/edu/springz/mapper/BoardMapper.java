@@ -2,6 +2,8 @@ package edu.springz.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import edu.springz.domain.BoardVO;
 import edu.springz.domain.Criteria;
 
@@ -22,4 +24,7 @@ public interface BoardMapper {
 	public int deleteBoard(int bno);							// 게시물 삭제
 
 	public int updateBoard(BoardVO bvo);						// 게시물 수정
+	
+	public int updateReplyCnt( 	@Param("bno") int bno, 
+								@Param("replyCnt") int replyCnt);			// 댓글 수 수정
 }

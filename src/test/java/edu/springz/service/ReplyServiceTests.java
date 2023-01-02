@@ -23,6 +23,10 @@ public class ReplyServiceTests {
 	private int[] bnoArr = {38, 39, 40, 41, 42};
 	
 //	@Test
+	public void testReplyCnt() {
+	}
+	
+//	@Test
 	public void testModify() {
 		ReplyVO rvo = replyService.view(3);
 		rvo.setReply("updateReplyService");
@@ -49,7 +53,7 @@ public class ReplyServiceTests {
 		log.info(replyService.view(2));
 	}
 	
-//	@Test
+	@Test
 	public void testReg() {
 		ReplyVO rvo = new ReplyVO();
 		rvo.setBno(bnoArr[0]);

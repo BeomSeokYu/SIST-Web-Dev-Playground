@@ -105,12 +105,28 @@ var replyService = ( function(){
 			}
 		});// end ajax
 	}// end remove
-
+	
+	function replyCount(bno, callback, error) {
+		console.log('reply replyCount()');
+		$.getJSON("/board/" + bno + '.json',
+			function (result) {
+				if(callback) {
+					callback(result);
+				}
+			}
+		).fail( function(){
+			if(error) {
+				error(err);
+			}
+		}); // end getAjax
+	}// end view
+	
 	return  {
 				register : register,
 				list : list,
 				view : view,
 				modify : modify,
-				remove : remove
+				remove : remove,
+				replyCount : replyCount
 			};
 })();

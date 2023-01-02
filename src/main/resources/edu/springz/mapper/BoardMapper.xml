@@ -26,9 +26,9 @@
   
   <select id="selectBoardAllPaging" resultType="edu.springz.domain.BoardVO">
   	<![CDATA[
-  		SELECT	bno, title, content, writer, regDate, updateDate 
+  		SELECT	bno, title, content, writer, regDate, updateDate, replyCnt
   		FROM 	(	SELECT	/*+INDEX_DESC(tbl_board pk_tbl_board) */
-  							rownum rn, bno, title, content, writer, reg_date as regDate, update_date as updateDate
+  							rownum rn, bno, title, content, writer, reg_date as regDate, update_date as updateDate, reply_cnt as replyCnt
   					FROM 	tbl_board
   					WHERE ]]>
   						<!-- 보관 쿼리 사용 -->
@@ -47,14 +47,14 @@
   
   <select id="selectBoardAll" resultType="edu.springz.domain.BoardVO">
   	<![CDATA[
-  		SELECT bno, title, content, writer, reg_date as regDate, update_date as updateDate 
+  		SELECT bno, title, content, writer, reg_date as regDate, update_date as updateDate, reply_cnt as replyCnt
   		FROM tbl_board WHERE bno > 0 
   		ORDER BY bno DESC
   	]]>
   </select>
   
   <select id="selectBoard" resultType="edu.springz.domain.BoardVO">
-  	SELECT bno, title, content, writer, reg_date as regDate, update_date as updateDate
+  	SELECT bno, title, content, writer, reg_date as regDate, update_date as updateDate, reply_cnt as replyCnt
   	FROM tbl_board WHERE bno = #{bno}
   </select>
   
@@ -79,5 +79,10 @@
   <update id="updateBoard">
   	UPDATE tbl_board
   	SET title=#{title}, content=#{content}, update_date=SYSDATE WHERE bno = #{bno}
+  </update>
+  
+  <update id="updateReplyCnt">
+  	UPDATE tbl_board
+  	SET reply_cnt = #{replyCnt} WHERE bno = #{bno}
   </update>
 </mapper>

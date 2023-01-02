@@ -1,3 +1,6 @@
+DROP TABLE tbl_reply;
+DROP TABLE tbl_board;
+
 CREATE TABLE tbl_reply (
     rno         NUMBER      CONSTRAINT  pk_tbl_reply  PRIMARY KEY,
     bno         NUMBER      CONSTRAINT   fk_tbl_reply  REFERENCES tbl_board(bno)  NOT NULL,
@@ -18,7 +21,8 @@ CREATE TABLE tbl_board(
     content       VARCHAR2(4000)   not null,
     writer       VARCHAR2(50)   not null,
     reg_date       DATE   DEFAULT SYSDATE,
-    update_date       DATE   DEFAULT SYSDATE
+    update_date       DATE,
+    reply_cnt   NUMBER  DEFAULT 0
 );
 
 create sequence seq_tbl_board NOCACHE;

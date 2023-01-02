@@ -67,12 +67,14 @@
 	            <!-- /.panel -->
 			    <div class="chat-panel panel panel-default">
 			        <div class="panel-heading">
-			            <i class="fa fa-comments fa-fw"></i> Reply
+			            <i class="fa fa-comments fa-fw"></i> Reply <span class="badge bg-warning pull-right" id="replyCntBadge">총 댓글 수 : ${ bvo.replyCnt }</span>
 			            <div class="chat-body clearfix">
 		            		<div>
+		            			<p></p>
 			            		<textarea class="form-control input-sm" rows="3" id="reply" name="reply" placeholder="reply" style="resize: none;"></textarea>
 					            <input id="replyer" name="replyer" type="text" class="form-control input-sm" placeholder="name" />
 					            <div class="pull-right">
+					            	<p></p>
 					            	<button class="btn btn-info btn-sm" id="regBtn" type="button">register</button>
 					            </div>
 			            	</div>
@@ -187,9 +189,11 @@
 <script src="/resources/js/reply.js"></script>
 
 <script>
-	var bnoVal = '${ bvo.bno }'
+	var bnoVal = '${ bvo.bno }';
 	console.log(replyService);
 	
+	
+	// 댓글 등록 처리
 	$('#regBtn').on('click', function() {
 		var reply = $('#reply');
 		var replyer = $('#replyer');
@@ -205,7 +209,8 @@
 					$("#myModal").modal('show');
 					reply.val('');
 					replyer.val('');
-					makeList(1);
+					replyCount(bnoVal);
+					makeList(-1);						
 				}
 			);
 		} else {
@@ -215,6 +220,7 @@
 	});
 	
 	makeList(1);
+	// 댓글 목록 출력 함수
 	function makeList(pageNumVal) {
 		replyService.list(
 			{
@@ -222,6 +228,29 @@
 			  pageNum : pageNumVal
 			},
 			function (result) {
+				// 페이징 처리
+				if(pageNumVal > 0) {
+					setPaginationObj(pageNumVal, result.totalReply);
+					makePagination(pageNumVal, result.totalReply);
+				}
+				
+				// 등록 마지막 페이지 이동 처리
+				if(pageNumVal == -1) {
+					makeList(Math.ceil(result.totalReply / 4));
+					return;
+				}
+				
+				// 삭제 페이지 이동 처리
+				if(pageNumVal == -2) {
+					var lastPage = Math.ceil(result.totalReply / 4);
+					if(result.totalReply % 4 == 0 && lastPage < replyPageObj.page) {
+						makeList(replyPageObj.page - 1);
+					} else {
+						makeList(replyPageObj.page);
+					}
+					return;
+				}
+				
 				$('#replyList').empty();
 				for (var i = 0; i < result.list.length; i++) {
 					console.log(result.list[i]);
@@ -249,28 +278,30 @@
 					+'</div>'
 					+'</li>');
 				}
-				createPagination(pageNumVal, result.totalReply);
-				makePagination(pageNumVal, result.totalReply);
 			}
 		);
 	}
+	
+	// 댓글 page 객체
 	var replyPageObj = {
 		numPerPage : 5.0,
 		start : 1,
 		end : 1,
+		page : 1,
 		previous : false,
 		next : false
 	}
-	
-	
+	// 이전 버튼 처리 함수
 	function prePage() {
 		replyPageObj.start = replyPageObj.start - 1;
 		makeList(replyPageObj.start);
 	}
+	// 다음 버튼 처리 함수
 	function nextPage() {
 		replyPageObj.end = replyPageObj.end + 1;
 		makeList(replyPageObj.end);
 	}
+	// pagination을 그리는 함수
 	function makePagination(pageNumVal, totalReply) {
 		console.log(replyPageObj);
 		var ul = $('#pageUl');
@@ -301,47 +332,46 @@
 		ul.empty()
 		.append(pre + page + next);
 	}
-	
-	function createPagination(pageNumVal, totalReply) {
+	// page 객체를 설정하는 함수
+	function setPaginationObj(pageNumVal, totalReply) {
 		var amount = 4;
 		var pageNum = pageNumVal;
 		
+		replyPageObj.page = pageNumVal;			
+		
 		var pages = Math.ceil(totalReply / amount);
-		//int pagingPage = (int) Math.ceil(pages / NUM_PER_PAGE);
-
+		
 		replyPageObj.end = (Math.ceil(pageNum / replyPageObj.numPerPage) * replyPageObj.numPerPage);
 		replyPageObj.start = (replyPageObj.end - (replyPageObj.numPerPage - 1));
 		replyPageObj.end = replyPageObj.end >= pages ? pages : replyPageObj.end;	// 실제 끝 페이지 번호 확인
-//		if (criteria.getPageNum() > end) {
-//			criteria.setPageNum(end);
-//		}
+
 		replyPageObj.previous = replyPageObj.start > 1;
 		replyPageObj.next = replyPageObj.end < pages;
 	}
-	
+	// 댓글 날짜 포매팅 함수
 	function getFormatDate(date){
 	    var year = date.getFullYear();              
 	    var month = (1 + date.getMonth());          
-	    month = month >= 10 ? month : '0' + month;  
 	    var day = date.getDate();                   
-	    day = day >= 10 ? day : '0' + day;          
 	    var h = date.getHours();
-	    h = h >= 10 ? h : '0' + h;
 	    var m = date.getMinutes();
-	    m = m >= 10 ? m : '0' + m;
 	    
 	    var today = new Date();
-	    var tyear = today.getFullYear();              
-	    var tmonth = (1 + today.getMonth());          
-	    tmonth = tmonth >= 10 ? tmonth : '0' + tmonth;  
-	    var tday = today.getDate();                   
-	    tday = tday >= 10 ? tday : '0' + tday;
+	    var isToday = 	today.getFullYear() === year
+	    				&& (1 + today.getMonth()) === month
+	    				&& today.getDate() === day;
 	    
-	    if(tyear === year && tmonth === month && tday === day)
-	    	return h + ':' + m;
+	    month = month >= 10 ? month : '0' + month;  
+	    day = day >= 10 ? day : '0' + day;          
+	    h = h >= 10 ? h : '0' + h;
+	    m = m >= 10 ? m : '0' + m;
+	    
+	    if(isToday) {
+	    	return h + ':' + m;	    	
+	    }
 	    return  year + '-' + month + '-' + day;
 	}
-	
+	// 댓글 수정 폼을 그리는 함수
 	function modifyReplyFrm(rno) {
 		var val = $('#list'+rno+' p').text();
 		$('#list'+rno+' p')
@@ -358,9 +388,10 @@
 			.empty()
 			.append (
 				'<button class="btn btn-info btn-xs" onclick="modifyReply('+ rno +')">수정</button>'
-				+ '<button class="btn btn-default btn-xs" onclick="makeList(1)">취소</button>'
+				+ '<button class="btn btn-default btn-xs" onclick="makeList(replyPageObj.page)">취소</button>'
 			);
 	}
+	// 댓글 수정 처리
 	function modifyReply(rnoVal) {
 		var replyVal = $('#reply'+rnoVal).val();
 		replyService.modify(
@@ -371,18 +402,18 @@
 			function (result) {
 				$('#modalBody').text('댓글이 수정되었습니다.');
 				$("#myModal").modal('show');
-				makeList(1);
+				makeList(replyPageObj.page);
 			}
 		);
 	}
-	
+	// 삭제 처리를 위한 모달 띄우기
 	function removeModal(rno) {
 		$("#delModal").modal('show');
 		$("#modalDelBtn").on('click', function() {
 			removeReply(rno);
 		});
 	}
-	
+	// 삭제 처리
 	function removeReply(rno) {
 		replyService.remove(
 			rno,
@@ -390,10 +421,21 @@
 				$('#modalBody').text('댓글이 삭제되었습니다.');
 				$("#delModal").modal('hide');
 				$("#myModal").modal('show');
-				makeList(1);
+				replyCount(bnoVal);
+				makeList(-2);
 			}
 		);
 	}
+	
+	function replyCount(bno) {
+		replyService.replyCount(
+			bno,
+			function (result) {
+				$('#replyCntBadge').text('총 댓글 수 : ' + result.replyCnt)
+			}
+		);
+	}
+	
 	// 댓글 목록 테스트
 	/* replyService.list(
 		{
