@@ -1,5 +1,6 @@
 DROP TABLE tbl_reply;
 DROP TABLE tbl_board;
+DROP TABLE tbl_attach;
 
 CREATE TABLE tbl_reply (
     rno         NUMBER      CONSTRAINT  pk_tbl_reply  PRIMARY KEY,
@@ -29,3 +30,11 @@ create sequence seq_tbl_board NOCACHE;
 
 INSERT INTO tbl_board(bno, title, content, writer)
 VALUES(seq_tbl_board.NEXTVAL, 'title', 'content', 'writer');
+
+CREATE TABLE tbl_attach (
+    uuid        VARCHAR2(100)       CONSTRAINT pk_tbl_attach      PRIMARY KEY,
+    bno         NUMBER              CONSTRAINT fk_board_attach    REFERENCES tbl_board(bno) ON DELETE CASCADE,
+    up_folder   VARCHAR(200)        NOT NULL,
+    file_name   VARCHAR(100)        NOT NULL,
+    image       CHAR(1)
+);

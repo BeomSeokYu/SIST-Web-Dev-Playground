@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.springz.domain.BoardAttachVO;
 import edu.springz.domain.BoardVO;
 import edu.springz.domain.Criteria;
 import edu.springz.domain.PageDTO;
-import edu.springz.domain.ReplyPageDTO;
 import edu.springz.service.BoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;

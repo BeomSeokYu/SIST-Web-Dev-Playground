@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="../include/header.jsp"/>
 <body>
@@ -50,6 +50,34 @@
 							    <label>Writer</label>
 							    <input class="form-control" name="writer" value="${ bvo.writer }" readonly>
 						    </div>
+						</div>
+						<div class="row">
+							<!-- 업로드 결과 썸네일 표시 -->
+							<div class="col-lg-12">
+								<label>Attach File</label>
+								<div class="uploadResult col-lg-12">
+									<ul>
+									<c:forEach var="list" items="${ bvo.attachList }" varStatus="vs">
+										<li>
+											<c:if test="${ list.image == 'Y' }">
+												<img src="/display?fileName=${ list.upFolder }/s_${ list.uuid }_${ list.fileName }"
+													 onclick="showOriginal('${ list.upFolder }/${ list.uuid }_${ list.fileName }')"><br>${ list.fileName }
+											</c:if>
+											<c:if test="${ list.image == 'N' }">
+												<a href="/download?fileName=${ list.upFolder }/${ list.uuid }_${ list.fileName }">
+												<img src="/resources/img/attach.png"/><br>${ list.fileName }
+												</a>
+											</c:if>
+										</li>
+									</c:forEach>
+									</ul>
+								</div>
+							</div>		
+							
+							<!-- 썸네일 이미지 원본 표시 -->
+							<div class="originImgDiv col-lg-12">
+								<div class="originImg"></div>
+							</div>
 						</div>
 						<p></p>
 						<form class="form-group" action="/board/modify">
@@ -192,6 +220,15 @@
 	var bnoVal = '${ bvo.bno }';
 	console.log(replyService);
 	
+	// 댓글 page 객체
+	var replyPageObj = {
+		numPerPage : 5.0,
+		start : 1,
+		end : 1,
+		page : 1,
+		previous : false,
+		next : false
+	}
 	
 	// 댓글 등록 처리
 	$('#regBtn').on('click', function() {
@@ -219,7 +256,7 @@
 		}
 	});
 	
-	makeList(1);
+	makeList(replyPageObj.page);
 	// 댓글 목록 출력 함수
 	function makeList(pageNumVal) {
 		replyService.list(
@@ -282,15 +319,7 @@
 		);
 	}
 	
-	// 댓글 page 객체
-	var replyPageObj = {
-		numPerPage : 5.0,
-		start : 1,
-		end : 1,
-		page : 1,
-		previous : false,
-		next : false
-	}
+	
 	// 이전 버튼 처리 함수
 	function prePage() {
 		replyPageObj.start = replyPageObj.start - 1;
@@ -491,6 +520,68 @@
 	); */
 	
 	
+	
+	// 파일 종류(exe, sh, zip) 및 크기 (5MB) 제한
+	var regex = new RegExp('(.*?)\.(exe|sh|zip|alz)$');
+	var maxSize = 5242880;
+	
+	// 업로드 제한 확인
+	function uploadCheck(fileName, fileSize) {
+		if (regex.test(fileName)) {
+			alert('해당 형식의 파일은 업로드 하실 수 없습니다.');
+			return false;
+		}
+		
+		if (fileSize >= maxSize) {
+			alert('업로드 허용 크기 (5MB) 초과 - 업로드 불가');
+			return false;
+		}
+		return true;
+	}
+	
+	// 업로드 결과 출력
+	var resultUL = document.querySelector('.uploadResult ul');
+	function showUploadedFile(result) {
+		var liTag = '';
+		for (var i = 0; i < result.length; i++) {
+			var fid = result[i].fileName.replace('.', '').replace(' ', '');
+			if(result[i].image) {
+				
+				var originImgFnm = result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName;
+				var imgFnm = result[i].upFolder + "/s_" + result[i].uuid + "_" + result[i].fileName;
+				var originImg = encodeURIComponent(originImgFnm);
+				var thumbImg = encodeURIComponent(imgFnm);
+				
+				liTag += '<li id='+ fid + '>' 
+						+ '<img src="/display?fileName=' + thumbImg 
+								+ '" onclick="showOriginal(\''+ originImg + '\')"><br>' 
+								+ result[i].fileName 
+								+ ' <button type="button" onclick="removeFile(\'' + thumbImg + '\', \'image\', \'' + fid + '\')">X</button>'
+								+ '</li>';
+			} else {
+				var fileFnm = result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName;
+				var dlFile = encodeURIComponent(fileFnm);
+				liTag += '<li id='+ fid + '>' 
+						+ '<a href="/download?fileName='+ dlFile +'">'
+						+'<img src="/resources/img/attach.png"/><br>'+ result[i].fileName
+						+ '</a> <button type="button" onclick="removeFile(\'' + dlFile + '\', \'file\', \'' + fid + '\')">X</button>'
+						+'</li>';
+			}
+			resultUL.innerHTML += liTag;
+		}
+	}
+	
+	function hideOriginal() {
+		document.querySelector('.originImg').innerHTML = '';
+		document.querySelector('.originImgDiv').style.setProperty('display', 'none');
+	}
+	
+	// 썸네일 원본 이미지 표시
+	function showOriginal(originImg) {
+		document.querySelector('.originImg').innerHTML = '<img src="/display?fileName='
+				+ originImg + '" onclick="hideOriginal()"/>';
+		document.querySelector('.originImgDiv').style.setProperty('display', 'block');
+	}
 </script>
 </body>
 </html>

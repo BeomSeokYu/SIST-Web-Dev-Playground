@@ -111,11 +111,13 @@ public class UploadController {
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
 		log.info("deleteFile : " + fileName);
 		try {
-			File file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+			File file = new File("c:\\dev\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+			log.info("full file : " + "c:\\dev\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
 			file.delete();	// 파일 삭제
 			
 			if (type.equals("image")) {
 				String originFile = file.getAbsolutePath().replace("s_", "");	// 원본 파일명
+				log.info("img originFile : " + originFile);
 				file = new File(originFile);
 				file.delete();
 			}

@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.springz.domain.BoardAttachVO;
 import edu.springz.domain.BoardVO;
 import edu.springz.domain.Criteria;
+import edu.springz.mapper.BoardAttachMapper;
 import edu.springz.mapper.BoardMapper;
 import edu.springz.mapper.ReplyMapper;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
+	private BoardAttachMapper boardAttachMapper;
 	
 	@Override
 	public List<BoardVO> list(Criteria criteria) {
@@ -29,14 +32,27 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.totalCount(criteria);
 	}
 	
+	@Transactional
 	@Override
 	public BoardVO view(int bno) {
-		return boardMapper.selectBoard(bno);
+		BoardVO bvo = new BoardVO();
+		bvo = boardMapper.selectBoard(bno);
+		bvo.setAttachList(boardAttachMapper.selectAttachAll(bno));
+		return bvo;
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean register(BoardVO bvo) {
-		return boardMapper.insertBoardSelectKey(bvo) == 1 ? true : false;
+		List<BoardAttachVO> attachList = bvo.getAttachList();
+		boardMapper.insertBoardSelectKey(bvo);
+		if(!attachList.isEmpty()) {
+			attachList.forEach( bavo -> {
+				bavo.setBno(bvo.getBno());
+				boardAttachMapper.insertAttach(bavo);
+			});
+		}
+		return true;
 	}
 
 	@Override
@@ -54,5 +70,4 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.updateReplyCnt(bno, replyCnt);
 		return false;
 	}
-	
 }

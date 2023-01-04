@@ -13,14 +13,10 @@
 .uploadResult ul li { list-style: none; padding: 10px; text-align: center; }
 .uploadResult ul li img { width:100px; }
 
-
-
-.originImgDiv { position:absolute; display:none; justify-content: center; align-items: center; 
+.originImgDiv { position:absolute; display:none; justify-content: center; align-items: center;
 				top:0%;	z-index:100; width:100%; height:100%; backgroud:gray; }
-.originImg { position:relative; display:flex; justify-content: center; align-items: center; }	
+.originImg { position:relative; display:flex; justify-content: center; align-items: center; }
 .originImg img { width:500px; }
-
-
 </style>
 </head>
 <body>
@@ -97,30 +93,35 @@
 	function showUploadedFile(result) {
 		var liTag = '';
 		for (var i = 0; i < result.length; i++) {
+			var fid = result[i].fileName.replace('.', '').replace(' ', '');
 			if(result[i].image) {
 				/* liTag += '<li><img src="/resources/img/attach.png"><br>' + result[i].fileName + '</li>'; */
-				var originImg = encodeURIComponent(result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName);
+				var originImgFnm = result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName;
+				var imgFnm = result[i].upFolder + "/s_" + result[i].uuid + "_" + result[i].fileName;
+				var originImg = encodeURIComponent(originImgFnm);
 				//originImg = originImg.replaceAll('\\', '/');
-				var thumbImg = encodeURIComponent(result[i].upFolder + "/s_" + result[i].uuid + "_" + result[i].fileName);
-				liTag += '<li>' 
+				var thumbImg = encodeURIComponent(imgFnm);
+				liTag += '<li id='+ fid + '>' 
 						+ '<img src="/display?fileName=' + thumbImg 
 								+ '" onclick="showOriginal(\''+ originImg + '\')"><br>' 
 								+ result[i].fileName 
-								+ '<button onclick="removeFile('+result[i].fileName+', \'image\')">X</button>'
+								+ ' <button type="button" onclick="removeFile(\'' + thumbImg + '\', \'image\', \'' + fid + '\')">X</button>'
 								+ '</li>';
 			} else {
-				var dlFile = encodeURIComponent(result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName);
-				liTag += '<li>' 
+				var fileFnm = result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName;
+				var dlFile = encodeURIComponent(fileFnm);
+				liTag += '<li id='+ fid + '>' 
 						+ '<a href="/download?fileName='+ dlFile +'">'
 						+'<img src="/resources/img/attach.png"/><br>'+ result[i].fileName
-						+ '<button onclick="removeFile('+result[i].fileName+', \'file\')">X</button>'
-						+'</a></li>';
+						+ '</a> <button type="button" onclick="removeFile(\'' + dlFile + '\', \'file\', \'' + fid + '\')">X</button>'
+						+'</li>';
 			}
+			resultUL.innerHTML += liTag;
+			liTag = '';
 		}
-		resultUL.innerHTML = liTag;
 	}
 	
-	function removeFile(fileName, type) {
+	function removeFile(fileName, type, fid) {
 		var formData = new FormData();	// form처럼 키/값으로 값 생성 가능
 		formData.append("fileName", fileName);
 		formData.append("type", type);
@@ -132,8 +133,8 @@
 			contentType : false,
 			processData : false,
 			success : function(result) {
-				console.log('remove ok!');
 				console.log(result);
+				document.getElementById(fid).remove();
 			}
 		})
 	}
