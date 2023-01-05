@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/sample/")
 @Log4j
 public class SampleController {
+	
 //	priduces = 서버에서 보내오는 데이터를 어떤 형식으로 받을 것인가를 결정 (기본은 html)
 	@GetMapping(value = "getText", produces = "text/plain; charset=UTF-8")
 	public String getText() {
