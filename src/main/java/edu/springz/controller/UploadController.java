@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.springz.domain.AttachFileDTO;
+import edu.springz.service.BoardAttachService;
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Log4j
 @Controller
 public class UploadController {
-	
 	// 현재 시점의 '연/월/일' 폴더 경로 문자열 생성하여 반환
 	public String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -108,8 +108,10 @@ public class UploadController {
 	
 	// 파일 삭제 처리
 	@PostMapping("/deleteFile")
-	public ResponseEntity<String> deleteFile(String fileName, String type) {
+	public ResponseEntity<String> deleteFile(String fileName, String type, String uuid) {
 		log.info("deleteFile : " + fileName);
+		log.info("deleteFile type : " + type);
+		log.info("deleteFile uuid : " + uuid);
 		try {
 			File file = new File("c:\\dev\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
 			log.info("full file : " + "c:\\dev\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));

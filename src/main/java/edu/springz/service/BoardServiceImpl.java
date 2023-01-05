@@ -46,10 +46,12 @@ public class BoardServiceImpl implements BoardService {
 	public boolean register(BoardVO bvo) {
 		List<BoardAttachVO> attachList = bvo.getAttachList();
 		boardMapper.insertBoardSelectKey(bvo);
-		if(!attachList.isEmpty()) {
+		if(attachList != null && !attachList.isEmpty()) {
 			attachList.forEach( bavo -> {
-				bavo.setBno(bvo.getBno());
-				boardAttachMapper.insertAttach(bavo);
+				if(bavo != null) {
+					bavo.setBno(bvo.getBno());
+					boardAttachMapper.insertAttach(bavo);
+				}
 			});
 		}
 		return true;
@@ -59,9 +61,20 @@ public class BoardServiceImpl implements BoardService {
 	public boolean remove(int bno) {
 		return boardMapper.deleteBoard(bno) == 1 ? true : false;
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean modify(BoardVO bvo) {
+		boardAttachMapper.deleteAttachAll(bvo.getBno());
+		List<BoardAttachVO> attachList = bvo.getAttachList();
+		if(attachList != null && !attachList.isEmpty()) {
+			attachList.forEach( bavo -> {
+				if(bavo != null) {
+					bavo.setBno(bvo.getBno());
+					boardAttachMapper.insertAttach(bavo);
+				}
+			});
+		}
 		return boardMapper.updateBoard(bvo) == 1 ? true : false;
 	}
 	

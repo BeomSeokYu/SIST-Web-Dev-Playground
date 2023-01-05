@@ -70,7 +70,7 @@
 	                                                <div class="uploadResult">
 	                                                    <ul>
 														<c:forEach var="list" items="${ bvo.attachList }" varStatus="vs">
-															<li id="${ list.uuid }">
+															<li id="${ list.uuid }" data-uuid="${ list.uuid }" data-upFolder="${ list.upFolder }" data-fileName ="${ list.fileName }" data-image ="${ list.image == 'Y' ? 'true' : 'false' }">
 																<c:if test="${ list.image == 'Y' }">
 																	<img src="/display?fileName=${ list.upFolder }/s_${ list.uuid }_${ list.fileName }"
 																		 onclick="showOriginal('${ list.upFolder }/${ list.uuid }_${ list.fileName }')">
@@ -122,6 +122,32 @@
 
 <jsp:include page="../include/footer.jsp"/>
 <script>
+	//파일 종류(exe, sh, zip) 및 크기 (5MB) 제한
+	var regex = new RegExp('(.*?)\.(exe|sh|zip|alz)$');
+	var maxSize = 5242880;
+	
+	// 업로드 제한 확인
+	function uploadCheck(fileName, fileSize) {
+		if (regex.test(fileName)) {
+			alert('해당 형식의 파일은 업로드 하실 수 없습니다.');
+			return false;
+		}
+	
+		if (fileSize >= maxSize) {
+			alert('업로드 허용 크기 (5MB) 초과 - 업로드 불가');
+			return false;
+		}
+		return true;
+	}
+
+	var DelObj = function(fileName, type, uuid){
+		this.fileName = fileName;
+		this.type = type;
+		this.uuid = uuid;
+	};
+	
+	var delObjs = new Array();
+
 	$('#rmBtn').click(function () {
 		if(window.confirm('정말로 삭제하시겠습니까?')) {
 			$('#modifyForm').attr('action', '/board/remove');
@@ -131,6 +157,17 @@
 	});
 	
 	$('#modBtn').click(function () {
+		
+		var lis = $('.uploadResult ul li');
+		for (let i = 0; i < lis.length; i++){
+			// 전송할 데이터 담기
+			var liTag = '<input type="hidden" name="attachList['+i+'].uuid" value="'+lis[i].getAttribute("data-uuid")+'">'
+			+ '<input type="hidden" name="attachList['+i+'].upFolder" value="'+lis[i].getAttribute("data-upFolder").replaceAll("\\", "/")+'">'
+			+ '<input type="hidden" name="attachList['+i+'].fileName" value="'+lis[i].getAttribute("data-fileName")+'">'
+			+ '<input type="hidden" name="attachList['+i+'].image" value="'+ (lis[i].getAttribute("data-image") == "true" ? "Y" : "N") +'">'	
+			lis[i].innerHTML += liTag;
+		}
+		
 		for (var i = 0; i < delObjs.length; i++) {
 			removeFile(delObjs[i].fileName, delObjs[i].type, delObjs[i].uuid);
 		}
@@ -138,24 +175,83 @@
 						.submit();
 	});
 	
-	var DelObj = function(fileName, type, uuid){
-		this.fileName = fileName;
-		this.type = type;
-		this.uuid = uuid;
-	}
-	var delObjs = new Array();
-	
+	// 제거될 파일 처리
 	function checkRemoveFile(th, fileName, type, uuid) {
-		delObjs.push(new DelObj(fileName, type));
+		delObjs.push(new DelObj(fileName, type, uuid));
 		console.log(delObjs);
 		$(th).hide();
-		$('#'+uuid+' *').css({opacity: '0.3'});
+		$('#'+uuid).remove();
 	};
+	
+	// 업로드 처리
+	document.querySelector('#upInput').addEventListener('change', function() {
+		var formData = new FormData();	// form처럼 키/값으로 값 생성 가능
+		var files = document.getElementsByName('files')[0].files;
+		console.log(files);
+		
+		//formData 객체에 파일 추가
+		for(var i = 0; i < files.length; i++) {
+			if (uploadCheck(files[i].name, files[i].size)) {
+				formData.append("files", files[i]);
+			}
+		}
+		
+		$.ajax({
+			type : 'post',
+			url : '/upload/ajaxAction',
+			data : formData,
+			dataType : "json",
+			contentType : false,
+			processData : false,
+			success : function(result) {
+				console.log('upload ok!');
+				console.log(result);
+				// 업로드 파일 선택 초기화
+				document.querySelector('input[type="file"]').value = '';
+				
+				showUploadedFile(result);
+			}
+		});
+	});
+	
+	// 업로드 결과 출력
+	var resultUL = document.querySelector('.uploadResult ul');
+	function showUploadedFile(result) {
+		var lis = document.querySelectorAll('.uploadResult > ul > li')
+		var liTag = '';
+		for (let i = 0; i < result.length; i++) {
+			liTag += '<li id='+ result[i].uuid
+				+ '" data-uuid="'+result[i].uuid+'" data-upFolder="'+result[i].upFolder+'" data-fileName ="'+result[i].fileName+'" data-image ="'+result[i].image+'">'
+			if(result[i].image) {
+				/* liTag += '<li><img src="/resources/img/attach.png"><br>' + result[i].fileName + '</li>'; */
+				var originImgFnm = result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName;
+				var imgFnm = result[i].upFolder + "/s_" + result[i].uuid + "_" + result[i].fileName;
+				var originImg = encodeURIComponent(originImgFnm);
+				//originImg = originImg.replaceAll('\\', '/');
+				var thumbImg = encodeURIComponent(imgFnm);
+					liTag += '<img src="/display?fileName=' + thumbImg
+						+ '"><br>'
+						+ result[i].fileName
+						+ ' <button class="btn btn-info btn-xs" type="button" onclick="removeFile(\'' + thumbImg + '\', \'image\', \'' + result[i].uuid + '\')">X</button>'
+			} else {
+				var fileFnm = result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName;
+				var dlFile = encodeURIComponent(fileFnm);
+					liTag += '<img src="/resources/img/attach.png"/><br>'+ result[i].fileName
+						+ '<button class="btn btn-info btn-xs" type="button" onclick="removeFile(\'' + dlFile + '\', \'file\', \'' + result[i].uuid + '\')">X</button>'
+			}
+			// 전송할 이미지 데이터 담기
+			liTag += '</li>';
+			resultUL.innerHTML += liTag;
+			liTag = '';
+		}
+	}
 	
 	function removeFile(fileName, type, uuid) {
 		var formData = new FormData();	// form처럼 키/값으로 값 생성 가능
 		formData.append("fileName", fileName);
 		formData.append("type", type);
+		formData.append("uuid", uuid);
+		// 업로드 파일 삭제
 		$.ajax({
 			type : 'post',
 			url : '/deleteFile',
@@ -165,7 +261,7 @@
 			processData : false,
 			success : function(result) {
 				console.log(result);
-				document.getElementById(uuid).remove();
+				//document.getElementById(uuid).remove();
 			}
 		})
 	}

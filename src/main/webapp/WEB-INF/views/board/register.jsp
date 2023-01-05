@@ -21,7 +21,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form action="/board/register" method="post">
+                                    <form id="regiFrm" action="/board/register" method="post">
                                         <div class="form-group">
                                             <label>Title</label>
                                             <input class="form-control" name="title">
@@ -51,7 +51,7 @@
                                         </div>
                                         <button type="reset" class="btn btn-default">Reset</button>
                                         <button type="button" class="btn btn-info backBtn">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -73,7 +73,21 @@
 	// 파일 종류(exe, sh, zip) 및 크기 (5MB) 제한
 	var regex = new RegExp('(.*?)\.(exe|sh|zip|alz)$');
 	var maxSize = 5242880;
-
+	
+	$('#submitBtn').click(function () {
+		var lis = $('.uploadResult ul li');
+		for (let i = 0; i < lis.length; i++){
+			// 전송할 데이터 담기
+			var liTag = '<input type="hidden" name="attachList['+i+'].uuid" value="'+lis[i].getAttribute("data-uuid")+'">'
+			+ '<input type="hidden" name="attachList['+i+'].upFolder" value="'+lis[i].getAttribute("data-upFolder").replaceAll("\\", "/")+'">'
+			+ '<input type="hidden" name="attachList['+i+'].fileName" value="'+lis[i].getAttribute("data-fileName")+'">'
+			+ '<input type="hidden" name="attachList['+i+'].image" value="'+ (lis[i].getAttribute("data-image") == "true" ? "Y" : "N") +'">'	
+			lis[i].innerHTML += liTag;
+		}
+		
+		$('#regiFrm').submit();
+	});
+	
 	// 업로드 제한 확인
 	function uploadCheck(fileName, fileSize) {
 		if (regex.test(fileName)) {
@@ -122,7 +136,8 @@
 	function showUploadedFile(result) {
 		var liTag = '';
 		for (let i = 0; i < result.length; i++) {
-			liTag += '<li id='+ result[i].uuid + '>'
+			liTag += '<li id="'+ result[i].uuid 
+				+ '" data-uuid="'+result[i].uuid+'" data-upFolder="'+result[i].upFolder+'" data-fileName ="'+result[i].fileName+'" data-image ="'+result[i].image+'">'
 			if(result[i].image) {
 				/* liTag += '<li><img src="/resources/img/attach.png"><br>' + result[i].fileName + '</li>'; */
 				var originImgFnm = result[i].upFolder + "/" + result[i].uuid + "_" + result[i].fileName;
@@ -141,11 +156,12 @@
 						+ '<button class="btn btn-info btn-xs" type="button" onclick="removeFile(\'' + dlFile + '\', \'file\', \'' + result[i].uuid + '\')">X</button>'
 			}
 			// 전송할 이미지 데이터 담기
-			liTag += '<input type="hidden" name="attachList['+i+'].uuid" value="'+result[i].uuid+'">'
+			/* liTag += '<input type="hidden" name="attachList['+i+'].uuid" value="'+result[i].uuid+'">'
 			+ '<input type="hidden" name="attachList['+i+'].upFolder" value="'+result[i].upFolder.replaceAll("\\", "/")+'">'
 			+ '<input type="hidden" name="attachList['+i+'].fileName" value="'+result[i].fileName+'">'
 			+ '<input type="hidden" name="attachList['+i+'].image" value="'+ (result[i].image ? "Y":"N") +'">'
-			+'</li>';
+			+'</li>'; */
+			liTag += '</li>';
 			resultUL.innerHTML += liTag;
 			liTag = '';
 		}
