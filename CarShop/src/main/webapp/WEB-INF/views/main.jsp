@@ -6,10 +6,7 @@
 <%@ include file="include/header.jsp" %>
 </head>
 <body>
-<%@ include file="include/navBar.jsp" %>
-
-
-
+<%@ include file="include/navbar.jsp" %>
 
 
 <%@ include file="include/footer.jsp" %>

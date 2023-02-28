@@ -21,10 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.carshop.controller" />
-	<context:component-scan base-package="com.carshop.persistance" />
-	<context:component-scan base-package="com.carshop.service" />
-	<context:component-scan base-package="com.carshop.domain" />
+	<context:component-scan base-package="com.carshop.*" />
 	
 	
 	
