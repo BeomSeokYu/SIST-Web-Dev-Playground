@@ -18,7 +18,7 @@
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="/">홈</a></li>
-				<li class="nav-item"><a class="nav-link" href="/cars">차량
+				<li class="nav-item"><a class="nav-link" href="/cars/list">차량
 						보기</a></li>
 				<li class="nav-item"><a class="nav-link" href="/board/list">게시판</a>
 				</li>

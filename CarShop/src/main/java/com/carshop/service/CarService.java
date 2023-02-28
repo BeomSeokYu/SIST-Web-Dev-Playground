@@ -8,4 +8,5 @@ public interface CarService {
 	
 	List<CarDTO> getAllCarList();
 
+	List<CarDTO> getCarListByCategoty(String cate);
 }

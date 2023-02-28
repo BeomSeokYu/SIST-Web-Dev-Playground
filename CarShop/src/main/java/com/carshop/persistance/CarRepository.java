@@ -8,4 +8,6 @@ public interface CarRepository {
 	
 	List<CarDTO> getAllCarList();
 
+	List<CarDTO> getCarListByCategoty(String cate);
+
 }
