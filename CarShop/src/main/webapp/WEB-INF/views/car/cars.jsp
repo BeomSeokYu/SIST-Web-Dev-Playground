@@ -4,9 +4,9 @@
 
 <!DOCTYPE html>
 <html>
-<%@ include file="./include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <body>
-<%@ include file="./include/navbar.jsp" %>
+<%@ include file="../include/navbar.jsp" %>
 	<div class="alert alert-dark">
 		<div class="container">
 			<h1>차량 보기</h1>
@@ -22,12 +22,13 @@
 				<h3>${car.cid}</h3>
 				<p>${car.cname}
 				<p>${car.cprice} 만원
+				<p><a href="<c:url value="/cars/car?id=${car.cid}"/>" class="btn btn-secondary btn-sm">상세보기</a></p>
 			</div>
 
 		</c:forEach>
 		
 		</div>
 	</div>
-<%@ include file="./include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 </body>
 </html>

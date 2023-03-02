@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.carshop.domain.CarDTO;
 import com.carshop.service.CarService;
@@ -18,17 +22,36 @@ public class CarController {
 	@Autowired
 	private CarService carService;
 	
-	@RequestMapping("/list")
-	public String CarList(Model model) {
+	@GetMapping("/list")
+	public String carList(Model model) {
 		List<CarDTO> list = carService.getAllCarList();
 		model.addAttribute("carList",list);
-		return "cars";
+		return "/car/cars";
 	}
 	
-	@RequestMapping("/{ccate}")
-	public String requestCarById(@PathVariable("ccate") String ccate, Model model) {
+	@GetMapping("/{ccate}")
+	public String requestCarByCate(@PathVariable("ccate") String ccate, Model model) {
 		List<CarDTO> cscate = carService.getCarListByCategoty(ccate);
 		model.addAttribute("carList", cscate);
-		return "cars";
+		return "/car/cars";
+	}
+	
+	@GetMapping("/car")
+	public String requestCarById(@RequestParam("id") String carId , Model model) {
+		CarDTO car = carService.getCarById(carId);
+		model.addAttribute("car", car);
+		return "/car/car";
+	}
+	
+	@GetMapping("/add")
+	public String add(@ModelAttribute("car") CarDTO car) {
+		return "/car/addCar";
+	}
+	@PostMapping("/add")
+	public String addCar(CarDTO car, Model model) {
+		carService.setNewCar(car);
+		List<CarDTO> list = carService.getAllCarList();
+		model.addAttribute("carList",list);
+		return "/car/cars";
 	}
 }

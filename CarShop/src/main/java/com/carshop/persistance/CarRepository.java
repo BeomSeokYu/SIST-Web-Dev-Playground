@@ -9,5 +9,9 @@ public interface CarRepository {
 	List<CarDTO> getAllCarList();
 
 	List<CarDTO> getCarListByCategoty(String cate);
+	
+	CarDTO getCarById(String carId);
+	
+	void setNewCar(CarDTO car);
 
 }

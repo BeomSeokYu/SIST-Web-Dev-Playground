@@ -16,14 +16,22 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public List<CarDTO> getAllCarList() {
-		// TODO Auto-generated method stub
 		return carRepository.getAllCarList();
 	}
 
 	@Override
 	public List<CarDTO> getCarListByCategoty(String cate) {
-		// TODO Auto-generated method stub
 		return carRepository.getCarListByCategoty(cate);
+	}
+
+	@Override
+	public CarDTO getCarById(String carId) {
+		return carRepository.getCarById(carId);
+	}
+
+	@Override
+	public void setNewCar(CarDTO car) {
+		carRepository.setNewCar(car);
 	}
 
 }
