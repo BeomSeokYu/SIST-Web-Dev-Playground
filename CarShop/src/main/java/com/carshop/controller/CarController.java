@@ -50,8 +50,21 @@ public class CarController {
 	@PostMapping("/add")
 	public String addCar(CarDTO car, Model model) {
 		carService.setNewCar(car);
-		List<CarDTO> list = carService.getAllCarList();
-		model.addAttribute("carList",list);
-		return "/car/cars";
+		return "redirect: /cars/list";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "/login";
+	}
+	
+	@GetMapping("/loginFailed")
+	public String loginFailed() {
+		return "/login";
+	}
+	
+	@GetMapping("/logout")
+	public String logout() {
+		return "/login";
 	}
 }
