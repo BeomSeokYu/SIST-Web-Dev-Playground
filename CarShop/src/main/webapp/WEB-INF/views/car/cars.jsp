@@ -13,15 +13,15 @@
 		</div>
 	</div>
 
-
 	<div class="container">
 		<div class="row" align="center">
 		
 		<c:forEach items="${carList}" var="car">
 			<div class = "col-md-4">
 				<h3>${car.cid}</h3>
-				<p>${car.cname}
-				<p>${car.cprice} 만원
+				<img src="<c:url value="/resources/upload/${ car.getCarImage().getOriginalFilename() }"/>" height="100px">
+				<p>${car.cname}</p>
+				<p>${car.cprice} 만원</p>
 				<p><a href="<c:url value="/cars/car?id=${car.cid}"/>" class="btn btn-secondary btn-sm">상세보기</a></p>
 			</div>
 

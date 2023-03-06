@@ -1,6 +1,9 @@
 package com.carshop.controller;
 
+import java.io.File;
 import java.util.List;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.carshop.domain.CarDTO;
 import com.carshop.service.CarService;
@@ -22,7 +26,10 @@ public class CarController {
 	@Autowired
 	private CarService carService;
 	
-	@GetMapping("/list")
+	@Autowired
+	private ServletContext servletContext;
+	
+	@GetMapping("/list")	
 	public String carList(Model model) {
 		List<CarDTO> list = carService.getAllCarList();
 		model.addAttribute("carList",list);
@@ -43,15 +50,33 @@ public class CarController {
 		return "/car/car";
 	}
 	
-	@GetMapping("/add")
+	@GetMapping("/admin/add")
 	public String add(@ModelAttribute("car") CarDTO car) {
 		return "/car/addCar";
 	}
-	@PostMapping("/add")
+	@PostMapping("/admin/add")
 	public String addCar(CarDTO car, Model model) {
+		MultipartFile carImage = car.getCarImage();
+		String upPath = "/resources/upload/";
+		String savePath = servletContext.getRealPath(upPath);
+		
+		if (carImage != null && !carImage.isEmpty()) {
+			String filename = carImage.getOriginalFilename();
+			File saveFile = new File(savePath + "/" + filename);
+			if(!saveFile.exists()) {
+				saveFile.mkdirs();
+			}
+			
+			try {
+				carImage.transferTo(saveFile);
+			} catch (Exception e) {
+				throw new RuntimeException("이미지 업로드 실패");
+			}
+		}
 		carService.setNewCar(car);
 		return "redirect: /cars/list";
 	}
+	
 	
 	@GetMapping("/login")
 	public String login() {
