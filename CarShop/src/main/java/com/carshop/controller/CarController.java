@@ -58,17 +58,21 @@ public class CarController {
 	public String addCar(CarDTO car, Model model) {
 		MultipartFile carImage = car.getCarImage();
 		String upPath = "/resources/upload/";
+		String projPath = "C:\\dev\\GitRepo\\Spring\\CarShop\\src\\main\\webapp\\resources\\upload\\";
 		String savePath = servletContext.getRealPath(upPath);
 		
+		System.out.println(projPath);
 		if (carImage != null && !carImage.isEmpty()) {
 			String filename = carImage.getOriginalFilename();
 			File saveFile = new File(savePath + "/" + filename);
+			File projFile = new File(projPath + filename);
 			if(!saveFile.exists()) {
 				saveFile.mkdirs();
 			}
 			
 			try {
 				carImage.transferTo(saveFile);
+				//carImage.transferTo(projFile);
 			} catch (Exception e) {
 				throw new RuntimeException("이미지 업로드 실패");
 			}
