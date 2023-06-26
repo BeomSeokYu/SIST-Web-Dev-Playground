@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Servey</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="resources/assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="resources/css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">The Servey</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1" id="login-menu"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="login.html">로그인</a></li>
+                        <li class="nav-item mx-0 mx-lg-1" id="logout-menu"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="logout.html">로그아웃</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="join.html">회원가입</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="surveyList.html">설문</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead bg-primary text-white text-left">
+            <div class="container d-flex align-items-left flex-column">
+                <!-- Masthead Heading-->
+                <h1>설문 등록</h1>
+            </div>
+        </header>
+        <!-- Servay Section-->
+        <section class="page-section portfolio" id="registration">
+            <div class="container">
+                <div class="container d-flex align-items-center flex-column">
+                    <div class="col-lg-4">
+                        <form class="needs-validation" novalidate>
+                            <!-- title input-->
+                            <div class="row mb-3">
+                                <label for="survey_title">설문 제목</label>
+                                <input class="form-control" id="survey_title" type="text" required>
+                                <div class="invalid-feedback">내용을 입력하세요.</div>
+                            </div>
+                            <!-- select input-->
+                            <div class="row mb-3">
+                                <label for="sel1">선택 항목1</label>
+                                <input class="form-control" id="sel1" type="text" required>
+                                <div class="invalid-feedback">내용을 입력하세요.</div>
+                                <input class="form-control" id="sel1_img" type="file" accept="image/png, image/jpeg">
+                            </div>
+                            <!-- select input-->
+                            <div class="row mb-3">
+                                <label for="sel2">선택 항목2</label>
+                                <input class="form-control" id="sel2" type="text" required>
+                                <div class="invalid-feedback">내용을 입력하세요.</div>
+                                <input class="form-control" id="sel2_img" type="file" accept="image/png, image/jpeg">
+                            </div>
+                            <div class="row mb-3">
+                                <!-- start date input-->
+                                <div class="col">
+                                    <label for="start_date">설문 시작일</label>
+                                    <input class="form-control" id="start_date" type="date" required>
+                                    <div class="invalid-feedback">날짜를 지정하세요.</div>
+                                </div>
+                                <!-- end date input-->
+                                <div class="col">
+                                    <label for="end_date">설문 종료일</label>
+                                    <input class="form-control" id="end_date" type="date" required>
+                                    <div class="invalid-feedback">날짜를 지정하세요.</div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col text-end">
+                                    <span><button class="btn btn-secondary" type="button" onclick="history.back()">이전</button></span>
+                                    <span><button class="btn btn-primary" type="submit">등록</button></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+                </div>
+            </div>
+        </footer>
+        <!-- Copyright Section-->
+        <div class="copyright py-4 text-center text-white">
+            <div class="container"><small>Copyright &copy; The Survey</small></div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="resources/js/scripts.js"></script>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+                })
+            })()
+        </script>
+    </body>
+</html>
