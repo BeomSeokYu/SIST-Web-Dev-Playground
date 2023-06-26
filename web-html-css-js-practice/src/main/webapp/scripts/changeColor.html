@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>changeColor.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
+            crossorigin="anonymous"></script>
+    <style>
+        body {
+            width: 230px;
+            height: auto;
+            margin: 0 auto;
+            padding: 10px;
+            line-height: 30px;
+            overflow: hidden;
+        }
+        .hd     {width: 100px; float: left;}
+        .col      {width: 50px; float: center; border: 3px solid #ffffff;}
+        .val    {width: 70px; float: right; text-align: left;}
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <h3>Change Colors</h3>
+        <div class="d">
+            <span class="hd">background</span>
+            <input class="col" type="color" value="#ffffff" onchange="chgBg()"/>
+            <span class="val">#ffffff</span>
+        </div>
+        <div class="d">
+            <span class="hd">font</span>
+            <input class="col" type="color" value="#000000" onchange="chgFont()"/>
+            <span class="val">#000000</span>
+        </div>
+        <div class="d">
+            <span class="hd">border</span>
+            <input class="col" type="color" value="#ffffff" onchange="chgBord()"/>
+            <span class="val">#ffffff</span>
+        </div>
+        <hr>
+        <button type="button" onclick="reset()">reset</button>
+    </div>
+
+
+    <script>
+        /* JQuery */
+        const initCol = ["#ffffff", "#000000", "#ffffff"];
+        var cols = $('.col');
+        var vals = $('.val');
+        var body = $('body');
+        function reset() {
+            cols.val(function(i){
+                return initCol[i];
+            });
+            body.css('backgroundColor', $(cols[0]).val())
+                .css('color', $(cols[1]).val());
+            cols.css('borderColor', $(cols[2]).val());
+            vals.text(function(i) {
+                return $(cols[i]).val();
+            });
+        }
+        function chgBg() {
+            body.css('backgroundColor', $(cols[0]).val());
+            chgText();
+        }
+        function chgFont() {
+            body.css('color', $(cols[1]).val());
+            chgText();
+        }
+        function chgBord() {
+            cols.css({ borderColor: function() {
+                    return $(cols[2]).val()
+            }});
+            chgText();
+        }
+        function chgText() {
+            vals.text(function(i) {
+                return $(cols[i]).val();
+            });
+        }
+
+
+        /* JS */
+        // var cols = document.querySelectorAll('.col');
+        // var vals = document.querySelectorAll('.val');
+        // var body =  document.querySelector('body');
+        // function reset() {
+        //     cols[0].value = '#ffffff';
+        //     cols[1].value = '#000000';
+        //     cols[2].value = '#ffffff';
+        //     body.style.background = cols[0].value;
+        //     body.style.color = cols[1].value;
+        //     for (var i = 0; i < cols.length; i++) {
+        //         cols[i].style.borderColor = cols[2].value;
+        //         vals[i].textContent = cols[i].value;
+        //     }
+        // }
+        // function chgBg() {
+        //     body.style.background = cols[0].value;
+        //     vals[0].textContent = cols[0].value;
+        // }
+        // function chgFont() {
+        //     body.style.color = cols[1].value;
+        //     vals[1].textContent = cols[1].value;
+        // }
+        // function chgBord() {
+        //     for (var i = 0; i <script cols.length; i++) {
+        //         cols[i].style.borderColor = cols[2].value;
+        //     }
+        //     vals[2].textContent = cols[2].value;
+        // }
+        </script>
+</body>
+</html>

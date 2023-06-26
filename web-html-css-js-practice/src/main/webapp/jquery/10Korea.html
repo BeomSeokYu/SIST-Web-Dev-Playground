@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
+            crossorigin="anonymous">
+    </script>
+    <title>10 beautiful places to visit in Korea</title>
+    <style>
+        body {
+            margin: 0 auto;
+        }
+        body *{
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            var imgs = [
+                'https://i.pinimg.com/474x/04/47/f1/0447f10b8be42d07faf38fa6e43b183f.jpg',
+                'https://cdn.pixabay.com/photo/2016/12/21/07/43/korea-1922376_960_720.jpg',
+                'https://post-phinf.pstatic.net/MjAxOTAxMzFfMjE1/MDAxNTQ4OTA2MjIwMDI4.hNNYAPzJ-gysM-IMBIZ36NIfwXYSA08NzXoI_TZYMG0g.SxOBFIse8thfKF5cn35yc-fwWPdPipDOA5Pc0VHJ_KMg.JPEG/%EC%82%AC%EC%A7%84_8.jpg?type=w1200',
+                'https://mblogthumb-phinf.pstatic.net/MjAyMDAxMjBfMyAg/MDAxNTc5NDg4Mjk2ODY0.zQaF99Oq_IjoCx3FvnPSEcEo15kDgptKx79koy6Nbwkg.Y9DoM4W7mzae9WHXHaHyPwJ1B_W9EQtgTHv3NLQ1qQMg.JPEG.ichufs/korea_017.jpg?type=w800',
+                'https://t1.daumcdn.net/cfile/tistory/111AF8194BC6964E7D',
+                'https://mblogthumb-phinf.pstatic.net/MjAyMDAxMjBfMjQx/MDAxNTc5NDg3OTc0MTYy.w5QT9RX3V8VsbYSi7jRuZ419UbNRKMTRmSuuE4KKRHIg.uLGAK-9RgaEa5b41hgDl17wbarYFi0xgLuTpybsE_Zcg.JPEG.ichufs/korea_010.jpg?type=w800',
+                'https://i.ytimg.com/vi/YFtI2BNdiFI/maxresdefault.jpg',
+                'https://i.ytimg.com/vi/vXCga2K_mUE/maxresdefault.jpg',
+                'https://t1.daumcdn.net/cfile/tistory/99FDE3335A2651852C',
+                'https://cdn.crowdpic.net/detail-thumb/thumb_d_6B050E22E3BB052221816108D1DEC741.jpeg'
+            ];
+            var tn = $('#thumbnails');
+            //for (var i = 0; i < imgs.length; i++) {
+            //    tn.append('<span><img src="' + imgs[i] + '"></span>');
+            //}
+            $.each(imgs, function(i, img) {
+                tn.append('<span><img src="' + img + '"></span>');
+            });
+            var imgObj = $('#thumbnails img');
+            imgObj.css({
+                'width':'50px',
+                'height':'50px',
+                'marginRight': '5px',
+                'opacity': '50%'
+            }).on({
+                    click: function() {
+                        $('#big img').remove();
+                        $('#big').append('<img src="' + $(this).attr('src') + '">');
+                        $('#big img').on('dblclick', function() {
+                            $('#big img').remove();
+                        });
+                    },
+                    mouseover: function () {
+                        $(this).css('opacity','100%');
+                    },
+                    mouseout: function () {
+                        $(this).css('opacity','50%');
+                    }
+                }
+            )});
+    </script>
+</head>
+<body>
+    <h3>10 beautiful places to visit in Korea</h3>
+    <div id="thumbnails"></div>
+    이미지를 클릭하시면 크게 보실 수 있습니다.<hr>
+    <div id="big"></div>
+</body>
+</html>

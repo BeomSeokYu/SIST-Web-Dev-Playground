@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>basic.html</title>
+    <!-- CDN을 사용해 jQuery 사용 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
+            crossorigin="anonymous">
+    </script>
+    <script>
+        onload = function () {
+            var hide = document.querySelector('#hideBtn');
+            hide.onclick = function() {
+                document.querySelector('h3').style.display = "none";
+            }
+        }
+        $(document).ready(function() {
+            var show = $('#showBtn');
+            show.click(function() {
+                $('h3').show();
+            })
+        });
+        $(function() {
+            var show = $('#hideBtn');
+            show.click(function() {
+                $('h3').hide();
+            })
+        });
+    </script>
+</head>
+<body>
+    <button type="button" id="showBtn">SHOW</button>
+    <button type="button" id="hideBtn">HIDE</button>
+    <h3>Hello jQuery!~1</h3>
+    <h3>Hello jQuery!~2</h3>
+    <h3>Hello jQuery!~3</h3>
+</body>
+</html>

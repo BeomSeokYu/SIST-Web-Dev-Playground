@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>switchExercise.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <style>
+        body {
+            text-align: center;
+            margin: 0px auto;
+            width: 500px;
+            height: 100%;
+        }
+        .group {
+            background-color: #dddddd;
+            margin-bottom: 10px;
+            border-radius: 20px;
+        }
+        .imgBtn {
+            box-shadow: 5px 5px 5px gray;
+            border-radius: 20px;
+            border: 2px solid #dddddd;
+            margin-left: 20px; margin-right: 20px; margin-bottom: 30px;
+            opacity: 70%;
+        }
+        .imgBtn:hover {
+            box-shadow: 5px -5px 5px gray;
+            opacity: 100%;
+            border: 2px solid gray;
+        }
+        #choice > h4{
+            line-height: 80px;
+        }
+        #result {
+            overflow: hidden;
+        }
+        #com {
+            margin-right: 20px;
+            width: 40%;
+            height: 100%;
+            float: right;
+        }
+        #me {
+            margin-left: 20px;
+            width: 40%;
+            height: 100%;
+            float: left;
+        }
+        #com > h4, #me > h4 {
+            background: white;
+            border-radius: 10px;
+        }
+        #resultMsg {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .title, #comRes, #meRes {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2 class="mainTitle">가위 바위 보!</h2>
+    </div>
+    <div class="group" id="choice">
+        <h4 class="title">선택</h4>
+        <img class="imgBtn" src="https://blackbearwow.github.io/image/rockPaperScissors/scissors.png" 
+            alt="noImg" width="100px" height="100px" onclick="gawibawibo(1)">
+        <img class="imgBtn" src="https://blackbearwow.github.io/image/rockPaperScissors/rock.png" 
+            alt="noImg" width="100px" height="100px" onclick="gawibawibo(2)">
+        <img class="imgBtn" src="https://blackbearwow.github.io/image/rockPaperScissors/paper.png" 
+            alt="noImg" width="100px" height="100px" onclick="gawibawibo(3)">
+    </div>
+    <div class="group" id="result">
+        <h4 class="title">결과</h4>
+        <div id="com">
+            <h4>COM</h4>
+            <img id="comImg" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FIOmFA%2FbtrRs7VbQKs%2FFjRt6XZKBtbPKNJNk0K0K1%2Fimg.png" 
+                alt="" width="100px" height="100px">
+            <div><label id="comRes"></label></div>
+        </div>
+        <div id="me">
+            <h4>나</h4>
+            <img id="meImg" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FIOmFA%2FbtrRs7VbQKs%2FFjRt6XZKBtbPKNJNk0K0K1%2Fimg.png" 
+                alt="" width="100px" height="100px">
+            <div><label id="meRes"></label></div>
+        </div>
+    </div>
+    <div class="group"><label id="resultMsg"></label></div>
+    <script>
+        function gawibawibo(me) {
+            var gbb = {1:'가위', 2:'바위', 3:'보'}
+            var gbbImg = {
+                1:"https://blackbearwow.github.io/image/rockPaperScissors/scissors.png", 
+                2:"https://blackbearwow.github.io/image/rockPaperScissors/rock.png", 
+                3:"https://blackbearwow.github.io/image/rockPaperScissors/paper.png"
+            }
+            var com = Math.floor(Math.random() * 3)+1;
+            console.log(gbb[com] + " | " + gbb[me]);
+            document.getElementById('comImg').src = gbbImg[com]
+            document.getElementById('meImg').src = gbbImg[me]
+            document.getElementById('comRes').innerText = gbb[com]
+            document.getElementById('meRes').innerText = gbb[me]
+            switch (me - com) {
+                case 0:
+                    document.getElementById('resultMsg').innerText = '비겼습니다'
+                    break;
+                case 1:
+                case -2:
+                    document.getElementById('resultMsg').innerText = '이겼습니다'
+                    break;
+                default:
+                    document.getElementById('resultMsg').innerText = '졌습니다'
+                    break;
+
+            }
+        }
+    </script>
+</body>
+</html>

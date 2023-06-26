@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <title>racing.html</title>
+    <style>
+        body {
+            width: 700px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        #header {
+            border: 1px solid gray;
+            border-bottom: 20px solid lightgray;
+            height: 100px;
+        }
+        #main {
+            border: 1px solid gray;
+            border-bottom: 20px solid lightgray;
+            height: 500px;
+            margin: 0;
+            padding: 0;
+        }
+        #line {
+            display: inline-block;
+            width: 150px;
+            height: 100%;
+        }
+        #start {
+            display: inline-block;
+            border-right: 2px solid gray;
+            width: 50px;
+            height: 100%;
+        }
+        #filed {
+            display: inline-block;
+            width: 420px;
+            height: 100%;
+            text-align: center;
+        }
+        #finish {
+            display: inline-block;
+            border-left: 2px solid gray;
+            width: 50px;
+            height: 100%;
+        }
+        .li-header {
+            list-style-type: none;
+            float: left;
+            display: block;
+            text-align: center;
+            margin-right: 15px;
+        }
+        .li-main {
+            list-style-type: none;
+            float: left;
+            display: block;
+            text-align: center;
+            margin-right: 15px;
+        }
+    </style>
+    <script>
+        $(function(){
+            var myCar = -1;
+            var cars = ['car1.png', 'car2.png', 'car3.png', 'car4.png', 'car5.png'];
+            $('#header').append('<ul></ul>');
+            $.each(cars, function (i, car) {
+                $('#header ul').append('<li><img src="../imgs/'+ car +'" width="110px" height="50px" data-my-car="'+i+'"></li>')
+            });
+            $('#header ul li').attr('class', 'li-header')
+            .on('click', function() {
+                myCar = $(this).attr('data-my-car');
+                alert(myCar);
+                $('line').append();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <div id="header"></div>
+        <div id="main">
+            <div id="line"></div>
+            <div id="start"></div>
+            <div id="filed"></div>
+            <div id="finish"></div>
+        </div>
+    </div>
+</body>
+</html>

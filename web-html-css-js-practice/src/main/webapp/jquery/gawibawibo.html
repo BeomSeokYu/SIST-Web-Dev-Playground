@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <title>gawibawibo.html</title>
+    <style>
+        body * {margin: 0 auto; left: 0; right: 0;}
+        body {
+            margin: 0 auto; left: 0; right: 0;
+            padding: 0;
+            margin-top: 50px;
+            width: 500px;
+        }
+        fieldset {
+            width: 300px;
+            border-radius: 20px;
+            border: 3px solid pink
+        }
+        legend {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;;
+        }
+        .popStart{
+            /* frame */
+            width: 150px; height: 100px;
+            position: fixed;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: pink;
+            opacity: 95%;
+            /* text */
+            line-height: 100px;
+            font-size: 40px; font-weight: bold;
+            text-shadow: 2px 2px 1px black;
+            text-align: center;
+            color: white;
+            /* border */
+            border: 3px solid white; border-radius: 20px;
+        }
+        .popResult{
+            /* frame */
+            width: 150px; height: 150px;
+            position: fixed;
+            padding: 10px;
+            background-color: pink;
+            opacity: 95%;
+            /* text */
+            line-height: 25px;
+            text-shadow: 1px 1px 1px black;
+            text-align: center;
+            color: white;
+            /* border */
+            border: 3px solid white; border-radius: 20px;
+        }
+        #stop, #continue{
+            display: inline-block;
+            width: 60px;
+            margin-top: 20px;
+        }
+        #continue{
+            border: 3px solid pink; border-radius: 10px;
+            background-color: white;
+            color: pink;
+        }
+        #stop {
+            border: 3px solid white; border-radius: 10px; border-style: dotted;
+            background-color: pink;
+            color: white;
+        }
+        .overImg {
+            box-shadow: 2px 2px 2px black;
+            border-radius: 20px;
+        }
+        .outImg {
+            box-shadow: none;
+        }
+    </style>
+    <script>
+$(function() {
+    var gbbArr = ['가위', '바위', '보'];
+    var gbb = {'가위':0, '바위':1, '보':2};
+    var gbbImg = {
+        0:"https://blackbearwow.github.io/image/rockPaperScissors/scissors.png",
+        1:"https://blackbearwow.github.io/image/rockPaperScissors/rock.png",
+        2:"https://blackbearwow.github.io/image/rockPaperScissors/paper.png"
+    }
+    var qvImg = {
+        1:"https://cdn.pixabay.com/photo/2017/02/13/01/26/the-question-mark-2061539_960_720.png",
+        2:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqNCGR6D7uMXKy-4ImbiOg06u_PrnPq1A-PywTlmBQ-dHGecjrtvQadu5jujmvO2Ui1FM&usqp=CAU",
+        3:"https://cdn.pixabay.com/photo/2017/02/13/01/26/the-question-mark-2061539_960_720.png"
+    }
+    var intervalFlag = false;
+    var interval = 300;
+    var intervalObj;
+    var com = 0;
+    var me = 0;
+    var comScr = 0;
+    var meScr = 0;
+    var round = 1;
+    var record = [0, 0, 0];
+    // 레이블
+    $('#lbl').append('<span>컴퓨터</span><span></span><span>나</span>')
+    $('#lbl span').css({
+        'display': 'inline-block',
+        'width': '100px',
+        'text-align': 'center'
+    });
+    // 대결 이미지
+    var vs = $('#vs');
+    $.each(qvImg, function (i, val) {
+        vs.append('<img src="' + val + '" width="100px" height="100px">');
+    });
+    // 선택 이미지
+    var sel = $('#sel');
+    $.each(gbbArr, function (i, val) {
+        sel.append('<img src="' + gbbImg[gbb[val]]+ '" width="100px" height="100px" data-val="'+val+'">');
+    });
+
+    $('#pop')
+        .text('START')
+        .attr('class', 'popStart');
+    $('#pop').on('click', function (e) {
+        e.preventDefault();
+        setRound(false);
+        start();
+    })
+
+    function start() { // 게임 시작
+        $('#pop').fadeOut('fast');
+        $('#vs img:last-child').attr('src', qvImg[1]);
+        var sel = $('#sel');
+        if (intervalObj) {
+            clearInterval(intervalObj);
+        }
+        intervalObj = setInterval(changeImg, interval);
+        $('#sel img').on({
+            click: function (e) {
+                e.preventDefault();
+                me = gbb[$(this).attr('data-val')];
+                play();
+            },
+            mouseover: function () {
+                $(this).attr('class', 'overImg');
+            },
+            mouseout: function () {
+                $(this).attr('class', 'outImg');
+            },
+            mousedown: function () {
+                $(this).attr('class', 'outImg');
+            }
+        });
+    }
+    function changeImg() { // 난수 추출 및 이미지 변경
+        com = Math.floor(Math.random() * 3);
+        $('#vs img:first-child').attr('src', gbbImg[com]);
+    }
+    function play() { // 가위 배위 보 대결
+        clearInterval(intervalObj);
+        $('#vs img:last-child').attr('src', gbbImg[me]);
+        console.log(me +' / '+com);
+        switch (me - com) {
+        case 0: record[1]++;
+                resultBoard('DRAW');
+                break;
+        case 1:
+        case-2: record[0]++;
+                meScr++;
+                resultBoard('WIN');
+                if (meScr > 2) setRound(true);
+                break;
+        default:record[2]++;
+                comScr++;
+                resultBoard("LOSE");
+                if (comScr > 2) setRound(false);
+                break;
+        }
+     }
+    function setRound(n) { // 라운드 설정
+        comScr = meScr = 0;
+        if(n) {
+            round++;
+            interval /= 2;
+        } else {
+            round = 1;
+            interval = 300;
+        }
+        $('#lbl span:nth-child(2)').text(round+'라운드');
+    }
+    function resultBoard(result) { // 게임 결과 표시
+        $('#sel img').off();
+        $('.popStart').off();
+        $('#pop').text('');
+        $('#pop')
+            .attr('class', 'popResult')
+            .append('<div></div><div></div><div></div><div></div><div></div><div><span id="stop"></span><span id="continue"></span></div>');
+        $('#pop div:nth-child(1)').text(result).css({'font-size':'30px','font-weight':'bold','margin':'10px'});
+        $('#pop div:nth-child(2)').text('[라운드 : '+round+']');
+        $('#pop div:nth-child(3)').text('컴 '+comScr+' vs. '+meScr+' 나');
+        $('#pop div:nth-child(4)').text(record[0]+'승 '+record[1]+'무 '+record[2]+'패');
+        $('#continue').text('계속').on('click', function() {start();});
+        $('#stop').text('그만').on('click', function() {quit();});
+        $('#pop').fadeIn('slow');
+    }
+    function quit() { // 게임 종료
+        if(confirm('게임을 그만하시겠습니까?')) {
+            $('#pop div:nth-child(1)').text('최종 결과').css('font-size', '25px')
+            $('#continue').off('click').fadeOut('normal');
+            $('#stop').off('click').fadeOut('normal');
+        }
+    }
+});
+    </script>
+</head>
+<body>
+    <fieldset>
+        <legend>가위 바위 보 게임 ver 0.1</legend>
+        <div id="lbl"></div>
+        <div id="pop"></div>
+        <div id="vs"></div>
+        <hr>
+        <div id="sel"></div>
+    </fieldset>
+    <div style="text-align: center">3승시 다음 라운드. 라운드당 속도 2배 증가</div>
+</body>
+</html>

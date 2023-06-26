@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>popup.html</title>
+</head>
+<body>
+    <h3>팝업 윈도우</h3>
+    <span id="cho">5</span>초 후 자동으로 팝업창 종료
+    <button type="button" onclick="window.close()">Close</button>
+
+    <script>
+        var cnt = 5;
+        var timer;
+        function start() {
+            timer = setInterval(function() { 
+                countDown();
+                document.querySelector('span').textContent = cnt;
+                console.log(cnt);
+            }, 1000);
+        }
+        function countDown() {
+            cnt--;
+            if(cnt < 1) {
+                clearInterval(timer);
+                window.close();
+            }
+        }
+
+        window.onload = function() {
+            start();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock.html</title>
+
+    <style>
+        body {
+            margin: 0 auto;
+            width: 500px;
+            height: auto;
+        }
+        .frame {
+            border: 1px solid #dddddd;
+            border-radius: 20px;
+            /* position: relative; */
+            width: 500px;
+            height: 100px;
+            background-color: white;
+        }
+        .btn {
+            margin-left: 350px;
+        }
+        .time {
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+            border-radius: 20px;
+            background-color: white;
+            line-height: 50px;
+            text-align: center;
+            display: block;
+            font-size: large;
+        }
+    </style>
+    <script>
+        function setDate() {
+            var date = new Date();
+            var time = document.querySelector('span');
+            var nowTime = '';
+            var amPm = date.getHours() < 12 ? "오전 " : "오후 ";
+            nowTime += amPm;
+            nowTime += (amPm == "오후 " ? date.getHours()-12 : date.getHours());
+            nowTime += '시 ' + date.getMinutes() + '분 ';
+            nowTime += date.getSeconds() + '초';
+            time.textContent = nowTime;
+
+            document.querySelector('.frame').style.backgroundColor =
+            (amPm == "오후 " ? 'lightgrey' : 'lightgoldenrodyellow');
+        }
+        function showDate() {
+            var date = new Date();
+            const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
+            alert('오늘은 '
+            + date.getFullYear() + '년 '
+            + (date.getMonth()+1) + '월 '
+            + date.getDate() + '일 '
+            + WEEKDAY[date.getDay()] + '요일'
+            );
+        }
+        window.onload = function() {
+            setInterval(setDate, 1000);
+        }
+    </script>
+</head>
+<body>
+    <h3>오전 | 오후 배경 색상 변경 및 오늘 날짜 표시</h3>
+    <div class="frame">
+        <div class="btn">
+            <Button type="button" onclick="showDate()">
+                What day is it today?
+            </Button>
+        </div>
+        <div class="time">
+            <span></span>
+        </div>
+    </div>
+</body>
+</html>

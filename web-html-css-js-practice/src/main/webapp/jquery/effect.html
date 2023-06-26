@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>effect.html</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <style>
+        div {
+            border: 1px solid gray;
+            width: 400px;
+            padding: 10px;
+            color: white;
+            background-color: burlywood;
+        }
+        button {
+            width: 150px;
+        }
+    </style>
+    <script>
+        $(function() {
+            $('button').click(function () {
+                var lbl = $(this).text();
+                var txt = $('#txt');
+                switch (lbl) {
+                // 기본 - 보이기/숨기기/토글
+                case 'SHOW':    txt.show();     break;
+                case 'HIDE':    txt.hide();     break;
+                case 'TOGGLE':  txt.toggle();   break;
+                // 시간 지정 - 보이기/숨기기/토글
+                case 'SHOW':    txt.show('slow');     break;
+                case 'HIDE':    txt.hide('normal');   break;
+                case 'TOGGLE':  txt.toggle('fast');   break;
+
+                case 'SLIDE DOWN':      txt.slideDown('slow');      break;
+                case 'SLIDE UP':        txt.slideUp('slow');        break;
+                case 'SLIDE TOGGLE':    txt.slideToggle('slow');    break;
+
+                case 'FADE IN':         txt.fadeIn('slow');      break;
+                case 'FADE OUT':        txt.fadeOut('slow');        break;
+                case 'FADE TOGGLE':     txt.fadeToggle('slow');    break;
+                case 'FADE TO':         txt.fadeTo('slow');      break;
+                default:   txt.slideDown('slow'); break;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <button>SHOW</button>
+    <button>HIDE</button>
+    <button>TOGGLE</button>
+    <br>
+    <button>SLIDE DOWN</button>
+    <button>SLIDE UP</button>
+    <button>SLIDE TOGGLE</button>
+    <br>
+    <button>FADE IN</button>
+    <button>FADE OUT</button>
+    <button>FADE TOGGLE</button>
+    <button>FADE TO</button>
+    <hr>
+    <div id="txt">
+        Java® Platform, Standard Edition & Java Development Kit
+        Version 11 API Specification
+        This document is divided into two sections:
+
+        Java SE
+        The Java Platform, Standard Edition (Java SE) APIs define the core Java platform for general-purpose computing. These APIs are in modules whose names start with java.
+        JDK
+        The Java Development Kit (JDK) APIs are specific to the JDK and will not necessarily be available in all implementations of the Java SE Platform. These APIs are in modules whose names start with jdk.
+    </div>
+</body>
+</html>

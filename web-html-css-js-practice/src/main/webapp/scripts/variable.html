@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>variable.html</title>
+</head>
+<body>
+	<h3>자바스크립트 변수 선언</h3>
+	<pre>
+명시적 선언
+ - var를 사용
+ - 실행 시 저장되는 값에 따라 자료형 자동 결정
+ 
+비명시적 선언
+ - 명시적으로 선언하지 않고 값을 대입하면 자동으로 데이터 타입이 결정
+ 
+undefined
+ - 값을 할당하지 않은 변수 사용시 표시 에러
+	</pre>
+	
+	<script>
+		var x; 			// 변수 선언
+		var pi = 3.14; 	// 선언과 동시에 초기화
+		var name = "kim", age = 10, job = "programmer";			// 여러 변수 동시 선언
+		var person = {name : "Lee", age : 20, job : "tester" }; // 객체
+
+		console.log(x);
+		console.log(pi);
+        console.log(name + '|' + age + '|' + job);
+		console.log(person.name + '|' + person.age + '|' + person.job);
+
+		a = 100;		// 자료형 생략 가능
+		b = 200;
+		c = a + b;
+		console.log(c);
+		console.log(null);
+		console.log("---------------");
+
+		var aa = 1;
+		let bb = 2;
+		cc = 3;
+		const dd = 4;
+		console.log(aa);
+		console.log(bb);
+		console.log(cc);
+		console.log(dd);
+
+		var aa = 5;
+		//let bb = 6;	// 블록 스코프 변수로 재선언 불가
+		bb = 6;
+		cc = 7;
+		//const dd = 8;	// 블록 스코프 상수 재선언 불가, 데이터 변경도 불가
+		console.log(aa);
+		console.log(bb);
+		console.log(cc);
+		console.log(dd);
+		console.log("---------------");
+
+		if(true) {
+			console.log(ee);	// undefined
+            // console.log(ff);	// Cannot access 'ff' before initialization
+			// console.log(gg);	// gg is not defined
+
+			var ee = 50;
+			let ff = 60;
+			gg = 70;
+		}
+		console.log(ee);
+		// console.log(ff);		// ff is not defined
+		console.log(gg);
+	</script>
+</body>
+</html>

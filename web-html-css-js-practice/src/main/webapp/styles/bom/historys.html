@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>historys.html</title>
+</head>
+<body>
+    <h3>자바스크립트 historys</h3>
+    - 브라우저에서 방문한 윕 페이지 리스트를 나타내는 객체 <br>
+    <button type="button" onclick="history.back()">back()</button>
+    =
+    <button type="button" onclick="history.go(-1)">go(-1)</button> <br>
+    <button type="button" onclick="history.forward()">forward()</button>
+    =
+    <button type="button" onclick="history.go(+1)">go(+1)</button>
+    <script>
+        console.log(history.length);
+    </script>
+</body>
+</html>

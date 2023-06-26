@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>if.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <h3>JS if</h3>
+    <script>
+        var rate = 0.05;
+        var wongum = prompt('원금을 입력하세요. : ');
+        // 취소 버튼 눌린 경우
+        // 값을 입력하지 않고 확인을 누른 경우
+        if(wongum == null) {
+            alert('계산을 취소하였습니다.');
+        } else if(wongum == '') {
+            alert('입력이 없습니다.');
+        } else {
+            var eeja = wongum*rate
+            alert('원금:'+ wongum + ' 이자:' + eeja);
+        }
+    </script>
+</body>
+</html>

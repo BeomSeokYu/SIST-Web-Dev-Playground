@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>event.html</title>
+    <script>
+        window.onload = function(event) {
+            console.log(event);
+            console.log(event.type);
+        }
+    </script>
+</head>
+<body>
+    <h3 onmouseover="over(this)"
+        onmouseout="out(this)">
+        이벤트 리스너 또는 핸들러 - mouseover mouseout
+    </h3>
+    <p>paragraph</p>
+    
+    <hr>
+
+    <h3>이벤트의 디폴트 행동</h3>
+    <!-- 디폴트 이벤트 막기 -->
+    <a href="http://www.google.com" onclick="return false">go google X</a><br>
+    <a href="http://www.naver.com" onclick="event.preventDefault()">go naver X</a><br>
+    <form action="../htmls/result.html" name="frm">
+        data : <input type="text" name="data">
+        <hr>
+        <input type="submit" value="Submit">
+        <input type="submit" value="Submit X" onclick="event.preventDefault(); dataChk()">
+    </form>
+
+    <hr>
+    <h3>keyevent</h3>
+    <form action="">
+        연락처 : 
+        <select id="sel" onchange="if(this.value != '') this.nextElementSibling.focus()">
+            <option value="">선택</option>
+            <option value="010">010</option>
+            <option value="02">02</option>
+            <option value="031">031</option>
+            <option value="032">032</option>
+        </select>
+        <input id="input1" type="text" size="4" onkeyup="inputNext(this)">
+        <input id="input2" type="text" size="4" onkeyup="inputNext(this)">
+    </form>
+
+    <script>
+        function inputNext(t, n) {
+            t.value = t.value.replace(/[^0-9]+$/,'');
+            if(t.value.trim().length > 3) {
+                t.getAttribute('id') == 'input1'
+                ? t.nextElementSibling.focus()
+                : t.blur();
+            }
+        }
+
+
+
+
+
+
+
+        //HTML 브라우저에서 우클릭시 context 메뉴 기본 출력
+        //oncontextmenu를 false로 지정하려 취소 가능
+        document.oncontextmenu = function() {
+            alert('마우스 오른쪽 버튼 클릭 X');
+            return false;
+        }
+
+        var data = document.frm.data;
+        function dataChk() {
+            if(data.value.trim().length == 0) {
+                alert('데이터는 필수입니다.');
+            } else {
+                document.frm.submit();
+            }
+        }
+
+        function out(t) {
+            t.style.background = "white";
+        }
+        function over(t) {
+            t.style.background = "pink";
+        }
+
+        var p = document.querySelector('p');
+        p.onmouseover = function() {
+            p.style.color = "red";
+        }
+        p.onmouseout = outt;
+        function outt() {
+            p.style.color = "black";
+        }
+
+        p.addEventListener('click', function() {
+            p.style.border = '1px solid gray';
+        });
+        p.addEventListener('dblclick', outtt);
+        function outtt(){
+            p.style.border = 'none';
+        }
+    </script>
+</body>
+</html>

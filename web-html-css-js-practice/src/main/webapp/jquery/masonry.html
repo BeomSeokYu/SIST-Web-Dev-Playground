@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <title>masonry.html</title>
+</head>
+<style>
+    * { margin: 0; padding: 0;}
+    .box { background: white; margin: 5px; }
+    #frm { width: 550px; background: silver;}
+</style>
+<body>
+    <div id="frm"></div>
+
+    <script>
+        for(var i=0; i<20; i++) {
+            var nansu = Math.floor(Math.random() * 100) + 50;
+            $('#frm').append('<div></div>').addClass('box')
+                                        .css({
+                                            width: 100,
+                                            height: nansu
+                                        });
+        }
+        $('#frm').masonry({ columnWidth:110 });
+    </script>
+</body>
+</html>
