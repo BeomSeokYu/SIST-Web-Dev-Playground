@@ -6,11 +6,11 @@
 ## 디렉토리 별 설명
 |폴더명|설명|
 |:---|:---:|
-|java-eclipse-practice|자바 언어 및 이클립스 설정 등을 실습|
-|web-html-css-js-practice|프론트 기본 언어 실습|
+|java-eclipse-practice|자바 언어 및 이클립스 설정 등 실습|
+|web-html-css-js-practice|프론트 기본 실습|
 |webex|기본적인 웹 프로젝트 실습|
 |jspz|JSP 템플릿 엔진 및 servlet 구조 실습|
-|servlet| 서블릿 구조에 대해 간단히 실습|
+|servlet|서블릿 구조에 대해 간단히 실습|
 |market|jsp 세미 프로젝트로, 간단한 쇼핑몰 구현 (계층형 게시판, 페이징, 파일 업로드 등).|
 |spring-ex00|eclipse(STS-3)에서 spring 사용을 위한 설정. (web.xml / servlet-context.xml / root-context.xml) 및 첫 스프링 프로젝트 실행.|
 |spring-ex01|게시판을 구현하며 여러가지 스프링 기술 사용. security를 통한 회원 관리.|
